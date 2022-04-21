@@ -7,27 +7,23 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/greetingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="the best app ever !!!!!!!!"
-        tools:layout_editor_absoluteX="134dp"
-        tools:layout_editor_absoluteY="356dp" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="tää on kertun lisäämä!"
-        tools:layout_editor_absoluteX="137dp"
-        tools:layout_editor_absoluteY="403dp" />
+        android:layout_marginTop="62dp"
+        android:text="@string/app_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tää on muuten nappi"
+        android:layout_marginTop="91dp"
+        android:onClick="sendMessage"
+        android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="545dp" />
+        app:layout_constraintTop_toBottomOf="@+id/greetingText" />
 </androidx.constraintlayout.widget.ConstraintLayout>
