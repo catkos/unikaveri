@@ -13,4 +13,12 @@
         android:text="the best app ever !!!!!!!!"
         tools:layout_editor_absoluteX="134dp"
         tools:layout_editor_absoluteY="356dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="tää on kertun lisäämä!"
+        tools:layout_editor_absoluteX="137dp"
+        tools:layout_editor_absoluteY="403dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
