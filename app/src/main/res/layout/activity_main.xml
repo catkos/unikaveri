@@ -21,4 +21,13 @@
         android:text="tää on kertun lisäämä!"
         tools:layout_editor_absoluteX="137dp"
         tools:layout_editor_absoluteY="403dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tää on muuten nappi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:layout_editor_absoluteY="545dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
