@@ -41,9 +41,9 @@ public class CurrentTime {
         return date;
     }
 
-    /* return appropriate greetingText string */
+    /* return appropriate greetingText string TODO: add more greetings? */
     public String greetingTextTime(int hour){
-        if(hour >= 18 && hour <= 3){
+        if(hour >= 18 || hour <= 3){
             return "iltaa";
         }
 
@@ -55,7 +55,7 @@ public class CurrentTime {
             return "päivää";
         }
 
-        return "date unspecified";
+        return "(time not added yet)";
     }
 
 }
