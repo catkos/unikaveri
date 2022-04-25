@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:title="Koti" android:icon="@drawable/ic_baseline_home" android:id="@+id/mainActivity"/>
+    <item android:title="Kalenteri" android:icon="@drawable/ic_baseline_calendar_month" />
+    <item android:title="Tilastot" android:icon="@drawable/ic_baseline_bar_chart" />
+    <item android:title="Asetukset" android:icon="@drawable/ic_baseline_settings" />
+</menu>
