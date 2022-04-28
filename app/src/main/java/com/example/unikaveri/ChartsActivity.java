@@ -1,9 +1,11 @@
 package com.example.unikaveri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -40,6 +42,7 @@ public class ChartsActivity extends AppCompatActivity {
 
         //item select listener
         navi.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //loop through menu items
@@ -48,7 +51,7 @@ public class ChartsActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         return true;
                     case R.id.calendar:
-                        Log.d("menu calendar",""); //TODO:<- delete, add startActivity
+                        startActivity(new Intent(getApplicationContext(),CalendarActivity.class));
                         return true;
                     case R.id.settings:
                         Log.d("menu settings",""); //TODO:<- delete, add startActivity

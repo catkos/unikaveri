@@ -1,12 +1,14 @@
 package com.example.unikaveri;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -51,12 +53,13 @@ public class MainActivity extends AppCompatActivity {
 
         //item select listener
         navi.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 //loop through menu items
                 switch(item.getItemId()){
                     case R.id.calendar:
-                        Log.d("menu calendar",""); //TODO:<- delete, add startActivity
+                        startActivity(new Intent(getApplicationContext(),CalendarActivity.class));
                         return true;
                     case R.id.charts:
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));

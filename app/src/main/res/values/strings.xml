@@ -10,4 +10,29 @@
     <string name="avgSleepingTimeText">Keskimääräinen nukkumaanmenoaika</string>
     <string name="avgSleepHourText">Keskimääräinen yöunenmäärä</string>
     <string name="wakingCounterText">Heräilyjen määrä</string>
+    <string name="saveButtonText">Tallenna</string>
+
+    <!-- activity_calendar -->
+    <string name="monthAndYearText">HUHTIKUUTA 2022</string>
+    <string name="emptyListText">Ei merkintöjä.</string>
+    <string name="previousMonthButtonDesc">Edellinen kuukausi</string>
+    <string name="nextMonthButtonDesc">Seuraava kuukausi</string>
+    <string name="addNewSleepNoteButtonDesc">Lisää uusi merkintä</string>
+
+    <!-- activity_add_sleep_note -->
+    <string name="actAddSleepNoteWakeTimeText">Heräämisaika</string>
+    <string name="actAddSleepNoteWakeDateInputText">27.04.2022 ke</string>
+    <string name="actAddSleepNoteWakeTimeInputText">07:30</string>
+    <string name="actAddSleepNoteSleepTimeText">Nukkumaanmenoaika</string>
+    <string name="actAddSleepNoteSleepDateInputText">26.04.2022 ti</string>
+    <string name="actAddSleepNoteSleepTimeInputText">22:30</string>
+    <string name="actAddSleepNoteInteruptionsText">Heräämisten määrä yön aikana</string>
+    <string name="actAddSleepNoteInteruptionsInputText">0</string>
+    <string name="actAddSleepNoteQualityText">Miten nukuit</string>
+
+    <!-- sleep_note_list_item_layout -->
+    <string name="listItemDateText">25.04.2022 maanantai</string>
+    <string name="listItemsleepingTimeHoursAndMinutesText">8h 15min</string>
+    <string name="listItemSleepTimeText">23:55</string>
+    <string name="listItemWakeTimeText">7:35</string>
 </resources>
