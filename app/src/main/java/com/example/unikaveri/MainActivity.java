@@ -1,5 +1,6 @@
 package com.example.unikaveri;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.BroadcastReceiver;
@@ -8,44 +9,27 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.TextView;
 
-import com.example.unikaveri.databinding.ActivityMainBinding;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
 
     private CurrentTime time;
     private BroadcastReceiver minuteUpdate;
-    ActivityMainBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /* create binding for easier variable search */
-        binding = ActivityMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
-        /* navigation item clicked  TODO/TOFIX: not ideal, needs fixing after more activities added(?) */
-        binding.bottomNavigationView.setOnItemSelectedListener(item -> {
-            switch(item.getItemId()){
-
-                case R.id.home:
-                    //this is not really a good solution, as the prev activies are still in the background open..?
-                    Intent intent = new Intent(this, MainActivity.class);
-                    startActivity(intent);
-                    break;
-            }
-            return true;
-        });
+        // set bottomNavigation item activities
+        bottomNavigation();
 
         // Create time object (will be overridden by clock UI timer)
         time = new CurrentTime();
-        /* * for time testing, TODO: delete this comment later
-        * Log.d("date",time);
-        * Log.d("date","hour: "+time.getCurrentHour());
-        * */
 
         // Set greeting text
         editGreetingText();
@@ -56,6 +40,34 @@ public class MainActivity extends AppCompatActivity {
         // Start Clock UI update
         startMinuteUpdater();
 
+    }
+
+    /* bottom navigation */
+    private void bottomNavigation(){
+        BottomNavigationView navi = findViewById(R.id.bottomNavigationView);
+
+        // TODO: set selected activity for menu highlight
+        navi.setSelectedItemId(R.id.home);
+
+        //item select listener
+        navi.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                //loop through menu items
+                switch(item.getItemId()){
+                    case R.id.calendar:
+                        Log.d("menu calendar",""); //TODO:<- delete, add startActivity
+                        return true;
+                    case R.id.charts:
+                        startActivity(new Intent(getApplicationContext(),ChartsActivity.class));
+                        return true;
+                    case R.id.settings:
+                        Log.d("menu settings",""); //TODO:<- delete, add startActivity
+                        return true;
+                }
+                return false;
+            }
+        });
     }
 
     /* edit/set time for clock UI */
@@ -71,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
-        editWeekday.setText(time.getDate()+" "+time.getWeekday());
+        editWeekday.setText(time.getDate()+" "+time.getWeekday().toUpperCase());
     }
 
     /* start UI update by minute */
@@ -87,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
                 clockTime(time);
             }
         };
-
         registerReceiver(minuteUpdate, intentFilter);
     }
 

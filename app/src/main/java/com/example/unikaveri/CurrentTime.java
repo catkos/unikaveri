@@ -41,6 +41,12 @@ public class CurrentTime {
         return date;
     }
 
+    /* return current month and year */
+    public String getMonthYear(){
+        String month = new SimpleDateFormat("MMMM yyyy").format(new Date());
+        return month;
+    }
+
     /* return appropriate greetingText string TODO: add more greetings? */
     public String greetingTextTime(int hour){
         if(hour >= 18 || hour <= 3){

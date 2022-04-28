@@ -5,4 +5,9 @@
     <string name="weekdayText">d.M Monday</string>
     <string name="sleepTimeText">22:00</string>
     <string name="wakeTimeText">07:30</string>
+    <string name="monthYearText">February 2022</string>
+    <string name="avgWakingTimeText">Keskimääräinen heräämisaika</string>
+    <string name="avgSleepingTimeText">Keskimääräinen nukkumaanmenoaika</string>
+    <string name="avgSleepHourText">Keskimääräinen yöunenmäärä</string>
+    <string name="wakingCounterText">Heräilyjen määrä</string>
 </resources>
