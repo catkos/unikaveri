@@ -19,6 +19,10 @@ import com.google.android.material.navigation.NavigationBarView;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Calendar activity.
+ * @author Kerttu
+ */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CalendarActivity extends AppCompatActivity {
     private TextView monthYearTv;

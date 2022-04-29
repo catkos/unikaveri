@@ -5,17 +5,17 @@ import android.os.Build;
 import androidx.annotation.RequiresApi;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * SleepNote object, with variables: LocalDateTime date, LocalDateTime sleepTimeDate,
  * LocalDateTime wakeUpTimeDate, long sleepingTime, int interruptions, String quality.
- *
  * @author Kerttu
  */
 public class SleepNote {
-    private LocalDateTime date;
+    private LocalDate date;
     private LocalDateTime sleepTimeDate;
     private LocalDateTime wakeUpTimeDate;
     private long sleepingTime;
@@ -24,15 +24,14 @@ public class SleepNote {
 
     /**
      * Define SleepNote object.
-     *
-     * @param sleepTimeDate LocalDate
-     * @param wakeTimeDate LocalDate
+     * @param sleepTimeDate LocalDateTime
+     * @param wakeTimeDate LocalDateTime
      * @param interruptions int
      * @param quality String
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public SleepNote(LocalDateTime sleepTimeDate, LocalDateTime wakeTimeDate, int interruptions, String quality) {
-        this.date = wakeTimeDate; // TODO: remove time from date?
+        this.date = wakeTimeDate.toLocalDate();
         this.sleepTimeDate = sleepTimeDate;
         this.wakeUpTimeDate = wakeTimeDate;
         this.sleepingTime = getSleepingTimeInMinutes();
@@ -44,7 +43,7 @@ public class SleepNote {
      * Return SleepNote object's date variable.
      * @return LocalDate
      */
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return this.date;
     }
 

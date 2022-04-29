@@ -8,12 +8,12 @@ import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -33,6 +33,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     private EditText wakeDatePickerEt;
     private EditText wakeTimePickerEt;
     private EditText interuptionsPickerEt;
+    private RadioGroup sleepQualityRg;
     private Button saveSleepNoteBtn;
     private DatePickerDialog sleepDatePickerDialog;
     private TimePickerDialog sleepTimePickerDialog;
@@ -63,6 +64,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
         wakeDatePickerEt = findViewById(R.id.wakeDatePickerEditText);
         wakeTimePickerEt = findViewById(R.id.wakeTimePickerEditText);
         interuptionsPickerEt = findViewById(R.id.interuptionsPickerEditText);
+        sleepQualityRg = findViewById(R.id.sleepQualityRadioGroup);
         saveSleepNoteBtn = findViewById(R.id.saveSleepNoteButton);
     }
 
@@ -141,7 +143,6 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     /**
      * Buttons functionalities.
-     *
      * @param v View
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -154,12 +155,11 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             sleepTimePickerDialog.show();
         } else if(v.getId() == sleepDatePickerEt.getId()) {
             sleepDatePickerDialog.show();
-        } else if (v.getId() == R.id.saveSleepNoteButton) {
-            Log.i("MY_APP", "Testi");
-            boolean saved = saveSleepNote();
+        } else if (v.getId() == saveSleepNoteBtn.getId()) {
+            boolean isSaved = saveSleepNote();
 
-            if (saved) {
-                Toast.makeText(getApplicationContext(),"Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString(), Toast.LENGTH_SHORT).show();
+            if (isSaved) {
+                Toast.makeText(getApplicationContext(),"Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString(), Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
             }
@@ -168,29 +168,66 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private boolean saveSleepNote() {
+        LocalDateTime sleepTimeDate;
+        LocalDateTime wakeTimeDate;
         int interruptions;
-        String sleepTimeDateStr = sleepDatePickerEt.getText().toString() + " " + sleepTimePickerEt.getText().toString();
-        String wakeTimeDateStr = wakeDatePickerEt.getText().toString() + " " + wakeTimePickerEt.getText().toString();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy EE HH:mm");
-        LocalDateTime sleepTimeDate = LocalDateTime.parse(sleepTimeDateStr, dtf);
-        LocalDateTime wakeTimeDate = LocalDateTime.parse(wakeTimeDateStr, dtf);
+        String quality;
+
+        // Check if dates or times are empty
+        if (sleepDatePickerEt.getText().toString().isEmpty() ||
+                sleepTimePickerEt.getText().toString().isEmpty() ||
+                wakeDatePickerEt.getText().toString().isEmpty() ||
+                wakeTimePickerEt.getText().toString().isEmpty()) {
+            sleepDatePickerEt.setError("");
+            Toast.makeText(getApplicationContext(),"Päivät tai kellonajat eivät voi olla tyhjiä.", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            String sleepTimeDateStr = sleepDatePickerEt.getText().toString() + " " + sleepTimePickerEt.getText().toString();
+            String wakeTimeDateStr = wakeDatePickerEt.getText().toString() + " " + wakeTimePickerEt.getText().toString();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy EE HH:mm");
+            sleepTimeDate = LocalDateTime.parse(sleepTimeDateStr, dtf);
+            wakeTimeDate = LocalDateTime.parse(wakeTimeDateStr, dtf);
+        }
 
         // Check if sleepTimeDate is after wakeTimeDate
         if (sleepTimeDate.isAfter(wakeTimeDate)) {
             sleepDatePickerEt.setError("");
-            ((TextView) findViewById(R.id.errorTextView)).setText("Nukkumaanmenoaika ei voi olla heräämisajan jälkeen.");
+            Toast.makeText(getApplicationContext(),"Nukkumaanmeno aika ei voi olla heräämisajan jälkeen.", Toast.LENGTH_LONG).show();
             return false;
         }
 
         // Check if interruptions input is empty
         if (interuptionsPickerEt.getText().toString().isEmpty()) {
             interruptions = 0;
-            Log.i("MY_APP", "3");
         } else {
             interruptions = Integer.parseInt(interuptionsPickerEt.getText().toString());
         }
 
-        Log.i("MY_APP", Integer.toString(interruptions));
+        //Check if none of the RadioGroup's RadioButtons is checked
+        if (sleepQualityRg.getCheckedRadioButtonId() == -1) {
+            ((RadioButton) findViewById(R.id.verySatisfiedRadioButton)).setError("");
+            Toast.makeText(getApplicationContext(),"Valitse miten nukuit.", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+
+            // Check which radiobutton is checked and set it's value to quality variable.
+            if (sleepQualityRg.getCheckedRadioButtonId() == R.id.veryDissatisfiedRadioButton) {
+                quality = "Erittäin huono";
+            } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.dissatisfiedRadioButton) {
+                quality = "Huono";
+            } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.neutralRadioButton) {
+                quality = "Normaali";
+            } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.satisfiedRadioButton) {
+                quality = "Hyvä";
+            } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.verySatisfiedRadioButton) {
+                quality = "Erittäin hyvä";
+            } else {
+                // Default, shouldn't ever happen
+                quality = "Normaali";
+            }
+        }
+
+        SleepNoteGlobalModel.getInstance().getAllSleepNotesList().add(new SleepNote(sleepTimeDate, wakeTimeDate, interruptions, quality));
         return true;
     }
 }

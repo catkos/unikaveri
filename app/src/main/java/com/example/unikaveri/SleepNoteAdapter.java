@@ -10,6 +10,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -55,7 +57,7 @@ public class SleepNoteAdapter extends ArrayAdapter<SleepNote> {
         TextView wakeTimeTv = convertView.findViewById(R.id.wakeTimeTextView);
 
         // Get dates
-        LocalDateTime date = getItem(position).getDate();
+        LocalDate date = getItem(position).getDate();
         LocalDateTime sleeptime = getItem(position).getBedTimeDate();
         LocalDateTime waketime = getItem(position).getWakeUpTimeDate();
 

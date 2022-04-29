@@ -1,21 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:isScrollContainer="true"
-    tools:context=".AddSleepNoteActivity">
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:isScrollContainer="true"
         android:orientation="vertical"
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/sleepTimeTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
@@ -67,14 +65,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/errorTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#FF2E1F" />
-
-        <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/wakeTimeTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -127,7 +118,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView5"
+            android:id="@+id/interruptionsTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -140,6 +131,7 @@
             android:id="@+id/interuptionsPickerEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:autofillHints="@string/actAddSleepNoteInteruptionsInputText"
             android:background="@drawable/custom_input"
             android:drawableStart="@drawable/ic_baseline_bedtime_off_24"
             android:drawablePadding="12dp"
@@ -147,11 +139,10 @@
             android:hint="@string/actAddSleepNoteInteruptionsInputText"
             android:inputType="number"
             android:padding="12dp"
-            tools:ignore="TextContrastCheck"
-            android:autofillHints="@string/actAddSleepNoteInteruptionsInputText" />
+            tools:ignore="TextContrastCheck" />
 
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/sleepQualityTitleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
@@ -172,14 +163,17 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/custom_radio_very_dissatisfied"
-                android:orientation="vertical" />
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
 
             <RadioButton
                 android:id="@+id/dissatisfiedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@drawable/custom_radio_dissatisfied" />
+                android:button="@drawable/custom_radio_dissatisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
 
             <RadioButton
                 android:id="@+id/neutralRadioButton"
@@ -187,31 +181,37 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:button="@drawable/custom_radio_neutral"
-                android:checked="false" />
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
 
             <RadioButton
                 android:id="@+id/satisfiedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@drawable/custom_radio_satisfied" />
+                android:button="@drawable/custom_radio_satisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
 
             <RadioButton
                 android:id="@+id/verySatisfiedRadioButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:button="@drawable/custom_radio_very_satisfied" />
+                android:button="@drawable/custom_radio_very_satisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
         </RadioGroup>
 
         <Button
             android:id="@+id/saveSleepNoteButton"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
+            android:layout_height="match_parent"
+            android:layout_marginTop="18dp"
             android:onClick="buttonPressed"
             android:text="@string/saveButtonText"
             app:layout_constraintEnd_toEndOf="parent" />
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
