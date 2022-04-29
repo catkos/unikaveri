@@ -3,6 +3,8 @@ package com.example.unikaveri;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.navigation.NavigationBarView;
 
 import android.content.Intent;
 import android.os.Build;
@@ -12,10 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.navigation.NavigationBarView;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -27,7 +25,7 @@ import java.time.format.DateTimeFormatter;
 public class CalendarActivity extends AppCompatActivity {
     private TextView monthYearTv;
     private ListView sleepNotesLv;
-    private SleepNoteAdapter listAdapter;
+    public static SleepNoteListviewAdapter listAdapter;
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
 
@@ -55,7 +53,7 @@ public class CalendarActivity extends AppCompatActivity {
     private void updateUI() {
         monthYearTv.setText(currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy")).toUpperCase());
 
-        this.listAdapter = new SleepNoteAdapter(
+        this.listAdapter = new SleepNoteListviewAdapter(
                 this,
                 R.layout.sleep_note_list_item_layout,
                 SleepNoteGlobalModel.getInstance().getListByMonthAndYear(currentDate));
@@ -104,7 +102,7 @@ public class CalendarActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                //loop through menu items
+                // loop through menu items
                 switch(item.getItemId()){
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class));

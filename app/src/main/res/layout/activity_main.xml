@@ -64,16 +64,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sleepTimeText" />
 
-    <ImageButton
-        android:id="@+id/addNewButton"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/addNewSleepNoteButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:contentDescription="@string/addNewSleepNoteButtonDesc"
+        android:focusable="true"
+        android:onClick="buttonPressed"
+        app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_add_circle" />
+        app:srcCompat="@drawable/ic_baseline_add_24"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <FrameLayout
         android:id="@+id/frame_layout"

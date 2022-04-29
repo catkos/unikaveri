@@ -1,11 +1,9 @@
 package com.example.unikaveri;
 
 import android.os.Build;
-
 import androidx.annotation.RequiresApi;
 
 import java.time.Duration;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -15,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * @author Kerttu
  */
 public class SleepNote {
-    private LocalDate date;
+    private LocalDateTime date;
     private LocalDateTime sleepTimeDate;
     private LocalDateTime wakeUpTimeDate;
     private long sleepingTime;
@@ -31,7 +29,7 @@ public class SleepNote {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public SleepNote(LocalDateTime sleepTimeDate, LocalDateTime wakeTimeDate, int interruptions, String quality) {
-        this.date = wakeTimeDate.toLocalDate();
+        this.date = wakeTimeDate;
         this.sleepTimeDate = sleepTimeDate;
         this.wakeUpTimeDate = wakeTimeDate;
         this.sleepingTime = getSleepingTimeInMinutes();
@@ -41,9 +39,9 @@ public class SleepNote {
 
     /**
      * Return SleepNote object's date variable.
-     * @return LocalDate
+     * @return LocalDateTime
      */
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return this.date;
     }
 

@@ -2,10 +2,13 @@ package com.example.unikaveri;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +19,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -156,18 +158,31 @@ public class AddSleepNoteActivity extends AppCompatActivity {
         } else if(v.getId() == sleepDatePickerEt.getId()) {
             sleepDatePickerDialog.show();
         } else if (v.getId() == saveSleepNoteBtn.getId()) {
-            boolean isSaved = saveSleepNote();
 
-            if (isSaved) {
+            // Check if SleepNote Object was added to SleepNoteGlobalModel SleepNote list
+            boolean isAdded = addSleepNoteToSleepNoteList();
+
+            if (isAdded) {
+                // Save SleepNoteGlobalModel SleepNote list locally to shared preferences.
+                saveSleepNoteData();
+                // Create toast to inform user that the note was added
                 Toast.makeText(getApplicationContext(),"Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString(), Toast.LENGTH_LONG).show();
+                // Notify listAdapter
+                CalendarActivity.listAdapter.notifyDataSetChanged();
+                // Open CalendarActivity
                 Intent intent = new Intent(this, CalendarActivity.class);
                 startActivity(intent);
             }
         }
     }
 
+    /**
+     * Checks inputs and add's SleepNote Object to SleepNoteGlobalModel SleepNote list. Returns true if everything was ok,
+     * or false if some of the inputs weren't correctly submitted.
+     * @return boolean
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private boolean saveSleepNote() {
+    private boolean addSleepNoteToSleepNoteList() {
         LocalDateTime sleepTimeDate;
         LocalDateTime wakeTimeDate;
         int interruptions;
@@ -203,7 +218,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             interruptions = Integer.parseInt(interuptionsPickerEt.getText().toString());
         }
 
-        //Check if none of the RadioGroup's RadioButtons is checked
+        // Check if none of the RadioGroup's RadioButtons is checked
         if (sleepQualityRg.getCheckedRadioButtonId() == -1) {
             ((RadioButton) findViewById(R.id.verySatisfiedRadioButton)).setError("");
             Toast.makeText(getApplicationContext(),"Valitse miten nukuit.", Toast.LENGTH_LONG).show();
@@ -227,7 +242,23 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         }
 
+        // Add SleepNote to SleepNoteGlobalModel's SleepNote list.
         SleepNoteGlobalModel.getInstance().getAllSleepNotesList().add(new SleepNote(sleepTimeDate, wakeTimeDate, interruptions, quality));
         return true;
+    }
+
+    /**
+     * Save SleepNoteGlobalModel's SleepNote list as Json to shared preferences.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void saveSleepNoteData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SLEEP_NOTE_DATA, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        String jsonSleepNotes = gson.toJson(SleepNoteGlobalModel.getInstance().getAllSleepNotesList());
+
+        editor.putString("sleepNotes", jsonSleepNotes);
+        editor.apply();
     }
 }
