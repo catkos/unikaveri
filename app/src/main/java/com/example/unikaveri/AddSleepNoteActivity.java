@@ -5,12 +5,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -58,6 +61,39 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     }
 
     /**
+     * When user interacts with action bar's arrow button: open dialog to ask if user wants to
+     * continue without saving, and set click listener to dialog's positive button to open CalendarActivity.
+     * @param item Menuitem
+     * @return
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            // Set alert builder
+            AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+            alertBuilder.setTitle("Ilmoitus");
+            alertBuilder.setMessage("Haluatko varmasti poistua tallentamatta?");
+
+            // Add buttons
+            alertBuilder.setPositiveButton("Jatka tallentamatta", new DialogInterface.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.O)
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    openCalendarActivity();
+                }
+            });
+
+            alertBuilder.setNegativeButton("Peruuta", null);
+
+            // Create and show the alert dialog
+            AlertDialog dialog = alertBuilder.create();
+            dialog.show();
+
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    /**
      * Initialize EditText and Button views.
      */
     private void initWidgets() {
@@ -72,7 +108,6 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     /**
      * Initialize DatePickerDialog for choosing the date when user went to sleep.
-     * TODO: Fix the date. Now when dialog opens it shows the current day.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void initSleepDatePickerDialog() {
@@ -85,7 +120,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         };
 
-        sleepDatePickerDialog =  new DatePickerDialog(this, dateSetListener, currentYear, currentMonth+1, currentDay-1);
+        sleepDatePickerDialog = new DatePickerDialog(this, dateSetListener, currentYear, currentMonth+1, currentDay-1);
         sleepDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         LocalDate date = LocalDate.of(currentYear, currentMonth+1, currentDay-1);
         sleepDatePickerEt.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
@@ -167,18 +202,14 @@ public class AddSleepNoteActivity extends AppCompatActivity {
                 saveSleepNoteData();
                 // Create toast to inform user that the note was added
                 Toast.makeText(getApplicationContext(),"Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString(), Toast.LENGTH_LONG).show();
-                // Notify listAdapter
-                CalendarActivity.listAdapter.notifyDataSetChanged();
-                // Open CalendarActivity
-                Intent intent = new Intent(this, CalendarActivity.class);
-                startActivity(intent);
+                openCalendarActivity();
             }
         }
     }
 
     /**
-     * Checks inputs and add's SleepNote Object to SleepNoteGlobalModel SleepNote list. Returns true if everything was ok,
-     * or false if some of the inputs weren't correctly submitted.
+     * Checks inputs and adds SleepNote Object to SleepNoteGlobalModel SleepNote list. Returns true
+     * if everything was ok, or false if some of the inputs weren't correctly submitted.
      * @return boolean
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -260,5 +291,17 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
         editor.putString("sleepNotes", jsonSleepNotes);
         editor.apply();
+    }
+
+    /**
+     * Opens CalendarActivity.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void openCalendarActivity() {
+        // Open CalendarActivity
+        Intent intent = new Intent(this, CalendarActivity.class);
+        startActivity(intent);
+        // Finish this activity
+        finish();
     }
 }

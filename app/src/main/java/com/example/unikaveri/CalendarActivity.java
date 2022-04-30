@@ -25,9 +25,9 @@ import java.time.format.DateTimeFormatter;
 public class CalendarActivity extends AppCompatActivity {
     private TextView monthYearTv;
     private ListView sleepNotesLv;
-    public static SleepNoteListviewAdapter listAdapter;
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
+    public static SleepNoteListviewAdapter listAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +38,12 @@ public class CalendarActivity extends AppCompatActivity {
         updateUI();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
     /**
      * Initialize text and list views.
      */
@@ -45,6 +51,13 @@ public class CalendarActivity extends AppCompatActivity {
         monthYearTv = findViewById(R.id.monthYearTextView);
         sleepNotesLv = findViewById(R.id.sleepNotesListView);
         sleepNotesLv.setEmptyView((TextView) findViewById(R.id.emptyListTextView));
+    }
+
+    private SleepNoteListviewAdapter initListAdapter() {
+        return new SleepNoteListviewAdapter(
+                this,
+                R.layout.sleep_note_list_item_layout,
+                SleepNoteGlobalModel.getInstance().getListByMonthAndYear(currentDate));
     }
 
     /**
