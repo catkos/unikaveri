@@ -56,8 +56,8 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
 
         // Get dates
         LocalDateTime date = getItem(position).getDate();
-        LocalDateTime sleeptime = getItem(position).getBedTimeDate();
-        LocalDateTime waketime = getItem(position).getWakeUpTimeDate();
+        LocalDateTime sleeptime = getItem(position).getSleepTimeDate();
+        LocalDateTime waketime = getItem(position).getWakeTimeDate();
 
         // Set texts to widgets and format LocalDateTime variables
         dateTv.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));

@@ -49,7 +49,7 @@ public class SleepNote {
      * Return SleepNote object's bedTimeDate variable.
      * @return LocalDate
      */
-    public LocalDateTime getBedTimeDate() {
+    public LocalDateTime getSleepTimeDate() {
         return this.sleepTimeDate;
     }
 
@@ -57,7 +57,7 @@ public class SleepNote {
      * Return SleepNote object's wakeUpTimeDate variable.
      * @return LocalDate
      */
-    public LocalDateTime getWakeUpTimeDate() {
+    public LocalDateTime getWakeTimeDate() {
         return this.wakeUpTimeDate;
     }
 

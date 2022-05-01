@@ -25,7 +25,6 @@ import android.widget.Toast;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -44,9 +43,6 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     private TimePickerDialog sleepTimePickerDialog;
     private DatePickerDialog wakeDatePickerDialog;
     private TimePickerDialog wakeTimePickerDialog;
-    private int currentYear = Calendar.getInstance().get(Calendar.YEAR);
-    private int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
-    private int currentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -120,9 +116,9 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         };
 
-        sleepDatePickerDialog = new DatePickerDialog(this, dateSetListener, currentYear, currentMonth+1, currentDay-1);
+        LocalDate date = LocalDate.now().minusDays(1);
+        sleepDatePickerDialog = new DatePickerDialog(this, dateSetListener, date.getYear(), date.getMonthValue(), date.getDayOfMonth());
         sleepDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-        LocalDate date = LocalDate.of(currentYear, currentMonth+1, currentDay-1);
         sleepDatePickerEt.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
     }
 
@@ -156,9 +152,9 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         };
 
-        wakeDatePickerDialog = new DatePickerDialog(this, dateSetListener, currentYear, currentMonth+1, currentDay);
+        LocalDate date = LocalDate.now();
+        wakeDatePickerDialog = new DatePickerDialog(this, dateSetListener, date.getYear(), date.getMonthValue(), date.getDayOfMonth());
         wakeDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
-        LocalDate date = LocalDate.of(currentYear, currentMonth+1, currentDay);
         wakeDatePickerEt.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
     }
 
@@ -258,18 +254,18 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
             // Check which radiobutton is checked and set it's value to quality variable.
             if (sleepQualityRg.getCheckedRadioButtonId() == R.id.veryDissatisfiedRadioButton) {
-                quality = "Erittäin huono";
+                quality = "Erittäin huonosti";
             } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.dissatisfiedRadioButton) {
-                quality = "Huono";
+                quality = "Huonosti";
             } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.neutralRadioButton) {
-                quality = "Normaali";
+                quality = "Normaalisti";
             } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.satisfiedRadioButton) {
-                quality = "Hyvä";
+                quality = "Hyvin";
             } else if (sleepQualityRg.getCheckedRadioButtonId() == R.id.verySatisfiedRadioButton) {
-                quality = "Erittäin hyvä";
+                quality = "Erittäin hyvin";
             } else {
                 // Default, shouldn't ever happen
-                quality = "Normaali";
+                quality = "Normaalisti";
             }
         }
 

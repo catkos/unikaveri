@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import java.time.LocalDateTime;
@@ -28,6 +29,7 @@ public class CalendarActivity extends AppCompatActivity {
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
     public static SleepNoteListviewAdapter listAdapter;
+    static final String EXTRA = "SleepNote";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,15 @@ public class CalendarActivity extends AppCompatActivity {
         bottomNavigation();
         initWidgets();
         updateUI();
+
+        sleepNotesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent showSleepNoteDetailsActivity = new Intent(CalendarActivity.this, SleepNoteDetailsActivity.class);
+                showSleepNoteDetailsActivity.putExtra(EXTRA, i);
+                startActivity(showSleepNoteDetailsActivity);
+            }
+        });
     }
 
     @Override

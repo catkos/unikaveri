@@ -10,10 +10,19 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Unikaveri">
         <activity
-            android:name=".AddSleepNoteActivity"
-            android:parentActivityName=".CalendarActivity"
+            android:name=".SleepNoteDetailsActivity"
             android:exported="false"
-            android:label="Lisää merkintä" >
+            android:label="Merkintä"
+            android:parentActivityName=".CalendarActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".CalendarActivity" />
+        </activity>
+        <activity
+            android:name=".AddSleepNoteActivity"
+            android:exported="false"
+            android:label="Lisää merkintä"
+            android:parentActivityName=".CalendarActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".CalendarActivity" />

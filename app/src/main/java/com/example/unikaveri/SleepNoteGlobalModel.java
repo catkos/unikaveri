@@ -33,14 +33,14 @@ public class SleepNoteGlobalModel {
     }
 
     /**
-     * Return List<SleepNote> with all SleepNote object's in list.
+     * Return sleepNotesList.
      *
      * @return List<SleepNote>
      */
     List<SleepNote> getAllSleepNotesList() { return this.sleepNotesList; }
 
     /**
-     * Return List<SleepNote> of SleepNote object's with same month and year as the dateToCompare param has.
+     * Return List<SleepNote> from sleepNoteList with same month and year as the dateToCompare param has.
      *
      * @param dateToCompare LocalDateTime
      * @return List<SleepNote>
@@ -63,7 +63,16 @@ public class SleepNoteGlobalModel {
     }
 
     /**
-     * Sort sleepsList chronologically as the newest record as first on list.
+     * Return SleepNote Object from sleepNoteList.
+     * @param i int
+     * @return SleepNote
+     */
+    SleepNote getSleepNote(int i) {
+        return sleepNotesList.get(i);
+    }
+
+    /**
+     * Sort sleepNotesList chronologically as the newest record as first on list.
      */
     private void sortList() {
         Comparator<SleepNote> comparator = (c1, c2) -> {

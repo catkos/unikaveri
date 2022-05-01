@@ -20,8 +20,10 @@
         <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_sentiment_very_satisfied_24.xml" value="0.208" />
         <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_add_sleep_note.xml" value="0.3546875" />
         <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_calendar.xml" value="0.340625" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_charts.xml" value="0.2971014492753623" />
         <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/sleep_note_list_item_layout.xml" value="0.3546875" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_sleep_note_details.xml" value="0.33" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/sleep_note_list_item_layout.xml" value="0.5" />
         <entry key="..\:/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
