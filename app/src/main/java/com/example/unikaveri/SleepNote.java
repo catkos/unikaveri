@@ -74,6 +74,11 @@ public class SleepNote {
         long mins = this.sleepingTime - ( hours * 60 );
         return hours + "h " + mins + "min";
     }
+    //catrina testaa
+    public String getSleepingTimeHourString() {
+        long hours = this.sleepingTime / 60 % 24;
+        return hours+"";
+    }
 
     /**
      * Return SleepNote object's sleeping time in minutes.
