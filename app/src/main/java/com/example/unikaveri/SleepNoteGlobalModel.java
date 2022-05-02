@@ -17,6 +17,7 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SleepNoteGlobalModel {
     private final List<SleepNote> sleepNotesList;
+    private final List<SleepNote> monthlySleepNotesList;
     private static final SleepNoteGlobalModel ourInstance = new SleepNoteGlobalModel();
 
     public static SleepNoteGlobalModel getInstance() {
@@ -29,6 +30,7 @@ public class SleepNoteGlobalModel {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private SleepNoteGlobalModel() {
         this.sleepNotesList = new ArrayList<>();
+        this.monthlySleepNotesList = new ArrayList<>();
         sortList();
     }
 
@@ -47,7 +49,7 @@ public class SleepNoteGlobalModel {
      */
     List<SleepNote> getListByMonthAndYear(LocalDateTime dateToCompare) {
         sortList();
-        List<SleepNote> monthlySleepNotesList = new ArrayList<>();
+        this.monthlySleepNotesList.clear();
         String dateToCompareStr = dateToCompare.format(DateTimeFormatter.ofPattern("MM yyyy"));
 
         // Loop through allSleepNotesList and compare SleepNote object's date in MM yyyy format to dateToCompareStr.
@@ -55,11 +57,11 @@ public class SleepNoteGlobalModel {
             String dateStr = this.sleepNotesList.get(i).getDate().format(DateTimeFormatter.ofPattern("MM yyyy"));
 
             if (dateStr.equals(dateToCompareStr)) {
-                monthlySleepNotesList.add(this.sleepNotesList.get(i));
+                this.monthlySleepNotesList.add(this.sleepNotesList.get(i));
             }
         }
 
-        return monthlySleepNotesList;
+        return this.monthlySleepNotesList;
     }
 
     /**
@@ -67,8 +69,19 @@ public class SleepNoteGlobalModel {
      * @param i int
      * @return SleepNote
      */
-    SleepNote getSleepNote(int i) {
-        return sleepNotesList.get(i);
+    SleepNote getSleepNoteFromMonthlyList(int i) {
+        return monthlySleepNotesList.get(i);
+    }
+
+    public void deleteSleepNote(SleepNote sleepnote) {
+        for (int i = 0; i < this.sleepNotesList.size(); i++) {
+
+            if (sleepnote.equals(this.sleepNotesList.get(i))) {
+                this.sleepNotesList.remove(i);
+            }
+        }
+
+        sortList();
     }
 
     /**

@@ -38,20 +38,17 @@ public class CalendarActivity extends AppCompatActivity {
         bottomNavigation();
         initWidgets();
         updateUI();
-
-        sleepNotesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent showSleepNoteDetailsActivity = new Intent(CalendarActivity.this, SleepNoteDetailsActivity.class);
-                showSleepNoteDetailsActivity.putExtra(EXTRA, i);
-                startActivity(showSleepNoteDetailsActivity);
-            }
-        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        updateUI();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         updateUI();
     }
 
@@ -62,13 +59,6 @@ public class CalendarActivity extends AppCompatActivity {
         monthYearTv = findViewById(R.id.monthYearTextView);
         sleepNotesLv = findViewById(R.id.sleepNotesListView);
         sleepNotesLv.setEmptyView((TextView) findViewById(R.id.emptyListTextView));
-    }
-
-    private SleepNoteListviewAdapter initListAdapter() {
-        return new SleepNoteListviewAdapter(
-                this,
-                R.layout.sleep_note_list_item_layout,
-                SleepNoteGlobalModel.getInstance().getListByMonthAndYear(currentDate));
     }
 
     /**
@@ -83,6 +73,15 @@ public class CalendarActivity extends AppCompatActivity {
                 SleepNoteGlobalModel.getInstance().getListByMonthAndYear(currentDate));
 
         sleepNotesLv.setAdapter(this.listAdapter);
+
+        sleepNotesLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent showSleepNoteDetailsActivity = new Intent(CalendarActivity.this, SleepNoteDetailsActivity.class);
+                showSleepNoteDetailsActivity.putExtra(EXTRA, i);
+                startActivity(showSleepNoteDetailsActivity);
+            }
+        });
     }
 
     /**

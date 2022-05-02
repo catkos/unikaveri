@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -74,7 +73,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
                 @RequiresApi(api = Build.VERSION_CODES.O)
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    openCalendarActivity();
+                    finish();
                 }
             });
 
@@ -198,7 +197,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
                 saveSleepNoteData();
                 // Create toast to inform user that the note was added
                 Toast.makeText(getApplicationContext(),"Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString(), Toast.LENGTH_LONG).show();
-                openCalendarActivity();
+                finish();
             }
         }
     }
@@ -287,17 +286,5 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
         editor.putString("sleepNotes", jsonSleepNotes);
         editor.apply();
-    }
-
-    /**
-     * Opens CalendarActivity.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void openCalendarActivity() {
-        // Open CalendarActivity
-        Intent intent = new Intent(this, CalendarActivity.class);
-        startActivity(intent);
-        // Finish this activity
-        finish();
     }
 }

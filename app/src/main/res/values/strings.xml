@@ -11,6 +11,8 @@
     <string name="avgSleepHourText">Keskimääräinen yöunenmäärä</string>
     <string name="wakingCounterText">Heräilyjen määrä</string>
     <string name="saveButtonText">Tallenna</string>
+    <string name="edit">Muokkaa</string>
+    <string name="delete">Poista</string>
 
     <!-- activity_calendar -->
     <string name="monthAndYearText">HUHTIKUUTA 2022</string>
