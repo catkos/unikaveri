@@ -143,7 +143,6 @@ public class ChartsActivity extends AppCompatActivity {
         String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
 
         // Check that sleepNoteString is not empty
-
         if (!sleepNotesString.isEmpty()) {
             TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
             List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
@@ -169,15 +168,19 @@ public class ChartsActivity extends AppCompatActivity {
                     counter++;
 
                 }
+
             }
 
-            //calculate average of sleepingHours
-            int sleepingHoursTemp=0;
-            for(int i=0;i<sleepingHours.size();i++){ sleepingHoursTemp+=sleepingHours.get(i); }
-            avgSleepHoursSum = sleepingHoursTemp / counter;
+            //check if sleepingHours list is NOT empty before average calculations
+            if(!sleepingHours.isEmpty()){
+                int sleepingHoursTemp=0;
+                for(int i=0;i<sleepingHours.size();i++){ sleepingHoursTemp+=sleepingHours.get(i); }
+                avgSleepHoursSum = sleepingHoursTemp / counter;
+            }
 
             //set data to widgets
             setTextData();
+
         }
 
     }
@@ -198,10 +201,17 @@ public class ChartsActivity extends AppCompatActivity {
      * set data/stats to textview widgets
      */
     public void setTextData(){
-        sleepingText.setText(String.format("%.0f",(double) avgSleeping / counter)+":00");
-        wakingText.setText(String.format("%.0f",(double) avgWaking / counter)+":00");
-        sleepHoursSumText.setText(String.format("%.0f",(double) avgSleepHoursSum)+"h");
-        interruptionsText.setText(""+totalInterruptions);
+        //if current chosen month data is empty, set default
+        if(avgSleeping==0){
+            sleepingText.setText("00:00");
+            wakingText.setText("00:00");
+            sleepHoursSumText.setText("0h");
+        }else {
+            sleepingText.setText(String.format("%.0f", (double) avgSleeping / counter) + ":00");
+            wakingText.setText(String.format("%.0f", (double) avgWaking / counter) + ":00");
+            sleepHoursSumText.setText(String.format("%.0f", (double) avgSleepHoursSum) + "h");
+            interruptionsText.setText("" + totalInterruptions);
+        }
     }
 
     /**
