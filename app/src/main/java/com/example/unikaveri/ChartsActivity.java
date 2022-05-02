@@ -36,17 +36,19 @@ public class ChartsActivity extends AppCompatActivity {
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
 
-    // Create variables
-    private int avgWaking = 0;
+    private int avgWaking=0;
     private int avgSleeping=0;
     private double avgSleepHoursSum=0;
     private int totalInterruptions=0;
     private int counter=0;
+    private List<Integer> sleepingHours = new ArrayList<>();
 
     private TextView wakingText;
     private TextView sleepingText;
     private TextView sleepHoursSumText;
     private TextView interruptionsText;
+
+    private TextView monthYearUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,7 @@ public class ChartsActivity extends AppCompatActivity {
 
         updateUI();
 
-        insetData();
+        insertData();
 
     }
 
@@ -71,7 +73,9 @@ public class ChartsActivity extends AppCompatActivity {
         wakingText = findViewById(R.id.avgWakingTime);
         sleepingText = findViewById(R.id.avgSleepingTime);
         sleepHoursSumText = findViewById(R.id.avgSleepHour);
-        interruptionsText = (TextView) findViewById(R.id.interruptionsCounter);
+        interruptionsText = findViewById(R.id.interruptionsCounter);
+
+        monthYearUI = findViewById(R.id.textMonth);
     }
 
     /**
@@ -112,6 +116,7 @@ public class ChartsActivity extends AppCompatActivity {
     public void buttonPressed(View v) {
         if(v.getId()==R.id.previousMonthButton){
             currentDate = currentDate.minusMonths(1);
+            insertData();
             updateUI();
         }
         if(v.getId()==R.id.nextMonthButton){
@@ -119,6 +124,7 @@ public class ChartsActivity extends AppCompatActivity {
 
             if (!tmp.isAfter(maxDate)) {
                 currentDate = currentDate.plusMonths(1);
+                insertData();
                 updateUI();
             }
         }
@@ -128,7 +134,7 @@ public class ChartsActivity extends AppCompatActivity {
      * insert data from sP sleep note data json & make necessary calculations
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void insetData(){
+    public void insertData(){
 
         // Create new GsonBuilder to deserialize date strings to LocalDateTime
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
@@ -136,60 +142,74 @@ public class ChartsActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SLEEP_NOTE_DATA, MODE_PRIVATE);
         String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
 
-        // Check that sleepNoteString is not empty before adding data to SleepNotes list.
+        // Check that sleepNoteString is not empty
+
         if (!sleepNotesString.isEmpty()) {
             TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
             List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
 
-            // Create a list where it saves sleep time for later average calculation purposes
-            List<Integer> sleepingHours = new ArrayList<Integer>();
-
             // Calculate TODO: fix the calculations
             for(SleepNote s : listTmp){
+                // Calculate ONLY if month & year matches UI month & year
+                if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
-                //average going to sleep time
-                avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                Log.d("test","avgsleep: "+avgSleeping);
+                    //add going to sleep time
+                    avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
 
-                //average waking up time
-                avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                Log.d("test","avgwaking: "+avgWaking);
+                    //add waking up time
+                    avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
 
-                //add sleeping time hours into list
-                sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
+                    //add sleeping time hours into list
+                    sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
 
-                //total interruptions
-                totalInterruptions+=s.getInterruptions();
+                    //add total interruptions
+                    totalInterruptions+=s.getInterruptions();
 
-                //add after every loop
-                counter++;
+                    //add after every loop
+                    counter++;
+
+                }
             }
 
             //calculate average of sleepingHours
             int sleepingHoursTemp=0;
             for(int i=0;i<sleepingHours.size();i++){ sleepingHoursTemp+=sleepingHours.get(i); }
             avgSleepHoursSum = sleepingHoursTemp / counter;
-        }
-        //update UI with data
-        updateUI();
 
+            //set data to widgets
+            setTextData();
+        }
+
+    }
+
+    /**
+     * reset all variables for re- data/stat calculations
+     */
+    public void resetVariables(){
+        avgWaking=0;
+        avgSleeping=0;
+        avgSleepHoursSum=0;
+        totalInterruptions=0;
+        counter=0;
+        sleepingHours.clear();
+    }
+
+    /**
+     * set data/stats to textview widgets
+     */
+    public void setTextData(){
+        sleepingText.setText(String.format("%.0f",(double) avgSleeping / counter)+":00");
+        wakingText.setText(String.format("%.0f",(double) avgWaking / counter)+":00");
+        sleepHoursSumText.setText(String.format("%.0f",(double) avgSleepHoursSum)+"h");
+        interruptionsText.setText(""+totalInterruptions);
     }
 
     /**
      * update UI widgets
      */
     public void updateUI(){
-        TextView monthYearUI = findViewById(R.id.textMonth);
         monthYearUI.setText(currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy")).toUpperCase());
 
-        //TODO: fix these calculations
-        sleepingText.setText(String.format("%.0f",(double) avgSleeping / counter)+":00");
-
-        wakingText.setText(String.format("%.0f",(double) avgWaking / counter)+":00");
-
-        sleepHoursSumText.setText(String.format("%.0f",(double) avgSleepHoursSum)+"h");
-
-        interruptionsText.setText(""+totalInterruptions);
-
+        resetVariables();
     }
 }
