@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Adapter for serializing and deserializing SleepNote's LocalDateTime variables.
+ * Adapter for serializing and deserializing SleepNote Object's LocalDateTime variables.
  * @author Kerttu
  */
 public class LocalDateTimeAdapter implements JsonSerializer<LocalDateTime>, JsonDeserializer<LocalDateTime> {

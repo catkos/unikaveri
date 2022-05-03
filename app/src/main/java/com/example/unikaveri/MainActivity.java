@@ -8,7 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,15 +17,9 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-import java.time.LocalDateTime;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static final String SLEEP_NOTE_DATA = "sleepNoteData";
     private CurrentTime time;
     private BroadcastReceiver minuteUpdate;
 
@@ -35,9 +28,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // Add SleepNotes from shared preferences to SleepNoteGlobalModel SleepNotes list.
-        loadSleepNoteData();
 
         // set bottomNavigation item activities
         bottomNavigation();
@@ -133,33 +123,12 @@ public class MainActivity extends AppCompatActivity {
      * If addNewSleepNoteButton is clicked: open AddSleepNoteActivity.
      * @param v View
      */
+    @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
 
         if (v.getId() == R.id.addNewSleepNoteButton) {
             Intent intent = new Intent(this, AddSleepNoteActivity.class);
             startActivity(intent);
-        }
-    }
-
-    /**
-     * Load SleepNote objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void loadSleepNoteData() {
-        // Clear SleepNotes List before putting data from shared preferences
-        SleepNoteGlobalModel.getInstance().getAllSleepNotesList().clear();
-
-        // Create new GsonBuilder to deserialize date strings to LocalDateTime
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
-        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
-        String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
-
-        // Check that sleepNoteString is not empty before adding data to SleepNotes list.
-        if (!sleepNotesString.isEmpty()) {
-            TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
-            List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
-            SleepNoteGlobalModel.getInstance().getAllSleepNotesList().addAll(listTmp);
         }
     }
 }

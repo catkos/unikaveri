@@ -10,13 +10,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Unikaveri">
         <activity
+            android:name=".SetAlarmsActivity"
+            android:exported="false"
+            android:label="Aseta ajat"
+            android:parentActivityName=".MainActivity">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".MainActivity" />
+        </activity>
+        <activity
             android:name=".SleepNoteDetailsActivity"
             android:exported="false"
             android:label="Merkintä"
             android:parentActivityName=".CalendarActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".CalendarActivity" />
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".CalendarActivity" />
         </activity>
         <activity
             android:name=".AddSleepNoteActivity"
