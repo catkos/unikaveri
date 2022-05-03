@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">unikaveri</string>
+    <string name="app_name">Unikaveri</string>
     <string name="greetingText">Greeting text</string>
     <string name="clockText">HH:mm</string>
     <string name="weekdayText">d.M Monday</string>

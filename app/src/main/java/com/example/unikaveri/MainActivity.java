@@ -8,6 +8,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,16 +19,35 @@ import android.widget.TextView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private CurrentTime time;
     private BroadcastReceiver minuteUpdate;
+
+    private boolean sleepAlarmIsSet = false;
+    private boolean wakeAlarmIsSet = false;
+    private int sleepTimeHour;
+    private int sleepTimeMinute;
+    private int wakeTimeHour;
+    private int wakeTimeMinute;
+
+    private TextView sleepTimeTv;
+    private TextView wakeTimeTv;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        sleepTimeTv = findViewById(R.id.sleepTimeText);
+        wakeTimeTv = findViewById(R.id.wakeTimeText);
+
+        // Load alarm settings from shared preferences
+        loadAlarmSettings();
+
+        initAlarmTextViews();
 
         // set bottomNavigation item activities
         bottomNavigation();
@@ -143,6 +163,38 @@ public class MainActivity extends AppCompatActivity {
         } else if (id == R.id.sleepTimeText || id == R.id.wakeTimeText) {
             Intent intent = new Intent(this, SetAlarmsActivity.class);
             startActivity(intent);
+        }
+    }
+
+    public void loadAlarmSettings() {
+        SharedPreferences alarmPrefs = getSharedPreferences(SetAlarmsActivity.ALARMS_PREFS, MODE_PRIVATE);
+        sleepTimeHour = alarmPrefs.getInt(SetAlarmsActivity.SLEEP_ALARM_HOUR, 22);
+        sleepTimeMinute = alarmPrefs.getInt(SetAlarmsActivity.SLEEP_ALARM_MINUTE, 30);
+        sleepAlarmIsSet = alarmPrefs.getBoolean(SetAlarmsActivity.SLEEP_ALARM_IS_SET, false);
+        wakeTimeHour = alarmPrefs.getInt(SetAlarmsActivity.WAKE_ALARM_HOUR, 7);
+        wakeTimeMinute = alarmPrefs.getInt(SetAlarmsActivity.WAKE_ALARM_MINUTE, 30);
+        wakeAlarmIsSet = alarmPrefs.getBoolean(SetAlarmsActivity.WAKE_ALARM_IS_SET, false);
+    }
+
+    public void initAlarmTextViews() {
+        if (sleepAlarmIsSet) {
+            sleepTimeTv.setText(String.format(
+                    Locale.getDefault(),
+                    "%02d:%02d",
+                    sleepTimeHour,
+                    sleepTimeMinute));
+        } else {
+            sleepTimeTv.setText("Pois päältä");
+        }
+
+        if (wakeAlarmIsSet) {
+            wakeTimeTv.setText(String.format(
+                    Locale.getDefault(),
+                    "%02d:%02d",
+                    wakeTimeHour,
+                    wakeTimeMinute));
+        } else {
+            wakeTimeTv.setText("Pois päältä");
         }
     }
 }

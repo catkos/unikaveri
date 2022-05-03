@@ -45,7 +45,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <Switch
-                android:id="@+id/switch1"
+                android:id="@+id/sleepAlarmSwitch"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
@@ -85,7 +85,7 @@
                 tools:ignore="TextContrastCheck" />
 
             <Switch
-                android:id="@+id/switch2"
+                android:id="@+id/wakeAlarmSwitch"
                 android:layout_width="100dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
