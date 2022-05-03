@@ -45,7 +45,10 @@ public class MainActivity extends AppCompatActivity {
         startMinuteUpdater();
     }
 
-    /* bottom navigation */
+    /**
+     * bottom navigation function
+     * TODO: copy-paste this to other activities
+     */
     private void bottomNavigation(){
         BottomNavigationView navi = findViewById(R.id.bottomNavigationView);
 
@@ -74,13 +77,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /* edit/set time for clock UI */
+    /**
+     * edit/set time for clock UI
+     * @param time
+     */
     private void clockTime(CurrentTime time){
         TextView editClock = (TextView) findViewById(R.id.textClock);
         editClock.setText(time.getCurrentTime());
     }
 
-    /* edit/set greeting & date UI */
+    /**
+     * edit/set greeting & date UI
+     */
     private void editGreetingText(){
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);
         // get appropriate greeting based on current hour
@@ -90,10 +98,12 @@ public class MainActivity extends AppCompatActivity {
         editWeekday.setText(time.getDate()+" "+time.getWeekday().toUpperCase());
     }
 
-    /* start UI update by minute */
+    /**
+     * start UI update, refresh every 1 minute
+     */
     public void startMinuteUpdater() {
         IntentFilter intentFilter = new IntentFilter();
-        intentFilter.addAction(Intent.ACTION_TIME_TICK); // = sent every minute
+        intentFilter.addAction(Intent.ACTION_TIME_TICK);
         minuteUpdate = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {

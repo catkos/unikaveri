@@ -90,6 +90,11 @@ public class SleepNote {
         return hours + "h " + mins + "min";
     }
 
+    public String getSleepingTimeHourString() {
+        long hours = this.sleepingTime / 60 % 24;
+        return hours+"";
+    }
+
     /**
      * Return SleepNote Object's sleeping time in minutes.
      * @return long - The time in minutes between sleepTimeDate and wakeUpTimeDate.

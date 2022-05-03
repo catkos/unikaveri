@@ -140,7 +140,7 @@ public class CalendarActivity extends AppCompatActivity {
                 // loop through menu items
                 switch(item.getItemId()){
                     case R.id.home:
-                        startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                        startActivity(new Intent(getApplicationContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                         return true;
                     case R.id.charts:
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));

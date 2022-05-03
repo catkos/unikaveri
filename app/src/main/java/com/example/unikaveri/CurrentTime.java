@@ -4,6 +4,10 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Current Time activity - returns phone's local time and date
+ * @author Catrina
+ */
 public class CurrentTime {
 
     private Calendar c;
@@ -43,8 +47,8 @@ public class CurrentTime {
 
     /* return current month and year */
     public String getMonthYear(){
-        String month = new SimpleDateFormat("MMMM yyyy").format(new Date());
-        return month;
+        String monthYear = new SimpleDateFormat("MMMM yyyy").format(new Date());
+        return monthYear;
     }
 
     /* return appropriate greetingText string TODO: add more greetings? */
@@ -57,11 +61,7 @@ public class CurrentTime {
             return "huomenta";
         }
 
-        if(hour >= 10 && hour <= 17){
-            return "päivää";
-        }
-
-        return "(time not added yet)";
+        return "päivää";
     }
 
 }
