@@ -135,9 +135,13 @@ public class MainActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
+        int id = v.getId();
 
-        if (v.getId() == R.id.addNewSleepNoteButton) {
+        if (id == R.id.addNewSleepNoteButton) {
             Intent intent = new Intent(this, AddSleepNoteActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.sleepTimeText || id == R.id.wakeTimeText) {
+            Intent intent = new Intent(this, SetAlarmsActivity.class);
             startActivity(intent);
         }
     }

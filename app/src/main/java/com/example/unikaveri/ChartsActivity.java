@@ -33,6 +33,8 @@ import java.util.List;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ChartsActivity extends AppCompatActivity {
 
+    private final String SLEEP_NOTE_DATA = "sleepNoteData";
+
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
 
@@ -139,7 +141,7 @@ public class ChartsActivity extends AppCompatActivity {
         // Create new GsonBuilder to deserialize date strings to LocalDateTime
         Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
 
-        SharedPreferences sharedPreferences = getSharedPreferences(MainActivity.SLEEP_NOTE_DATA, MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
         String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
 
         // Check that sleepNoteString is not empty

@@ -102,7 +102,7 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
         sleepNote = sleepNoteGM.getSleepNoteFromMonthlyList(sleepNoteIndex);
 
         // Get data from SleepNote object
-        String date = sleepNote.getDate().format(DateTimeFormatter.ofPattern("d.M.yyyy EEEE"));
+        String date = sleepNote.getDate().format(DateTimeFormatter.ofPattern("d.M.yyyy EE"));
         String sleepTime = sleepNote.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH:mm"));
         String wakeTime = sleepNote.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH:mm"));
         String sleepingTime = sleepNote.getSleepingTimeString();
@@ -114,7 +114,9 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
         sleepTimeTv.setText(sleepTime);
         wakeTimeTv.setText(wakeTime);
         interruptionsTv.setText(Integer.toString(interruptions));
-        qualityTv.setText(quality);
+
+
+        getSupportActionBar().setTitle(date);
     }
 
     /**
