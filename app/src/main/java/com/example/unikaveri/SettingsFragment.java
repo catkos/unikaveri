@@ -3,9 +3,16 @@ package com.example.unikaveri;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
-import androidx.preference.EditTextPreference;
+/**
+ * Call for preference resources
+ */
+
+//I don't actually remember if I need this
+//but I am not gonna delete it and find out
+//so, enjoy a possibly useless class
 
 public class SettingsFragment extends PreferenceFragment {
 
@@ -14,7 +21,5 @@ public class SettingsFragment extends PreferenceFragment {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
-        Preference signaturePreference = findPreference("signature");
-
     }
 }

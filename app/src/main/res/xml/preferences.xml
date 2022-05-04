@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-        <CheckBoxPreference
-            android:key="pref_sync"
-            android:title="@string/dataClear"
-            android:summary="@string/dataClearSum"
-            android:defaultValue="true" />
-
+        <PreferenceCategory>
         <EditTextPreference
-            app:key="signature"
-            app:title="@string/userNameTitle"/>
-
-        <Preference
-                app:key="clearData"
-                app:title="Clear data">
-        </Preference>
+            android:title="Nimi"
+            android:defaultValue=""
+            android:inputType="textCapWords"
+            android:key="pref_username"
+            android:maxLines="1"
+            android:selectAllOnFocus="true"
+            android:singleLine="true" />
+        </PreferenceCategory>
 </PreferenceScreen>

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -29,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity {
         }
         bottomNavigation();
 
-        updateUI();
     }
 
 
@@ -44,8 +44,6 @@ public class SettingsActivity extends AppCompatActivity {
         navi.setSelectedItemId(R.id.settings);
 
         //item select listener
-        //my implementation of this is absolute aids
-        //sorry for anyone who has to look at this
         navi.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
@@ -65,11 +63,6 @@ public class SettingsActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-
-    private void updateUI() {
-
     }
 
 }

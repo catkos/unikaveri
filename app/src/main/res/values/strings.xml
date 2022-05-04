@@ -36,9 +36,5 @@
     <string name="listItemSleepTimeText">23:55</string>
     <string name="listItemWakeTimeText">7:35</string>
 
-    <!-- Settings & Preferences -->
-    <string name="dataClear">Tyhjennä paikallinen data</string>
-    <string name="dataClearSum">Clear</string>
-    <string name="userName">Enter a name</string>
-    <string name="userNameTitle">Your signature</string>
+    <!--Settings and Preferences-->
 </resources>

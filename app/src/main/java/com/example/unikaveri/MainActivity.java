@@ -3,6 +3,7 @@ package com.example.unikaveri;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,7 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.preference.Preference;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         // Start Clock UI update
         startMinuteUpdater();
     }
+
 
     /**
      * bottom navigation function
@@ -100,9 +103,16 @@ public class MainActivity extends AppCompatActivity {
      * edit/set greeting & date UI
      */
     private void editGreetingText(){
+
+        SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        String username = "" +
+                sharedPrefs.getString("pref_username", "");
+
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);
         // get appropriate greeting based on current hour
-        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
+        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+" "+username+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
         editWeekday.setText(time.getDate()+" "+time.getWeekday().toUpperCase());
