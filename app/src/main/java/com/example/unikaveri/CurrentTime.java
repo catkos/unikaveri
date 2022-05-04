@@ -53,12 +53,10 @@ public class CurrentTime {
 
     /* return appropriate greetingText string TODO: add more greetings? */
     public String greetingTextTime(int hour){
-        if(hour >= 22 || hour <= 3){
-            return "yötä";
-        }
-        if(hour >= 17 || hour <= 22){
+        if(hour >= 18 || hour <= 3){
             return "iltaa";
         }
+
         if(hour >= 3 && hour <= 9){
             return "huomenta";
         }

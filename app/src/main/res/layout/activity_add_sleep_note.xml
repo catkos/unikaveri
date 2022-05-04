@@ -1,237 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/addNoteFab"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".AddSleepNoteActivity">
+    android:layout_height="match_parent">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/sleepTimeTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
+            android:text="@string/actAddSleepNoteSleepTimeText"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:isScrollContainer="true"
-            android:orientation="vertical"
-            android:padding="16dp">
-
-            <TextView
-                android:id="@+id/sleepTimeTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:text="@string/actAddSleepNoteSleepTimeText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/sleepDatePickerEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginEnd="14dp"
-                    android:layout_weight="1"
-                    android:autofillHints=""
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_baseline_calendar_month"
-                    android:drawablePadding="12dp"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/actAddSleepNoteSleepDateInputText"
-                    android:inputType="date"
-                    android:onClick="buttonPressed"
-                    android:padding="12dp"
-                    tools:ignore="TextContrastCheck"
-                    style="@style/CustomInput" />
-
-                <EditText
-                    android:id="@+id/sleepTimePickerEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:autofillHints=""
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_baseline_access_time_24"
-                    android:drawablePadding="12dp"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/actAddSleepNoteSleepTimeInputText"
-                    android:inputType="time"
-                    android:onClick="buttonPressed"
-                    android:padding="12dp"
-                    tools:ignore="TextContrastCheck"
-                    style="@style/CustomInput"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/wakeTimeTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/actAddSleepNoteWakeTimeText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/wakeDatePickerEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginEnd="14dp"
-                    android:layout_weight="1"
-                    android:autofillHints=""
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_baseline_calendar_month"
-                    android:drawablePadding="12dp"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/actAddSleepNoteWakeDateInputText"
-                    android:inputType="date"
-                    android:onClick="buttonPressed"
-                    android:padding="12dp"
-                    tools:ignore="TextContrastCheck"
-                    style="@style/CustomInput"/>
-
-                <EditText
-                    android:id="@+id/wakeTimePickerEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2"
-                    android:autofillHints=""
-                    android:background="@drawable/custom_input"
-                    android:drawableStart="@drawable/ic_baseline_access_time_24"
-                    android:drawablePadding="12dp"
-                    android:ems="10"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    android:hint="@string/actAddSleepNoteWakeTimeInputText"
-                    android:inputType="time"
-                    android:onClick="buttonPressed"
-                    android:padding="12dp"
-                    tools:ignore="TextContrastCheck"
-                    style="@style/CustomInput"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/interruptionsTitleTextView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/actAddSleepNoteInteruptionsText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/interuptionsPickerEditText"
-                style="@style/CustomInput"
+                android:id="@+id/sleepDatePickerEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:autofillHints="@string/actAddSleepNoteInteruptionsInputText"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:autofillHints=""
                 android:background="@drawable/custom_input"
-                android:drawableStart="@drawable/ic_baseline_bedtime_off_24"
+                android:drawableStart="@drawable/ic_baseline_calendar_month"
                 android:drawablePadding="12dp"
                 android:ems="10"
-                android:hint="@string/actAddSleepNoteInteruptionsInputText"
-                android:inputType="number"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/actAddSleepNoteSleepDateInputText"
+                android:inputType="date"
+                android:onClick="buttonPressed"
                 android:padding="12dp"
                 tools:ignore="TextContrastCheck" />
 
-            <TextView
-                android:id="@+id/sleepQualityTitleTextView"
+            <EditText
+                android:id="@+id/sleepTimePickerEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="28dp"
-                android:layout_marginBottom="14dp"
-                android:text="@string/actAddSleepNoteQualityText"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <RadioGroup
-                android:id="@+id/sleepQualityRadioGroup"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <RadioButton
-                    android:id="@+id/veryDissatisfiedRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/custom_radio_very_dissatisfied"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
-
-                <RadioButton
-                    android:id="@+id/dissatisfiedRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/custom_radio_dissatisfied"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
-
-                <RadioButton
-                    android:id="@+id/neutralRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/custom_radio_neutral"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
-
-                <RadioButton
-                    android:id="@+id/satisfiedRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/custom_radio_satisfied"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
-
-                <RadioButton
-                    android:id="@+id/verySatisfiedRadioButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:button="@drawable/custom_radio_very_satisfied"
-                    android:paddingLeft="8dp"
-                    android:paddingRight="8dp" />
-            </RadioGroup>
-
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/actAddSleepNoteSleepTimeInputText"
+                android:inputType="time"
+                android:onClick="buttonPressed"
+                android:padding="12dp"
+                tools:ignore="TextContrastCheck" />
         </LinearLayout>
 
-    </ScrollView>
+        <TextView
+            android:id="@+id/wakeTimeTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/actAddSleepNoteWakeTimeText"
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/saveSleepNoteButton"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="buttonPressed"
-        android:text="@string/saveButtonText"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
 
+            <EditText
+                android:id="@+id/wakeDatePickerEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="12dp"
+                android:layout_weight="1"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/ic_baseline_calendar_month"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/actAddSleepNoteWakeDateInputText"
+                android:inputType="date"
+                android:onClick="buttonPressed"
+                android:padding="12dp"
+                tools:ignore="TextContrastCheck" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+            <EditText
+                android:id="@+id/wakeTimePickerEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="2"
+                android:autofillHints=""
+                android:background="@drawable/custom_input"
+                android:drawableStart="@drawable/ic_baseline_access_time_24"
+                android:drawablePadding="12dp"
+                android:ems="10"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:hint="@string/actAddSleepNoteWakeTimeInputText"
+                android:inputType="time"
+                android:onClick="buttonPressed"
+                android:padding="12dp"
+                tools:ignore="TextContrastCheck" />
+        </LinearLayout>
 
+        <TextView
+            android:id="@+id/interruptionsTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/actAddSleepNoteInteruptionsText"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/interuptionsPickerEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autofillHints="@string/actAddSleepNoteInteruptionsInputText"
+            android:background="@drawable/custom_input"
+            android:drawableStart="@drawable/ic_baseline_bedtime_off_24"
+            android:drawablePadding="12dp"
+            android:ems="10"
+            android:hint="@string/actAddSleepNoteInteruptionsInputText"
+            android:inputType="number"
+            android:padding="12dp"
+            tools:ignore="TextContrastCheck" />
+
+        <TextView
+            android:id="@+id/sleepQualityTitleTextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="12dp"
+            android:text="@string/actAddSleepNoteQualityText"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/sleepQualityRadioGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/veryDissatisfiedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/custom_radio_very_dissatisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+
+            <RadioButton
+                android:id="@+id/dissatisfiedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/custom_radio_dissatisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+
+            <RadioButton
+                android:id="@+id/neutralRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/custom_radio_neutral"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+
+            <RadioButton
+                android:id="@+id/satisfiedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/custom_radio_satisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+
+            <RadioButton
+                android:id="@+id/verySatisfiedRadioButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@drawable/custom_radio_very_satisfied"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/saveSleepNoteButton"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="18dp"
+            android:onClick="buttonPressed"
+            android:text="@string/saveButtonText"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </LinearLayout>
+
+</ScrollView>

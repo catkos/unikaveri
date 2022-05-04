@@ -2,10 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.unikaveri">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,31 +10,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Unikaveri">
         <activity
-            android:name=".AlarmActivity"
-            android:exported="false"/>
-
-        <service
-            android:name=".AlarmService"
-            android:enabled="true"
-            android:exported="true" />
-
-        <activity
-            android:name=".SetAlarmsActivity"
-            android:exported="false"
-            android:label="Aseta hälytykset"
-            android:parentActivityName=".MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
-        </activity>
-        <activity
             android:name=".SleepNoteDetailsActivity"
             android:exported="false"
             android:label="Merkintä"
             android:parentActivityName=".CalendarActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".CalendarActivity" />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value=".CalendarActivity" />
         </activity>
         <activity
             android:name=".AddSleepNoteActivity"
@@ -64,8 +42,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <receiver android:name=".AlarmReceiver" />
     </application>
 
 </manifest>

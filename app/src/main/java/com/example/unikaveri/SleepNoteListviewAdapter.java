@@ -26,7 +26,7 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
      * Define SleepNoteAdapter.
      * @param context Context
      * @param resource int
-     * @param objects List
+     * @param objects List<SleepNote>
      */
     public SleepNoteListviewAdapter(@NonNull Context context, int resource, @NonNull List<SleepNote> objects) {
         super(context, resource, objects);
@@ -35,7 +35,7 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
     }
 
     /**
-     * Returns View for ListView to show data from SleepNote object.
+     * Returns view for listview.
      * @param position int
      * @param convertView View
      * @param parent ViewGroup
@@ -60,7 +60,7 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
         LocalDateTime waketime = getItem(position).getWakeTimeDate();
 
         // Set texts to widgets and format LocalDateTime variables
-        dateTv.setText(date.format(DateTimeFormatter.ofPattern("d.M.yyyy EE")));
+        dateTv.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
         sleepingTimeTv.setText(getItem(position).getSleepingTimeString());
         sleepTimeTv.setText(sleeptime.format(DateTimeFormatter.ofPattern("HH:mm")));
         wakeTimeTv.setText(waketime.format(DateTimeFormatter.ofPattern("HH:mm")));

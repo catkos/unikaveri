@@ -12,7 +12,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="70dp"
         android:text="@string/greetingText"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -24,7 +23,6 @@
         android:layout_marginTop="70dp"
         android:text="@string/clockText"
         android:textSize="70dp"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/greetingText" />
@@ -35,7 +33,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/weekdayText"
-        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textClock" />
@@ -44,34 +41,28 @@
         android:id="@+id/sleepTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:drawableLeft="@drawable/ic_baseline_nights"
+        android:layout_marginTop="70dp"
+        android:drawableLeft="@drawable/ic_baseline_bed"
         android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:minHeight="48dp"
-        android:onClick="buttonPressed"
         android:text="@string/sleepTimeText"
-        android:textSize="20sp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekdayText"
-        style="@style/CustomTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/weekdayText" />
 
     <TextView
         android:id="@+id/wakeTimeText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:drawableLeft="@drawable/ic_baseline_alarm"
         android:drawablePadding="5dp"
-        android:gravity="center_vertical"
-        android:minHeight="48dp"
-        android:onClick="buttonPressed"
         android:text="@string/wakeTimeText"
-        android:textSize="20sp"
+        android:textSize="30dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sleepTimeText"
-        style="@style/CustomTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/sleepTimeText" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addNewSleepNoteButton"

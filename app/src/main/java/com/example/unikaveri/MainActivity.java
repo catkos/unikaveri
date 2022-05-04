@@ -11,9 +11,13 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+<<<<<<< HEAD
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
+=======
+import android.preference.Preference;
+>>>>>>> parent of 8f976e7 (Merge branch 'main' into settings_and_preferences)
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -23,31 +27,24 @@ import com.google.android.material.navigation.NavigationBarView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-
 import java.time.LocalDateTime;
 import java.util.List;
+<<<<<<< HEAD
 import java.util.Locale;
 
 /**
  * Main activity.
  * @author Catrina and Kerttu
  */
+=======
+import java.util.prefs.Preferences;
+
+>>>>>>> parent of 8f976e7 (Merge branch 'main' into settings_and_preferences)
 public class MainActivity extends AppCompatActivity {
 
-    private final String SLEEP_NOTE_DATA = "sleepNoteData";
-
+    public static final String SLEEP_NOTE_DATA = "sleepNoteData";
     private CurrentTime time;
     private BroadcastReceiver minuteUpdate;
-
-    private boolean sleepAlarmIsSet = false;
-    private boolean wakeAlarmIsSet = false;
-    private int sleepTimeHour;
-    private int sleepTimeMinute;
-    private int wakeTimeHour;
-    private int wakeTimeMinute;
-
-    private TextView sleepTimeTv;
-    private TextView wakeTimeTv;
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -55,14 +52,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Load sleep note data to SleepNoteGlobalModel
+        // Add SleepNotes from shared preferences to SleepNoteGlobalModel SleepNotes list.
         loadSleepNoteData();
-
-        // Load alarm settings from shared preferences
-        loadAlarmSettings();
-
-        // Initialise alarm textviews
-        alarmTextViews();
 
         // set bottomNavigation item activities
         bottomNavigation();
@@ -114,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * edit/set time for clock UI
-     * @param time CurrentTime's object current time
+     * @param time
      */
     private void clockTime(CurrentTime time){
         TextView editClock = (TextView) findViewById(R.id.textClock);
@@ -122,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * edit/set greeting and date UI
+     * edit/set greeting & date UI
      */
     private void editGreetingText(){
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);
@@ -130,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
-        editWeekday.setText(time.getDate()+" "+time.getWeekday());
+        editWeekday.setText(time.getDate()+" "+time.getWeekday().toUpperCase());
     }
 
     /**
@@ -154,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        loadAlarmSettings();
-        alarmTextViews();
         startMinuteUpdater(); //continue clock UI updater
     }
 
@@ -168,79 +157,18 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Buttons functionalities.
      * If addNewSleepNoteButton is clicked: open AddSleepNoteActivity.
-     * If sleepTimeText or wakeTimeText is clicked: open SetAlarmsActivity.
      * @param v View
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
-        int id = v.getId();
 
-        if (id == R.id.addNewSleepNoteButton) {
+        if (v.getId() == R.id.addNewSleepNoteButton) {
             Intent intent = new Intent(this, AddSleepNoteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.sleepTimeText) {
-            Intent intent = new Intent(this, SetAlarmsActivity.class);
-            startActivity(intent);
-        } else if (id == R.id.wakeTimeText) {
-            Intent intent = new Intent(this, SetAlarmsActivity.class);
-            startActivity(intent);
         }
     }
 
     /**
-     * Load alarm settings from shared preferences and set the values to: sleepTimeHour, sleepTimeMinute,
-     * sleepAlarmIsSet, wakeTimeHour, wakeTimeMinute and wakeAlarmIsSet.
-     */
-    public void loadAlarmSettings() {
-        SharedPreferences alarmPrefs = getSharedPreferences(SetAlarmsActivity.ALARMS_PREFS, MODE_PRIVATE);
-        sleepTimeHour = alarmPrefs.getInt(SetAlarmsActivity.SLEEP_ALARM_HOUR, 22);
-        sleepTimeMinute = alarmPrefs.getInt(SetAlarmsActivity.SLEEP_ALARM_MINUTE, 30);
-        sleepAlarmIsSet = alarmPrefs.getBoolean(SetAlarmsActivity.SLEEP_ALARM_IS_SET, false);
-        wakeTimeHour = alarmPrefs.getInt(SetAlarmsActivity.WAKE_ALARM_HOUR, 7);
-        wakeTimeMinute = alarmPrefs.getInt(SetAlarmsActivity.WAKE_ALARM_MINUTE, 30);
-        wakeAlarmIsSet = alarmPrefs.getBoolean(SetAlarmsActivity.WAKE_ALARM_IS_SET, false);
-    }
-
-    /**
-     * Initialise TextViews based on sleepAlarmIsSet/wakeAlarmIsSet: if their value is true, set text
-     * according to sleepTimeHour/wakeTimeHour and sleepTimeMinute/wakeTimeMinute.
-     * Or if value is false: set text to "Pois päältä".
-     */
-    public void alarmTextViews() {
-        sleepTimeTv = findViewById(R.id.sleepTimeText);
-        wakeTimeTv = findViewById(R.id.wakeTimeText);
-
-        if (sleepAlarmIsSet) {
-            SpannableString content = new SpannableString(String.format(
-                    Locale.getDefault(),
-                    "%02d:%02d",
-                    sleepTimeHour,
-                    sleepTimeMinute));
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            sleepTimeTv.setText(content);
-        } else {
-            SpannableString content = new SpannableString("Pois päältä");
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            sleepTimeTv.setText(content);
-        }
-
-        if (wakeAlarmIsSet) {
-            SpannableString content = new SpannableString(String.format(
-                    Locale.getDefault(),
-                    "%02d:%02d",
-                    wakeTimeHour,
-                    wakeTimeMinute));
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            wakeTimeTv.setText(content);
-        } else {
-            SpannableString content = new SpannableString("Pois päältä");
-            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
-            wakeTimeTv.setText(content);
-        }
-    }
-
-    /**
-     * Load SleepNote Objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
+     * Load SleepNote objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void loadSleepNoteData() {
