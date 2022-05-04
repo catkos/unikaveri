@@ -126,7 +126,7 @@ public class ChartsActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),CalendarActivity.class));
                         return true;
                     case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                        Log.d("menu settings",""); //TODO:<- delete, add startActivity
                         return true;
                 }
                 return false;
