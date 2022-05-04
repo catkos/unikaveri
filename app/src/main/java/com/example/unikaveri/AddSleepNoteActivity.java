@@ -54,12 +54,15 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     private DatePickerDialog wakeDatePickerDialog;
     private TimePickerDialog wakeTimePickerDialog;
 
+    private AlertDialog alertDialog;
+
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_sleep_note);
         Bundle bundle = getIntent().getExtras();
+        initAlertDialog();
         initWidgets();
 
         // Set editSleepNote value if bundle is not null
@@ -123,7 +126,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        initAlertDialog();
+        alertDialog.show();
     }
 
     /**
@@ -133,7 +136,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
      */
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            initAlertDialog();
+            alertDialog.show();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -161,9 +164,8 @@ public class AddSleepNoteActivity extends AppCompatActivity {
         // Set negative button
         alertBuilder.setNegativeButton("Peruuta", null);
 
-        // Create and show the alert dialog
-        AlertDialog dialog = alertBuilder.create();
-        dialog.show();
+        // Create alert dialog
+        alertDialog = alertBuilder.create();
     }
 
     /**

@@ -3,10 +3,13 @@ package com.example.unikaveri;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,6 +41,8 @@ public class SetAlarmsActivity extends AppCompatActivity {
     private Switch wakeAlarmSwitch;
     private Button saveBtn;
 
+    private AlertDialog alertDialog;
+
     private boolean sleepAlarmIsSet = false;
     private boolean wakeAlarmIsSet = false;
     private int sleepTimeHour;
@@ -54,11 +59,60 @@ public class SetAlarmsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_alarms);
+        initAlertDialog();
         initWidgets();
         loadAlarmSettings();
         setSwitches();
         initSleepTimePickerDialog(LocalTime.of(sleepTimeHour,sleepTimeMinute));
         initWakeTimePickerDialog(LocalTime.of(wakeTimeHour,wakeTimeMinute));
+    }
+
+    /**
+     * When user interacts with back key, initialize and open alert dialog.
+     */
+    @Override
+    public void onBackPressed() {
+        alertDialog.show();
+    }
+
+    /**
+     * When user interacts with top action bar's arrow button, initialize and open alert dialog.
+     * @param item MenuItem
+     * @return boolean
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            alertDialog.show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    /**
+     * Initialize alert dialog for when user wants to go back without saving.
+     */
+    private void initAlertDialog() {
+        // Set alert builder
+        AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+        alertBuilder.setTitle("Ilmoitus");
+        alertBuilder.setMessage("Haluatko varmasti poistua tallentamatta?");
+
+        // Set positive button and add onClick listener to it:
+        // if user clicks positive button, finish activity
+        alertBuilder.setPositiveButton("Jatka tallentamatta", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        // Set negative button
+        alertBuilder.setNegativeButton("Peruuta", null);
+
+        // Create alert dialog
+        alertDialog = alertBuilder.create();
     }
 
     /**
