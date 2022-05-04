@@ -26,6 +26,10 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
+/**
+ * Main activity.
+ * @author Catrina and Kerttu
+ */
 public class MainActivity extends AppCompatActivity {
 
     private final String SLEEP_NOTE_DATA = "sleepNoteData";

@@ -38,6 +38,8 @@ public class ChartsActivity extends AppCompatActivity {
 
     private final String SLEEP_NOTE_DATA = "sleepNoteData";
 
+    private GetSleepNoteData GetSleepNoteData;
+
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
 
@@ -67,6 +69,8 @@ public class ChartsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charts);
 
+        GetSleepNoteData = GetSleepNoteData.getInstance();
+
         bottomNavigation();
 
         initWidgets();
@@ -78,6 +82,7 @@ public class ChartsActivity extends AppCompatActivity {
 
     /**
      * set progress bar to current day
+     * @param currentDay currentDay
      */
     private void progressBar(int currentDay){
         ProgressBar pb = findViewById(R.id.progressBar2);
@@ -161,64 +166,57 @@ public class ChartsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void insertData(){
 
-        // Create new GsonBuilder to deserialize date strings to LocalDateTime
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        for(SleepNote s: GetSleepNoteData.getSleepNotes(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""))){
+            // Calculate ONLY if month and year matches UI month and year
+            if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
-        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
-        String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
+                //add waking up time
+                avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                //add wake time in arraylist
+                wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-        // Check that sleepNoteString is not empty
-        if (!sleepNotesString.isEmpty()) {
-            TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
-            List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
+                //add going to sleep time
+                avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                //add sleeping time in arraylist
+                sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-            // Calculate TODO: fix the calculations
-            for(SleepNote s : listTmp){
-                // Calculate ONLY if month and year matches UI month and year
-                if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
+                //add sleeping time hours into list
+                sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
 
-                    //add waking up time
-                    avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                    avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                    //add wake time in arraylist
-                    wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+                //add total interruptions
+                totalInterruptions+=s.getInterruptions();
 
-                    //add going to sleep time
-                    avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                    avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                    //add sleeping time in arraylist
-                    sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+                //counter + after every loop
+                counter++;
 
-                    //add sleeping time hours into list
-                    sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
-
-                    //add total interruptions
-                    totalInterruptions+=s.getInterruptions();
-
-                    //counter + after every loop
-                    counter++;
-
-                }
             }
-
-            //check if sleepingHours list is NOT empty
-            if(!sleepingHours.isEmpty()){
-                int sleepingHoursTemp=0;
-                //add values from list to a temp variable
-                for(int i=0;i<sleepingHours.size();i++){ sleepingHoursTemp+=sleepingHours.get(i); }
-                //calculate avg
-                avgSleepHoursSum = sleepingHoursTemp / counter;
-            }
-
-            //set data to widgets
-            setTextData();
 
         }
+
+        //set data to widgets
+        setTextData();
 
     }
 
     /**
-     * get most frequent hour time from list
+     * calculate average sleeping hour
+     */
+    public double avgSleepingHour(List<Integer> hoursList){
+        if(!hoursList.isEmpty()){
+            int sleepingHoursTemp=0;
+            //add values from list to a temp variable
+            for(int i=0;i<sleepingHours.size();i++){ sleepingHoursTemp+=sleepingHours.get(i); }
+            //calculate avg
+            avgSleepHoursSum = sleepingHoursTemp / counter;
+            return avgSleepHoursSum;
+        }
+        return 0;
+    }
+
+    /**
+     * get most frequent hour from list
      */
     public int mostFrequentTime(List<Integer> hoursList){
 
@@ -236,9 +234,6 @@ public class ChartsActivity extends AppCompatActivity {
             }
         }
 
-        //TODO: delete test
-        Log.d("test","hm: "+hm);
-
         //invoke keySet() on hashmap to get keys as a set
         Set<Integer> keys = hm.keySet();
         for(int key : keys){
@@ -248,14 +243,7 @@ public class ChartsActivity extends AppCompatActivity {
                 hourValueTemp = key;
             }
 
-            //TODO: delete test
-            Log.d("test","key: "+key);
-            Log.d("test","value frequency: "+hm.get(key));
-
         }
-
-        //TODO: delete test
-        Log.d("test","hour: "+hourValueTemp);
 
         return hourValueTemp;
 
@@ -291,7 +279,7 @@ public class ChartsActivity extends AppCompatActivity {
         }else {
             wakingText.setText(String.format("%.0f", (double) avgWaking / counter) + ":"+avgMinuteFormat(avgWakingMin));
             sleepingText.setText(String.format("%.0f", (double) avgSleeping / counter) + ":"+avgMinuteFormat(avgSleepingMin));
-            sleepHoursSumText.setText(String.format("%.0f", (double) avgSleepHoursSum) + "h");
+            sleepHoursSumText.setText(String.format("%.0f", (double) avgSleepingHour(sleepingHours)) + "h");
             interruptionsText.setText("" + totalInterruptions);
             frequentWakingTime.setText(mostFrequentTime(wakingTimeHours)+":00");
             frequentSleepTime.setText(mostFrequentTime(sleepingTimeHours)+":00");
