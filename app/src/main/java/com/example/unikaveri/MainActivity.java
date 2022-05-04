@@ -31,7 +31,7 @@ import java.util.Locale;
 
 /**
  * Main activity. Test update
- * @author Catrina and Kerttu
+ * @author Catrina, Kerttu and Tino
  */
 public class MainActivity extends AppCompatActivity {
 
@@ -124,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * edit/set greeting and date UI
+     * also handles displaying name
      */
     private void editGreetingText(){
         SharedPreferences sharedPrefs = PreferenceManager

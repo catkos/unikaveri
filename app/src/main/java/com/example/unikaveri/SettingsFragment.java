@@ -7,12 +7,11 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 /**
- * Call for preference resources
+ * Settings fragment for calling preference resources
  */
 
-//I don't actually remember if I need this
-//but I am not gonna delete it and find out
-//so, enjoy a possibly useless class
+//Might not look like much but deleting this
+//causes issues on a galaxy brain scale
 
 public class SettingsFragment extends PreferenceFragment {
 

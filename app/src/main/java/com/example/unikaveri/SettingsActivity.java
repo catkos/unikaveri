@@ -17,6 +17,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
 
+    /**
+     * Settings activity for managing the fragment(s) and layout
+     */
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
