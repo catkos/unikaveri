@@ -70,12 +70,13 @@ public class ChartsActivity extends AppCompatActivity {
 
         updateUI();
 
-        insertData();
+        getData();
+        setTextData();
     }
 
     /**
      * set progress bar to current day
-     * @param currentDay currentDay
+     * @param currentDay used for progress bar progress calculation
      */
     private void progressBar(int currentDay){
         ProgressBar pb = findViewById(R.id.progressBar2);
@@ -139,7 +140,7 @@ public class ChartsActivity extends AppCompatActivity {
     public void buttonPressed(View v) {
         if(v.getId()==R.id.previousMonthButton){
             currentDate = currentDate.minusMonths(1);
-            insertData();
+            getData();
             updateUI();
         }
         if(v.getId()==R.id.nextMonthButton){
@@ -147,18 +148,17 @@ public class ChartsActivity extends AppCompatActivity {
 
             if (!tmp.isAfter(maxDate)) {
                 currentDate = currentDate.plusMonths(1);
-                insertData();
+                getData();
                 updateUI();
             }
         }
     }
 
     /**
-     * insert data from sP sleep note data json and make necessary calculations
+     * loop data from sleep note data json using GetSleepNoteData singleton and add data to variables and lists
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    public void insertData(){
-
+    public void getData(){
         for(SleepNote s: GetSleepNoteData.getSleepNotes(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""))){
             // Calculate ONLY if month and year matches UI month and year
             if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
@@ -172,7 +172,7 @@ public class ChartsActivity extends AppCompatActivity {
                 //add going to sleep time
                 avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
                 avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                //add sleeping time in arraylist
+                //add going to sleep time in arraylist
                 sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
                 //add sleeping time hours into list
@@ -185,15 +185,13 @@ public class ChartsActivity extends AppCompatActivity {
                 counter++;
 
             }
-
         }
-
-        //set data to widgets
-        setTextData();
     }
 
     /**
-     * calculate average sleeping hour
+     * calculate average sleeping hour from list
+     * @param hoursList list of hours saved from data
+     * @return the average hour from list
      */
     public double avgSleepingHour(List<Integer> hoursList){
         if(!hoursList.isEmpty()){
@@ -208,7 +206,9 @@ public class ChartsActivity extends AppCompatActivity {
     }
 
     /**
-     * get most frequent hour from list
+     * get most frequent/common hour from list
+     * @param hoursList list of hours saved from data
+     * @return the most frequent/common time from list
      */
     public int mostFrequentTime(List<Integer> hoursList){
 
@@ -222,6 +222,7 @@ public class ChartsActivity extends AppCompatActivity {
             if(!hm.containsKey(i)){
                 hm.put(i,1);
             }else{
+                //increase frequency
                 hm.put(i, hm.get(i)+1);
             }
         }
@@ -239,6 +240,18 @@ public class ChartsActivity extends AppCompatActivity {
 
         return hourValueTemp;
 
+    }
+
+    /**
+     * format avgMin variable correctly for UI
+     * @param avgMin sum of minutes from data
+     * @return the average value of avgMin sum
+     */
+    public String avgMinuteFormat(int avgMin){
+        if((double)avgMin/counter==0){
+            return "00";
+        }
+        return ""+String.format("%.0f", (double) avgMin / counter);
     }
 
     /**
@@ -261,14 +274,14 @@ public class ChartsActivity extends AppCompatActivity {
      * set data/stats to textview widgets
      */
     public void setTextData(){
-        //if current chosen month data is empty, set default
+        //if current UI month data is empty, set default
         if(avgSleeping==0){
             wakingText.setText("00:00");
             sleepingText.setText("00:00");
             sleepHoursSumText.setText("0h");
             frequentWakingTime.setText("-");
             frequentSleepTime.setText("-");
-        }else {
+        }else{
             wakingText.setText(String.format("%.0f", (double) avgWaking / counter) + ":"+avgMinuteFormat(avgWakingMin));
             sleepingText.setText(String.format("%.0f", (double) avgSleeping / counter) + ":"+avgMinuteFormat(avgSleepingMin));
             sleepHoursSumText.setText(String.format("%.0f", (double) avgSleepingHour(sleepingHours)) + "h");
@@ -279,25 +292,19 @@ public class ChartsActivity extends AppCompatActivity {
     }
 
     /**
-     * format avgMin variable correctly for UI
-     */
-    public String avgMinuteFormat(int avgMin){
-        if((double)avgMin/counter==0){
-            return "00";
-        }
-        return ""+String.format("%.0f", (double) avgMin / counter);
-    }
-
-    /**
      * update UI widgets
      */
     public void updateUI(){
         monthYearUI.setText(currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy")).toUpperCase());
 
+        //set new calculated data into text widgets
+        setTextData();
+
+        //update progress bar
         int currentDay = 30;
         //check if UI month equals current month
         if(currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy")).equals(LocalDateTime.now().format(DateTimeFormatter.ofPattern("MMMM yyyy")))){
-            currentDay = Integer.parseInt( currentDate.format(DateTimeFormatter.ofPattern("d")));
+            currentDay = Integer.parseInt(currentDate.format(DateTimeFormatter.ofPattern("d")));
         }
         progressBar(currentDay);
 

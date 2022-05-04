@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * edit/set time for clock UI
-     * @param time
+     * @param time CurrentTime's object current time
      */
     private void clockTime(CurrentTime time){
         TextView editClock = (TextView) findViewById(R.id.textClock);

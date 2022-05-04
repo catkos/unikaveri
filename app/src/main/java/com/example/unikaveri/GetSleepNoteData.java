@@ -32,7 +32,6 @@ public class GetSleepNoteData {
 
     private Gson gson;
 
-
     public static GetSleepNoteData getInstance(){
         return ourInstance;
     }
@@ -46,16 +45,16 @@ public class GetSleepNoteData {
 
     /**
      * return SharedPreferences
-     * @param context
-     * @return
+     * @param context context used for sharedpreference
+     * @return SharedPreference with assigned context
      */
     public SharedPreferences getPrefs(Context context){
         return context.getSharedPreferences(SLEEP_NOTE_DATA, Context.MODE_PRIVATE);
     }
 
     /**
-     * returns sleepNotes list
-     * @return
+     * returns sleepNotes list, return null if list empty
+     * @return sleepNotes lsit
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<SleepNote> getSleepNotes(String sleepNotesString){
