@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +33,7 @@ import java.util.Set;
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ChartsActivity extends AppCompatActivity {
 
-    private GetSleepNoteData GetSleepNoteData;
+    private GetSleepNoteData GetSleepNoteData = new GetSleepNoteData();
 
     private LocalDateTime currentDate = LocalDateTime.now();
     private final LocalDateTime maxDate = LocalDateTime.now();
@@ -62,7 +64,9 @@ public class ChartsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charts);
 
-        GetSleepNoteData = GetSleepNoteData.getInstance();
+        //GetSleepNoteData = new GetSleepNoteData();
+
+        GetSleepNoteData.addSleepNoteData(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""));
 
         bottomNavigation();
 
@@ -161,37 +165,44 @@ public class ChartsActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getData(){
 
-        if(!GetSleepNoteData.getInstance().isEmpty()){
+        if(!GetSleepNoteData.isEmpty()){
 
-            for(SleepNote s: GetSleepNoteData.getSleepNotes(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""))){
-                // Calculate ONLY if month and year matches UI month and year
-                if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
+            if(GetSleepNoteData.isEmptyInSpecificMonth(currentDate)){
+                updateUI();
+            }else{
 
-                    //add waking up time
-                    avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                    avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                    //add wake time in arraylist
-                    wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+                for(SleepNote s: GetSleepNoteData.getSleepNotes()){
+                    // Calculate ONLY if month and year matches UI month and year
+                    if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
-                    //add going to sleep time
-                    avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                    avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                    //add going to sleep time in arraylist
-                    sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+                        //add waking up time
+                        avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                        avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                        //add wake time in arraylist
+                        wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-                    //add sleeping time hours into list
-                    sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
+                        //add going to sleep time
+                        avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                        avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                        //add going to sleep time in arraylist
+                        sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-                    //add total interruptions
-                    totalInterruptions+=s.getInterruptions();
+                        //add sleeping time hours into list
+                        sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
 
-                    //counter + after every loop
-                    counter++;
+                        //add total interruptions
+                        totalInterruptions+=s.getInterruptions();
 
+                        //counter + after every loop
+                        counter++;
+
+                    }
                 }
+
             }
 
         }
+
     }
 
     /**
@@ -285,6 +296,7 @@ public class ChartsActivity extends AppCompatActivity {
             wakingText.setText("00:00");
             sleepingText.setText("00:00");
             sleepHoursSumText.setText("0h");
+            interruptionsText.setText("0");
             frequentWakingTime.setText("-");
             frequentSleepTime.setText("-");
         }else{
@@ -305,6 +317,7 @@ public class ChartsActivity extends AppCompatActivity {
 
         //set new calculated data into text widgets
         setTextData();
+        //getData();
 
         //update progress bar
         int currentDay = 30;
