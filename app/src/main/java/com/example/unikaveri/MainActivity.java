@@ -3,6 +3,7 @@ package com.example.unikaveri;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -11,6 +12,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -26,6 +28,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.prefs.Preferences;
+
 import java.util.Locale;
 
 /**
@@ -80,6 +84,7 @@ public class MainActivity extends AppCompatActivity {
         startMinuteUpdater();
     }
 
+
     /**
      * bottom navigation function
      * TODO: copy-paste this to other activities
@@ -104,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));
                         return true;
                     case R.id.settings:
-                        Log.d("menu settings",""); //TODO:<- delete, add startActivity
+                        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                         return true;
                 }
                 return false;
@@ -125,9 +130,16 @@ public class MainActivity extends AppCompatActivity {
      * edit/set greeting and date UI
      */
     private void editGreetingText(){
+
+        SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        String username = "" +
+                sharedPrefs.getString("pref_username", "");
+
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);
         // get appropriate greeting based on current hour
-        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
+        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+" "+username+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
         editWeekday.setText(time.getDate()+" "+time.getWeekday());

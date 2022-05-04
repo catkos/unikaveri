@@ -35,24 +35,9 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.4.2'
     implementation 'androidx.navigation:navigation-ui:2.4.2'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    implementation 'androidx.preference:preference:1.1.0'
+    implementation 'androidx.databinding:compiler:3.2.0-alpha11'
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-}
-
-android.applicationVariants.all { variant ->
-    task("generate${variant.name.capitalize()}Javadoc", type: Javadoc) {
-        description "Generates Javadoc for $variant.name."
-
-        source = variant.javaCompileProvider.get().source
-        destinationDir = file("$rootDir/javadoc/")
-        failOnError false
-
-        doFirst {
-            ext.androidJar = "${android.sdkDirectory}/platforms/${android.compileSdkVersion}/android.jar"
-            classpath = files(variant.javaCompile.classpath.files) + files(ext.androidJar)
-            options.links('https://developer.android.com/reference/', 'https://d.android.com/reference/androidx/')
-            options.memberLevel = JavadocMemberLevel.PRIVATE
-        }
-    }
 }
