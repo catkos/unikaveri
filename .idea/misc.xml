@@ -3,37 +3,6 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Users/Catrina/AndroidStudioProjects/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.297554347826087" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/drawable/ic_baseline_add_circle.xml" value="0.2985" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/drawable/ic_baseline_bedtime_24.xml" value="0.2985" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/layout/activity_activity2_test.xml" value="0.297554347826087" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/layout/activity_charts.xml" value="0.371875" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/layout/fragment_calendar.xml" value="0.297554347826087" />
-        <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/menu/bottom_menu_navigation.xml" value="0.371875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/custom_input.xml" value="0.2925" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/custom_radio_dissatisfied.xml" value="0.2275" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_bed.xml" value="0.2275" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_mood_bad_24.xml" value="0.208" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_nights.xml" value="0.276" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_sentiment_neutral_24.xml" value="0.208" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_sentiment_satisfied_alt_24.xml" value="0.208" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_sentiment_very_dissatisfied_24.xml" value="0.208" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/drawable/ic_baseline_sentiment_very_satisfied_24.xml" value="0.208" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_add_sleep_note.xml" value="0.5" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_alarm.xml" value="0.33" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_calendar.xml" value="0.340625" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_charts.xml" value="0.2971014492753623" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_main2.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_set_alarms.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_sleep_note_details.xml" value="0.33" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/sleep_note_list_item_layout.xml" value="0.5" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/menu/bottom_menu_navigation.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/menu/menu.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/menu/popup_menu.xml" value="0.3546875" />
-        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/menu/sleep_note_details_menu.xml" value="0.3546875" />
-        <entry key="..\:/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
   </component>

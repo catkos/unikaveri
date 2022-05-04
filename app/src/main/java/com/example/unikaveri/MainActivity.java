@@ -124,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
-        editWeekday.setText(time.getDate()+" "+time.getWeekday().toUpperCase());
+        editWeekday.setText(time.getDate()+" "+time.getWeekday());
     }
 
     /**
