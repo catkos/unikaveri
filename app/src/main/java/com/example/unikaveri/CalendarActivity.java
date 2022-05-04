@@ -143,7 +143,6 @@ public class CalendarActivity extends AppCompatActivity {
     private void bottomNavigation(){
         BottomNavigationView navi = findViewById(R.id.bottomNavigationView);
 
-        // TODO: set selected activity for menu highlight
         navi.setSelectedItemId(R.id.calendar);
 
         //item select listener
@@ -155,12 +154,15 @@ public class CalendarActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.home:
                         startActivity(new Intent(getApplicationContext(),MainActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.charts:
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
-                        Log.d("menu settings",""); //TODO:<- delete, add startActivity
+                        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
