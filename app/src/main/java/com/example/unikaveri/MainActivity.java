@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * edit/set greeting & date UI
+     * edit/set greeting and date UI
      */
     private void editGreetingText(){
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);

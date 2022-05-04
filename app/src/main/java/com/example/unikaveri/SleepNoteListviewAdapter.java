@@ -26,7 +26,7 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
      * Define SleepNoteAdapter.
      * @param context Context
      * @param resource int
-     * @param objects List<SleepNote>
+     * @param objects List
      */
     public SleepNoteListviewAdapter(@NonNull Context context, int resource, @NonNull List<SleepNote> objects) {
         super(context, resource, objects);

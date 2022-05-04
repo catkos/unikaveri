@@ -36,7 +36,7 @@ public class SleepNoteGlobalModel {
 
     /**
      * Return List with SleepNote Objects.
-     * @return List<SleepNote> List consist of SleepNote Objects.
+     * @return List List consist of SleepNote Objects.
      */
     List<SleepNote> getAllSleepNotesList() { return this.sleepNotesList; }
 
@@ -54,7 +54,7 @@ public class SleepNoteGlobalModel {
      * Return List with SleepNote Objects that have same month and year as the date param.
      *
      * @param date LocalDateTime to compare SleepNote Object's dates.
-     * @return List<SleepNote> List consists of SleepNote Object's with same month and year
+     * @return List List consists of SleepNote Object's with same month and year
      * as the date param.
      */
     List<SleepNote> getListByMonthAndYear(LocalDateTime date) {

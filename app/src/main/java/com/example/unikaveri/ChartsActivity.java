@@ -156,7 +156,7 @@ public class ChartsActivity extends AppCompatActivity {
     }
 
     /**
-     * insert data from sP sleep note data json & make necessary calculations
+     * insert data from sP sleep note data json and make necessary calculations
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void insertData(){
@@ -174,7 +174,7 @@ public class ChartsActivity extends AppCompatActivity {
 
             // Calculate TODO: fix the calculations
             for(SleepNote s : listTmp){
-                // Calculate ONLY if month & year matches UI month & year
+                // Calculate ONLY if month and year matches UI month and year
                 if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
                     //add waking up time
