@@ -83,12 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * bottom navigation function
-     * TODO: copy-paste this to other activities
      */
     private void bottomNavigation(){
         BottomNavigationView navi = findViewById(R.id.bottomNavigationView);
 
-        // TODO: set selected activity for menu highlight
         navi.setSelectedItemId(R.id.home);
 
         //item select listener
@@ -100,12 +98,15 @@ public class MainActivity extends AppCompatActivity {
                 switch(item.getItemId()){
                     case R.id.calendar:
                         startActivity(new Intent(getApplicationContext(),CalendarActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.charts:
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                     case R.id.settings:
                         startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
+                        overridePendingTransition(0,0);
                         return true;
                 }
                 return false;
