@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Main activity.
+ * Main activity. Test update
  * @author Catrina and Kerttu
  */
 public class MainActivity extends AppCompatActivity {
