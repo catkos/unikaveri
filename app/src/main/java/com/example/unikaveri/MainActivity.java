@@ -104,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(),ChartsActivity.class));
                         return true;
                     case R.id.settings:
-                        Log.d("menu settings",""); //TODO:<- delete, add startActivity
+                        startActivity(new Intent(getApplicationContext(),SettingsActivity.class));
                         return true;
                 }
                 return false;

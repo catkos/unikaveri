@@ -14,8 +14,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Unikaveri">
         <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".AlarmActivity"
-            android:exported="false"/>
+            android:exported="false" />
 
         <service
             android:name=".AlarmService"
