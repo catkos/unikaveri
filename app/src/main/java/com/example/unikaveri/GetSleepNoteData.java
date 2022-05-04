@@ -53,15 +53,23 @@ public class GetSleepNoteData {
     }
 
     /**
+     * checks if list is empty
+     * @return true if empty, false if not
+     */
+    public boolean isEmpty(){
+        if(sleepNotes.isEmpty()){
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * returns sleepNotes list, return null if list empty
      * @return sleepNotes lsit
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public List<SleepNote> getSleepNotes(String sleepNotesString){
         sleepNotes  = gson.fromJson(sleepNotesString, token.getType());
-        if(!sleepNotes.isEmpty()){
-            return sleepNotes;
-        }
-        return null;
+        return sleepNotes;
     }
 }

@@ -67,11 +67,11 @@ public class ChartsActivity extends AppCompatActivity {
         bottomNavigation();
 
         initWidgets();
-
         updateUI();
 
         getData();
         setTextData();
+
     }
 
     /**
@@ -159,32 +159,37 @@ public class ChartsActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getData(){
-        for(SleepNote s: GetSleepNoteData.getSleepNotes(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""))){
-            // Calculate ONLY if month and year matches UI month and year
-            if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
-                //add waking up time
-                avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                //add wake time in arraylist
-                wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+        if(!GetSleepNoteData.getInstance().isEmpty()){
 
-                //add going to sleep time
-                avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
-                avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
-                //add going to sleep time in arraylist
-                sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
+            for(SleepNote s: GetSleepNoteData.getSleepNotes(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""))){
+                // Calculate ONLY if month and year matches UI month and year
+                if(s.getDate().format(DateTimeFormatter.ofPattern("MM.yyyy")).equals(currentDate.format(DateTimeFormatter.ofPattern("MM.yyyy")))){
 
-                //add sleeping time hours into list
-                sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
+                    //add waking up time
+                    avgWaking+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                    avgWakingMin+=Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                    //add wake time in arraylist
+                    wakingTimeHours.add(Integer.parseInt(s.getWakeTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-                //add total interruptions
-                totalInterruptions+=s.getInterruptions();
+                    //add going to sleep time
+                    avgSleeping+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH")));
+                    avgSleepingMin+=Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("mm")));
+                    //add going to sleep time in arraylist
+                    sleepingTimeHours.add(Integer.parseInt(s.getSleepTimeDate().format(DateTimeFormatter.ofPattern("HH"))));
 
-                //counter + after every loop
-                counter++;
+                    //add sleeping time hours into list
+                    sleepingHours.add(Integer.parseInt(s.getSleepingTimeHourString()));
 
+                    //add total interruptions
+                    totalInterruptions+=s.getInterruptions();
+
+                    //counter + after every loop
+                    counter++;
+
+                }
             }
+
         }
     }
 
