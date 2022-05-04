@@ -22,13 +22,23 @@ public class AlarmActivity extends AppCompatActivity {
     private CurrentTime time;
 
     private View clockIcon;
-    private TextView clock;
+    private TextView clockTv;
+    private TextView alarmMessageTv;
+
+    private String message;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alarm);
+
+        Bundle bundle = getIntent().getExtras();
+
+        // Get intent extras
+        message = bundle.getString("message");
+
         time = new CurrentTime();
+
         initWidgets();
         animateAlarmIcon();
         setClockTextView(time);
@@ -36,11 +46,14 @@ public class AlarmActivity extends AppCompatActivity {
     }
 
     /**
-     * Initialize clockIcon View and clock TextView.
+     * Initialize clockIcon View, clockTv TextView and alarmMessageTv TextView.
+     * Set message to alarmMessageTv.
      */
     private void initWidgets() {
         clockIcon = findViewById(R.id.clockIcon);
-        clock = findViewById(R.id.clockTextView);
+        clockTv = findViewById(R.id.clockTextView);
+        alarmMessageTv = findViewById(R.id.alarmMessageTextView);
+        alarmMessageTv.setText(message);
     }
 
     /**
@@ -48,7 +61,7 @@ public class AlarmActivity extends AppCompatActivity {
      * @param time CurrentTime - The time to set to clock TextView.
      */
     private void setClockTextView(CurrentTime time) {
-        clock.setText(time.getCurrentTime());
+        clockTv.setText(time.getCurrentTime());
     }
 
     /**

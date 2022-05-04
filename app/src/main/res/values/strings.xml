@@ -37,4 +37,5 @@
     <string name="listItemsleepingTimeHoursAndMinutesText">8h 15min</string>
     <string name="listItemSleepTimeText">23:55</string>
     <string name="listItemWakeTimeText">7:35</string>
+    <string name="sampletime">8h 35min</string>
 </resources>

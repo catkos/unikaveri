@@ -17,7 +17,7 @@ import android.widget.Toast;
 import java.time.LocalTime;
 import java.util.Locale;
 
-/** Activity to set alarms.
+/** Activity for setting alarms.
  * @author Kerttu
  */
 public class SetAlarmsActivity extends AppCompatActivity {
@@ -122,6 +122,12 @@ public class SetAlarmsActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setAlarms() {
+        sleepTimeHour = sleepTimeHour - 1;
+
+        if (sleepTimeHour < 0) {
+            sleepTimeHour = 23;
+        }
+
         // Create alarms for wake up and sleep times
         Alarm wakeAlarm = new Alarm(1, wakeTimeHour, wakeTimeMinute);
         Alarm sleepAlarm = new Alarm(2, sleepTimeHour, sleepTimeMinute);

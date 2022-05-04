@@ -16,7 +16,7 @@ import androidx.core.app.NotificationCompat;
  */
 public class AlarmService extends Service {
 
-    private static final String CHANNEL_ID = "ALARM_CHANNEL";
+    private static String CHANNEL;
 
     private MediaPlayer mediaPlayer;
 
@@ -31,7 +31,7 @@ public class AlarmService extends Service {
     }
 
     /**
-     * Create notification and start playing mediaPlayer.
+     * Create notification and start foreground and mediaplayer.
      * @param intent Intent
      * @param flags int
      * @param startId StartId
@@ -44,14 +44,21 @@ public class AlarmService extends Service {
         String title = intent.getStringExtra("title");
         String message = intent.getStringExtra("message");
 
+        if (ID == 1) {
+            CHANNEL = "ALARM_CHANNEL";
+        } else {
+            CHANNEL = "SLEEP_ALARM_CHANNEL";
+        }
+
         // Call AlarmActivity when notification is clicked
         Intent notificationIntent = new Intent(this, AlarmActivity.class);
+        notificationIntent.putExtra("message", message);
 
         // Create PendingIntent
         PendingIntent pendingIntent = PendingIntent.getActivity(this, ID, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         // Prepare notification
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_baseline_alarm)

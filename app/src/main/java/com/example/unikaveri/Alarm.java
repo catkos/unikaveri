@@ -72,12 +72,12 @@ public class Alarm {
         }
 
         // Set repeating alarm
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+        // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
         // TODO: Check if find workaround to set exact alarms on interval
         //  because setRepeating is not exact and will go off on 5min range
         // Set exact alarm
-        // alarmManager.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
     }
 
     /**

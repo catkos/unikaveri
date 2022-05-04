@@ -29,7 +29,7 @@
             android:contentDescription="@string/previousMonthButtonDesc"
             android:onClick="buttonPressed"
             app:srcCompat="@drawable/ic_baseline_arrow_back_ios_new_24"
-            app:tint="@color/purple_500" />
+            style="@style/CustomIcon" />
 
         <TextView
             android:id="@+id/monthYearTextView"
@@ -50,7 +50,7 @@
             android:contentDescription="@string/nextMonthButtonDesc"
             android:onClick="buttonPressed"
             app:srcCompat="@drawable/ic_baseline_arrow_forward_ios_24"
-            app:tint="@color/purple_500" />
+            style="@style/CustomIcon" />
     </LinearLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -78,7 +78,10 @@
         app:layout_constraintBottom_toBottomOf="@+id/frame_layout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:listSelector="@android:color/transparent"/>
 
     <TextView
         android:id="@+id/emptyListTextView"

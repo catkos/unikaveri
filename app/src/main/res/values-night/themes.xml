@@ -14,4 +14,21 @@
         <!-- Customize your theme here. -->
         <item name="android:textColor">@color/off_white</item>
     </style>
+
+    <style name="CustomCardview" parent="CardView">
+        <item name="cardBackgroundColor">@color/dark</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">10dp</item>
+    </style>
+
+    <style name="CustomIcon">
+        <item name="android:tint">@color/purple_200</item>
+    </style>
+
+    <style name="CustomInput">
+        <item name="drawableTint">@color/teal_200</item>
+        <item name="backgroundTint">@color/dark</item>
+    </style>
+
 </resources>
