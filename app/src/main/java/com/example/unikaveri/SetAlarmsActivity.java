@@ -3,10 +3,7 @@ package com.example.unikaveri;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,11 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.time.LocalTime;
-import java.util.Calendar;
 import java.util.Locale;
 
+/** Activity to set alarms.
+ * @author Kerttu
+ */
 public class SetAlarmsActivity extends AppCompatActivity {
 
     public static final String ALARMS_PREFS = "alarms";
@@ -44,8 +44,11 @@ public class SetAlarmsActivity extends AppCompatActivity {
     private int sleepTimeMinute;
     private int wakeTimeHour;
     private int wakeTimeMinute;
-    private final int notificationID = 1;
 
+    /**
+     * On create: initialize widgets, load alarm settings, set switches and initialize time picker dialogs.
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,9 @@ public class SetAlarmsActivity extends AppCompatActivity {
         initWakeTimePickerDialog(LocalTime.of(wakeTimeHour,wakeTimeMinute));
     }
 
+    /**
+     * Initialize EditTexts, Switches and Button.
+     */
     private void initWidgets() {
         sleepTimePickerEt = findViewById(R.id.sleepTimePickerEditText);
         wakeTimePickerEt = findViewById(R.id.wakeTimePickerEditText);
@@ -102,53 +108,40 @@ public class SetAlarmsActivity extends AppCompatActivity {
         wakeTimePickerEt.setText(String.format(Locale.getDefault(), "%02d:%02d", time.getHour(), time.getMinute()));
     }
 
+    /**
+     * Set sleepAlarmSwitch and wakeAlarmSwitch depending on sleepAlarmIsSet's and wakeAlarmIsSet's
+     * value (true, false).
+     */
     private void setSwitches() {
         sleepAlarmSwitch.setChecked(sleepAlarmIsSet);
         wakeAlarmSwitch.setChecked(wakeAlarmIsSet);
     }
 
+    /**
+     * Set alarm if wakeAlarmSwitch/sleepAlarmSwitch is checked. If not, cancel the alarm.
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void setNotifications() {
-        Intent intent = new Intent(SetAlarmsActivity.this, AlarmReceiver.class);
-        intent.putExtra("id", 1);
-        intent.putExtra("title", "Nukkumaanmenoaikasi lähestyy");
-        intent.putExtra("message", "Valmistaudu nukkumaan tunnin päästä");
+    private void setAlarms() {
+        // Create alarms for wake up and sleep times
+        Alarm wakeAlarm = new Alarm(1, wakeTimeHour, wakeTimeMinute);
+        Alarm sleepAlarm = new Alarm(2, sleepTimeHour, sleepTimeMinute);
 
-        // PendingIntent
-        PendingIntent alarmSleepTimeIntent = PendingIntent.getBroadcast(SetAlarmsActivity.this, 1, intent, PendingIntent.FLAG_CANCEL_CURRENT);
-
-        Calendar sleepTime = Calendar.getInstance();
-        sleepTime.set(Calendar.HOUR_OF_DAY, (sleepTimeHour - 1));
-        sleepTime.set(Calendar.MINUTE, sleepTimeMinute);
-        sleepTime.set(Calendar.SECOND, 0);
-
-        // AlarmManager
-        AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
-
-        if (sleepAlarmSwitch.isChecked()) {
-            // Set repeating notification
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, sleepTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmSleepTimeIntent);
-            sleepAlarmIsSet = true;
-            saveAlarmSettings();
-        } else {
-            alarmManager.cancel(alarmSleepTimeIntent);
-            sleepAlarmIsSet = false;
-        }
-
+        // If wakeAlarmSwitch is checked
         if (wakeAlarmSwitch.isChecked()) {
-            Intent wakeIntent = new Intent(SetAlarmsActivity.this, AlarmReceiver.class);
-            wakeIntent.putExtra("ID", 2);
-            wakeIntent.putExtra("title", "Herätys!");
-            wakeIntent.putExtra("message", "On aika herätä!");
-            PendingIntent alarmPendingIntent = PendingIntent.getBroadcast(SetAlarmsActivity.this, 2, wakeIntent, PendingIntent.FLAG_CANCEL_CURRENT);
-            Calendar wakeTime = Calendar.getInstance();
-            wakeTime.set(Calendar.HOUR_OF_DAY, wakeTimeHour);
-            wakeTime.set(Calendar.MINUTE, wakeTimeMinute);
-            wakeTime.set(Calendar.SECOND, 0);
-            alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, wakeTime.getTimeInMillis(), AlarmManager.INTERVAL_DAY, alarmPendingIntent);
+            wakeAlarm.createAlarm(SetAlarmsActivity.this);
             wakeAlarmIsSet = true;
         } else {
+            wakeAlarm.cancelAlarm(SetAlarmsActivity.this);
             wakeAlarmIsSet = false;
+        }
+
+        // If sleepAlarmSwitch is checked
+        if (sleepAlarmSwitch.isChecked()) {
+            sleepAlarm.createAlarm(SetAlarmsActivity.this);
+            sleepAlarmIsSet = true;
+        } else {
+            sleepAlarm.cancelAlarm(SetAlarmsActivity.this);
+            sleepAlarmIsSet = false;
         }
 
         saveAlarmSettings();
@@ -156,7 +149,10 @@ public class SetAlarmsActivity extends AppCompatActivity {
 
     /**
      * Buttons functionalities.
-     * @param v View
+     * If wakeTimePickerEt is clicked: open wakeTimePickerDialog.
+     * If sleepTimePickedEt is clicked: open sleepTimePickerDialog.
+     * if saveBtn is clicked: set alarms and finish the activity.
+     * @param v View - Clicked View.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
@@ -165,11 +161,25 @@ public class SetAlarmsActivity extends AppCompatActivity {
         } else if (v.getId() == sleepTimePickerEt.getId()) {
             sleepTimePickerDialog.show();
         } else if (v.getId() == saveBtn.getId()) {
-            setNotifications();
+            setAlarms();
+
+            String message;
+
+            if (wakeAlarmIsSet || sleepAlarmIsSet) {
+                message = "Hälytykset asetettu.";
+            } else {
+                message = "Hälytykset otettu pois päältä.";
+            }
+
+            Toast.makeText(getApplicationContext(),message, Toast.LENGTH_LONG).show();
             finish();
         }
     }
 
+    /**
+     * Load alarm settings from shared preferences and set the values to: sleepTimeHour, sleepTimeMinute,
+     * sleepAlarmIsSet, wakeTimeHour, wakeTimeMinute and wakeAlarmIsSet.
+     */
     public void loadAlarmSettings() {
         SharedPreferences alarmPreferences = getSharedPreferences(ALARMS_PREFS, MODE_PRIVATE);
         sleepTimeHour = alarmPreferences.getInt(SLEEP_ALARM_HOUR, 22);
@@ -180,6 +190,9 @@ public class SetAlarmsActivity extends AppCompatActivity {
         wakeAlarmIsSet = alarmPreferences.getBoolean(WAKE_ALARM_IS_SET, false);
     }
 
+    /**
+     * Save alarm settings to shared preferences.
+     */
     public void saveAlarmSettings() {
         SharedPreferences alarmPreferences = getSharedPreferences(ALARMS_PREFS, MODE_PRIVATE);
         SharedPreferences.Editor editor = alarmPreferences.edit();

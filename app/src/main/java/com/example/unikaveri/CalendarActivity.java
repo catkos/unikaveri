@@ -25,22 +25,30 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * Calendar activity.
+ * Calendar activity for checking user's sleep notes.
  * @author Kerttu
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CalendarActivity extends AppCompatActivity {
 
     private final SleepNoteGlobalModel sleepNoteGM = SleepNoteGlobalModel.getInstance();
+
     private final String EXTRA = "SleepNote";
     private final String SLEEP_NOTE_DATA = "sleepNoteData";
+
     private final LocalDateTime maxDate = LocalDateTime.now();
     private LocalDateTime currentDate = LocalDateTime.now();
+
     private TextView monthYearTv;
     private ListView sleepNotesLv;
     private SleepNoteListviewAdapter listAdapter;
+
     private int clickedListViewItem;
 
+    /**
+     * On create: load SleepNoteData, set bottom navigation, initialize widgets and update UI.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,12 +59,18 @@ public class CalendarActivity extends AppCompatActivity {
         updateUI();
     }
 
+    /**
+     * On resume: update UI.
+     */
     @Override
     protected void onResume() {
         super.onResume();
         updateUI();
     }
 
+    /**
+     * On start: update UI.
+     */
     @Override
     protected void onStart() {
         super.onStart();

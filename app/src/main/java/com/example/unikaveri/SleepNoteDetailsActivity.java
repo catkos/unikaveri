@@ -6,23 +6,34 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
+ * Activity to show SleepNote's details.
  * @author Kerttu
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class SleepNoteDetailsActivity extends AppCompatActivity {
 
     private final SleepNoteGlobalModel sleepNoteGM = SleepNoteGlobalModel.getInstance();
+
+    private final String SLEEP_NOTE_DATA = "sleepNoteData";
     private final String EXTRA = "SleepNote";
+
     private int sleepNoteIndex;
+
     private SleepNote sleepNote;
     private TextView sleepingTimeTv;
     private TextView sleepTimeTv;
@@ -30,6 +41,12 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
     private TextView interruptionsTv;
     private TextView qualityTv;
 
+    private AlertDialog alertDialog;
+
+    /**
+     * On create: set sleepNoteIndex from intent extras, initialize widgets and update UI.
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,9 +55,13 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         sleepNoteIndex = bundle.getInt(EXTRA, 0);
         initWidgets();
+        initAlertDialog();
         updateUI();
     }
 
+    /**
+     * On resume: update UI.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -60,7 +81,11 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
 
     /**
      * When user interacts with top action bar's buttons.
-     * @param item MenuItem
+     * If user clicks action_edit: Create intent from AddSleepNoteActivity, put the sleepNoteIndex
+     * as extra and start activity.
+     * If user click action_delete: show alert dialog.
+     *
+     * @param item MenuItem - The clicked MenuItem.
      * @return boolean
      */
     @Override
@@ -74,7 +99,7 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.action_delete:
-                initAlertDialog();
+                alertDialog.show();
                 return true;
             case android.R.id.home:
                 finish();
@@ -114,14 +139,15 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
         sleepTimeTv.setText(sleepTime);
         wakeTimeTv.setText(wakeTime);
         interruptionsTv.setText(Integer.toString(interruptions));
+        qualityTv.setText(quality);
 
-
+        // Set the action bar's title to date
         getSupportActionBar().setTitle(date);
     }
 
     /**
-     * Initialize alert dialog and onClick listener for positive button when user wants to
-     * delete the SleepNote.
+     * Initialize alert dialog for when user wants to delete SleepNote. Add onClick listener for
+     * positive button to delete SleepNote and finish this activity.
      */
     private void initAlertDialog() {
         // Set alert builder
@@ -137,6 +163,7 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 sleepNoteGM.deleteSleepNote(sleepNote);
+                saveSleepNoteData();
                 Toast.makeText(getApplicationContext(),"Merkintä poistettu.", Toast.LENGTH_LONG).show();
                 finish();
             }
@@ -146,7 +173,21 @@ public class SleepNoteDetailsActivity extends AppCompatActivity {
         alertBuilder.setNegativeButton("Peruuta", null);
 
         // Create and show the alert dialog
-        AlertDialog dialog = alertBuilder.create();
-        dialog.show();
+        alertDialog = alertBuilder.create();
+    }
+
+    /**
+     * Save SleepNoteGlobalModel's SleepNote list as Json to shared preferences.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void saveSleepNoteData() {
+        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+        String jsonSleepNotes = gson.toJson(SleepNoteGlobalModel.getInstance().getAllSleepNotesList());
+
+        editor.putString("sleepNotes", jsonSleepNotes);
+        editor.apply();
     }
 }

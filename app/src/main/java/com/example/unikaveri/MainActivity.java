@@ -18,10 +18,17 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
+import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity {
+
+    private final String SLEEP_NOTE_DATA = "sleepNoteData";
 
     private CurrentTime time;
     private BroadcastReceiver minuteUpdate;
@@ -41,13 +48,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        sleepTimeTv = findViewById(R.id.sleepTimeText);
-        wakeTimeTv = findViewById(R.id.wakeTimeText);
+
+        // Load sleep note data to SleepNoteGlobalModel
+        loadSleepNoteData();
 
         // Load alarm settings from shared preferences
         loadAlarmSettings();
 
-        initAlarmTextViews();
+        // Initialise alarm textviews
+        alarmTextViews();
 
         // set bottomNavigation item activities
         bottomNavigation();
@@ -139,6 +148,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        loadAlarmSettings();
+        alarmTextViews();
         startMinuteUpdater(); //continue clock UI updater
     }
 
@@ -151,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
     /**
      * Buttons functionalities.
      * If addNewSleepNoteButton is clicked: open AddSleepNoteActivity.
+     * If sleepTimeText or wakeTimeText is clicked: open SetAlarmsActivity.
      * @param v View
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -160,12 +172,19 @@ public class MainActivity extends AppCompatActivity {
         if (id == R.id.addNewSleepNoteButton) {
             Intent intent = new Intent(this, AddSleepNoteActivity.class);
             startActivity(intent);
-        } else if (id == R.id.sleepTimeText || id == R.id.wakeTimeText) {
+        } else if (id == R.id.sleepTimeText) {
+            Intent intent = new Intent(this, SetAlarmsActivity.class);
+            startActivity(intent);
+        } else if (id == R.id.wakeTimeText) {
             Intent intent = new Intent(this, SetAlarmsActivity.class);
             startActivity(intent);
         }
     }
 
+    /**
+     * Load alarm settings from shared preferences and set the values to: sleepTimeHour, sleepTimeMinute,
+     * sleepAlarmIsSet, wakeTimeHour, wakeTimeMinute and wakeAlarmIsSet.
+     */
     public void loadAlarmSettings() {
         SharedPreferences alarmPrefs = getSharedPreferences(SetAlarmsActivity.ALARMS_PREFS, MODE_PRIVATE);
         sleepTimeHour = alarmPrefs.getInt(SetAlarmsActivity.SLEEP_ALARM_HOUR, 22);
@@ -176,7 +195,15 @@ public class MainActivity extends AppCompatActivity {
         wakeAlarmIsSet = alarmPrefs.getBoolean(SetAlarmsActivity.WAKE_ALARM_IS_SET, false);
     }
 
-    public void initAlarmTextViews() {
+    /**
+     * Initialise TextViews based on sleepAlarmIsSet/wakeAlarmIsSet: if their value is true, set text
+     * according to sleepTimeHour/wakeTimeHour and sleepTimeMinute/wakeTimeMinute.
+     * Or if value is false: set text to "Pois päältä".
+     */
+    public void alarmTextViews() {
+        sleepTimeTv = findViewById(R.id.sleepTimeText);
+        wakeTimeTv = findViewById(R.id.wakeTimeText);
+
         if (sleepAlarmIsSet) {
             sleepTimeTv.setText(String.format(
                     Locale.getDefault(),
@@ -195,6 +222,28 @@ public class MainActivity extends AppCompatActivity {
                     wakeTimeMinute));
         } else {
             wakeTimeTv.setText("Pois päältä");
+        }
+    }
+
+    /**
+     * Load SleepNote Objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
+     */
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void loadSleepNoteData() {
+        // Clear SleepNotes List before putting data from shared preferences
+        SleepNoteGlobalModel.getInstance().getAllSleepNotesList().clear();
+
+        // Create new GsonBuilder to deserialize date strings to LocalDateTime
+        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
+
+        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
+        String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
+
+        // Check that sleepNoteString is not empty before adding data to SleepNotes list.
+        if (!sleepNotesString.isEmpty()) {
+            TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
+            List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
+            SleepNoteGlobalModel.getInstance().getAllSleepNotesList().addAll(listTmp);
         }
     }
 }

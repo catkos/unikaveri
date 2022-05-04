@@ -13,15 +13,18 @@ import java.time.format.DateTimeFormatter;
  * @author Kerttu
  */
 public class SleepNote {
+
     private LocalDateTime date;
     private LocalDateTime sleepTimeDate;
     private LocalDateTime wakeUpTimeDate;
+
     private long sleepingTime;
     private int interruptions;
+
     private String quality;
 
     /**
-     * Define SleepNote object.
+     * Define SleepNote Object.
      * @param sleepTimeDate LocalDateTime
      * @param wakeTimeDate LocalDateTime
      * @param interruptions int
@@ -164,7 +167,7 @@ public class SleepNote {
                 quality.equals("Huonosti") ||
                 quality.equals("Normaalisti") ||
                 quality.equals("Hyvin") ||
-                quality.equals("Erittäin huonosti")) {
+                quality.equals("Erittäin hyvin")) {
             this.quality = quality;
         } else {
             // Default, shouldn't ever happen

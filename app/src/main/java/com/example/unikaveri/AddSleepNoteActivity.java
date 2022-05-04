@@ -35,9 +35,12 @@ import java.util.Locale;
 public class AddSleepNoteActivity extends AppCompatActivity {
 
     private final SleepNoteGlobalModel sleepNoteGM = SleepNoteGlobalModel.getInstance();
+
     private final String SLEEP_NOTE_DATA = "sleepNoteData";
     private final String EXTRA = "SleepNote";
+
     private int editSleepNote = -1;
+
     private EditText sleepDatePickerEt;
     private EditText sleepTimePickerEt;
     private EditText wakeDatePickerEt;
@@ -45,6 +48,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     private EditText interruptionsEt;
     private RadioGroup sleepQualityRg;
     private Button saveSleepNoteBtn;
+
     private DatePickerDialog sleepDatePickerDialog;
     private TimePickerDialog sleepTimePickerDialog;
     private DatePickerDialog wakeDatePickerDialog;
@@ -269,7 +273,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
                 String toastMsg;
 
                 if (editSleepNote == -1) {
-                    toastMsg = "Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString();
+                    toastMsg = "Merkintä tallennettu päivälle " + wakeDatePickerEt.getText().toString() + ".";
                 } else {
                     toastMsg = "Merkintä muokattu.";
                 }

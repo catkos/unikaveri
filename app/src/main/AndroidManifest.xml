@@ -14,7 +14,7 @@
         android:theme="@style/Theme.Unikaveri">
         <activity
             android:name=".AlarmActivity"
-            android:exported="false" />
+            android:exported="false"/>
 
         <service
             android:name=".AlarmService"
@@ -24,7 +24,7 @@
         <activity
             android:name=".SetAlarmsActivity"
             android:exported="false"
-            android:label="Aseta ajat"
+            android:label="Aseta hälytykset"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
