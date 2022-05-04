@@ -5,9 +5,9 @@
     android:id="@+id/main_nav"
     app:startDestination="@id/mainActivity">
 
-    <activity
-        android:id="@+id/mainActivity"
-        android:name="com.example.unikaveri.MainActivity"
-        android:label="activity_main"
-        tools:layout="@layout/activity_main" />
+        <activity
+            android:id="@+id/mainActivity"
+            android:name="com.example.unikaveri.MainActivity"
+            android:label="activity_main"
+            tools:layout="@layout/activity_main" />
 </navigation>

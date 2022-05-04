@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">unikaveri</string>
+    <string name="app_name">Unikaveri</string>
     <string name="greetingText">Greeting text</string>
     <string name="clockText">HH:mm</string>
     <string name="weekdayText">d.M Monday</string>
@@ -11,6 +11,8 @@
     <string name="avgSleepHourText">Keskimääräinen yöunenmäärä</string>
     <string name="wakingCounterText">Heräilyjen määrä</string>
     <string name="saveButtonText">Tallenna</string>
+    <string name="edit">Muokkaa</string>
+    <string name="delete">Poista</string>
 
     <!-- activity_calendar -->
     <string name="monthAndYearText">HUHTIKUUTA 2022</string>
@@ -35,6 +37,5 @@
     <string name="listItemsleepingTimeHoursAndMinutesText">8h 15min</string>
     <string name="listItemSleepTimeText">23:55</string>
     <string name="listItemWakeTimeText">7:35</string>
-
-    <!--Settings and Preferences-->
+    <string name="sampletime">8h 35min</string>
 </resources>
