@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,10 +15,6 @@ import android.widget.TextView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
-
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -35,8 +30,6 @@ import java.util.Set;
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class ChartsActivity extends AppCompatActivity {
-
-    private final String SLEEP_NOTE_DATA = "sleepNoteData";
 
     private GetSleepNoteData GetSleepNoteData;
 
@@ -197,7 +190,6 @@ public class ChartsActivity extends AppCompatActivity {
 
         //set data to widgets
         setTextData();
-
     }
 
     /**

@@ -11,6 +11,8 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -209,23 +211,31 @@ public class MainActivity extends AppCompatActivity {
         wakeTimeTv = findViewById(R.id.wakeTimeText);
 
         if (sleepAlarmIsSet) {
-            sleepTimeTv.setText(String.format(
+            SpannableString content = new SpannableString(String.format(
                     Locale.getDefault(),
                     "%02d:%02d",
                     sleepTimeHour,
                     sleepTimeMinute));
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            sleepTimeTv.setText(content);
         } else {
-            sleepTimeTv.setText("Pois päältä");
+            SpannableString content = new SpannableString("Pois päältä");
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            sleepTimeTv.setText(content);
         }
 
         if (wakeAlarmIsSet) {
-            wakeTimeTv.setText(String.format(
+            SpannableString content = new SpannableString(String.format(
                     Locale.getDefault(),
                     "%02d:%02d",
                     wakeTimeHour,
                     wakeTimeMinute));
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            wakeTimeTv.setText(content);
         } else {
-            wakeTimeTv.setText("Pois päältä");
+            SpannableString content = new SpannableString("Pois päältä");
+            content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
+            wakeTimeTv.setText(content);
         }
     }
 

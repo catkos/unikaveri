@@ -31,4 +31,8 @@
         <item name="backgroundTint">@color/light</item>
     </style>
 
+    <style name="CustomTextView">
+        <item name="drawableTint">@color/teal_700</item>
+    </style>
+
 </resources>

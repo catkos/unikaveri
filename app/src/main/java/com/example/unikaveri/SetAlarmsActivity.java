@@ -47,7 +47,7 @@ public class SetAlarmsActivity extends AppCompatActivity {
 
     /**
      * On create: initialize widgets, load alarm settings, set switches and initialize time picker dialogs.
-     * @param savedInstanceState
+     * @param savedInstanceState savedInstanceState
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
@@ -122,15 +122,15 @@ public class SetAlarmsActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setAlarms() {
-        sleepTimeHour = sleepTimeHour - 1;
+        int sleepTimeHourTmp = sleepTimeHour - 1;
 
-        if (sleepTimeHour < 0) {
-            sleepTimeHour = 23;
+        if (sleepTimeHourTmp < 0) {
+            sleepTimeHourTmp = 23;
         }
 
         // Create alarms for wake up and sleep times
         Alarm wakeAlarm = new Alarm(1, wakeTimeHour, wakeTimeMinute);
-        Alarm sleepAlarm = new Alarm(2, sleepTimeHour, sleepTimeMinute);
+        Alarm sleepAlarm = new Alarm(2, sleepTimeHourTmp, sleepTimeMinute);
 
         // If wakeAlarmSwitch is checked
         if (wakeAlarmSwitch.isChecked()) {
