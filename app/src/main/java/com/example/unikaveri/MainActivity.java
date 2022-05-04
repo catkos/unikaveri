@@ -11,6 +11,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -125,9 +126,15 @@ public class MainActivity extends AppCompatActivity {
      * edit/set greeting and date UI
      */
     private void editGreetingText(){
+        SharedPreferences sharedPrefs = PreferenceManager
+                .getDefaultSharedPreferences(this);
+
+        String username = "" +
+                sharedPrefs.getString("pref_username", "");
+
         TextView editGreeting = (TextView) findViewById(R.id.greetingText);
         // get appropriate greeting based on current hour
-        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+"!");
+        editGreeting.setText("Hyvää "+time.greetingTextTime(time.getCurrentHour())+" "+username+"!");
 
         TextView editWeekday = (TextView) findViewById(R.id.weekdayText);
         editWeekday.setText(time.getDate()+" "+time.getWeekday());
