@@ -11,13 +11,10 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
-<<<<<<< HEAD
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
-=======
 import android.preference.Preference;
->>>>>>> parent of 8f976e7 (Merge branch 'main' into settings_and_preferences)
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -29,17 +26,15 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import java.time.LocalDateTime;
 import java.util.List;
-<<<<<<< HEAD
 import java.util.Locale;
 
 /**
  * Main activity.
  * @author Catrina and Kerttu
  */
-=======
+
 import java.util.prefs.Preferences;
 
->>>>>>> parent of 8f976e7 (Merge branch 'main' into settings_and_preferences)
 public class MainActivity extends AppCompatActivity {
 
     public static final String SLEEP_NOTE_DATA = "sleepNoteData";
