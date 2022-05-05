@@ -17,7 +17,7 @@ public class CurrentTime {
     public CurrentTime(){
         this.c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        this.currentTime = sdf.format(new SimpleDateFormat("HH:mm"));
+        this.currentTime = sdf.format(c.getTime());
     }
 
     /**
