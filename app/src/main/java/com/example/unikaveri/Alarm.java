@@ -61,6 +61,10 @@ public class Alarm {
             intent.putExtra("message", "Valmistaudu nukkumaan tunnin päästä.");
         }
 
+        // Add this.hour and this.minute to create new alarm in alarm receiver for interval
+        intent.putExtra("hour", this.hour);
+        intent.putExtra("minute", this.minute);
+
         // Create PendingIntent
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -79,10 +83,7 @@ public class Alarm {
             time.set(Calendar.DAY_OF_MONTH, time.get(Calendar.DAY_OF_MONTH) + 1);
         }
 
-        // Set repeating alarm. Repeating alarm is not exact
-        // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
-
-        // Set exact
+        // Set exact alarm
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
     }
 

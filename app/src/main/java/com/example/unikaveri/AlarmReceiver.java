@@ -8,6 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 /**
@@ -29,12 +30,21 @@ public class AlarmReceiver extends BroadcastReceiver {
      * @param context Context
      * @param intent Intent
      */
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     public void onReceive(Context context, Intent intent) {
         // Get extras from intent
         int ID = intent.getIntExtra("ID",0);
         String title = intent.getStringExtra("title");
         String message = intent.getStringExtra("message");
+        int hour = intent.getIntExtra("hour", -1);
+        int minute = intent.getIntExtra("minute", -1);
+
+        // Create new alarm
+        if (hour != -1 || minute != -1) {
+            Alarm newAlarm = new Alarm(ID, hour, minute);
+            newAlarm.createAlarm(context.getApplicationContext());
+        }
 
         // If the ID is 1, start foreground service for alarm
         if (ID == 1) {
