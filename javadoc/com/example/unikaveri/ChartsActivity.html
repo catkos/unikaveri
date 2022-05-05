@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10,"i7":10,"i8":10,"i9":10,"i10":10,"i11":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -260,23 +260,23 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
+<td class="colFirst"><code>private <a href="GetSleepNoteData.html" title="class in com.example.unikaveri">GetSleepNoteData</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#GetSleepNoteData">GetSleepNoteData</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
 <td class="colFirst"><code>private <a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#interruptionsText">interruptionsText</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="altColor">
+<tr class="rowColor">
 <td class="colFirst"><code>private <a href="https://developer.android.com/reference/java/time/LocalDateTime.html?is-external=true" title="class or interface in java.time" class="externalLink">LocalDateTime</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#maxDate">maxDate</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr class="rowColor">
+<tr class="altColor">
 <td class="colFirst"><code>private <a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#monthYearUI">monthYearUI</a></span></code></th>
-<td class="colLast">&nbsp;</td>
-</tr>
-<tr class="altColor">
-<td class="colFirst"><code>private <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#SLEEP_NOTE_DATA">SLEEP_NOTE_DATA</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -382,68 +382,74 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 </td>
 </tr>
 <tr id="i1" class="rowColor">
-<td class="colFirst"><code>private void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bottomNavigation()">bottomNavigation</a></span>()</code></th>
+<td class="colFirst"><code>double</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#avgSleepingHour(java.util.List)">avgSleepingHour</a></span>&#8203;(<a href="https://developer.android.com/reference/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="https://developer.android.com/reference/java/lang/Integer.html?is-external=true" title="class or interface in java.lang" class="externalLink">Integer</a>&gt;&nbsp;hoursList)</code></th>
 <td class="colLast">
-<div class="block">bottom navigation
- TODO: copy-paste this function to other activities</div>
+<div class="block">calculate average sleeping hour from list</div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
+<td class="colFirst"><code>private void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#bottomNavigation()">bottomNavigation</a></span>()</code></th>
+<td class="colLast">
+<div class="block">bottom navigation</div>
+</td>
+</tr>
+<tr id="i3" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#buttonPressed(android.view.View)">buttonPressed</a></span>&#8203;(<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a>&nbsp;v)</code></th>
 <td class="colLast">
 <div class="block">button functionalities</div>
 </td>
 </tr>
-<tr id="i3" class="rowColor">
+<tr id="i4" class="altColor">
+<td class="colFirst"><code>void</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#getData()">getData</a></span>()</code></th>
+<td class="colLast">
+<div class="block">loop data from sleep note data json using GetSleepNoteData singleton and add data to variables and lists</div>
+</td>
+</tr>
+<tr id="i5" class="rowColor">
 <td class="colFirst"><code>private void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initWidgets()">initWidgets</a></span>()</code></th>
 <td class="colLast">
 <div class="block">initialize widgets</div>
 </td>
 </tr>
-<tr id="i4" class="altColor">
-<td class="colFirst"><code>void</code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#insertData()">insertData</a></span>()</code></th>
-<td class="colLast">
-<div class="block">insert data from sP sleep note data json and make necessary calculations</div>
-</td>
-</tr>
-<tr id="i5" class="rowColor">
+<tr id="i6" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#mostFrequentTime(java.util.List)">mostFrequentTime</a></span>&#8203;(<a href="https://developer.android.com/reference/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="https://developer.android.com/reference/java/lang/Integer.html?is-external=true" title="class or interface in java.lang" class="externalLink">Integer</a>&gt;&nbsp;hoursList)</code></th>
 <td class="colLast">
-<div class="block">get most frequent hour time from list</div>
+<div class="block">get most frequent/common hour from list</div>
 </td>
 </tr>
-<tr id="i6" class="altColor">
+<tr id="i7" class="rowColor">
 <td class="colFirst"><code>protected void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#onCreate(android.os.Bundle)">onCreate</a></span>&#8203;(<a href="https://developer.android.com/reference/android/os/Bundle.html?is-external=true" title="class or interface in android.os" class="externalLink">Bundle</a>&nbsp;savedInstanceState)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
-<tr id="i7" class="rowColor">
+<tr id="i8" class="altColor">
 <td class="colFirst"><code>private void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#progressBar(int)">progressBar</a></span>&#8203;(int&nbsp;currentDay)</code></th>
 <td class="colLast">
 <div class="block">set progress bar to current day</div>
 </td>
 </tr>
-<tr id="i8" class="altColor">
+<tr id="i9" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#resetVariables()">resetVariables</a></span>()</code></th>
 <td class="colLast">
 <div class="block">reset all variables for re- data/stat calculations</div>
 </td>
 </tr>
-<tr id="i9" class="rowColor">
+<tr id="i10" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#setTextData()">setTextData</a></span>()</code></th>
 <td class="colLast">
 <div class="block">set data/stats to textview widgets</div>
 </td>
 </tr>
-<tr id="i10" class="altColor">
+<tr id="i11" class="rowColor">
 <td class="colFirst"><code>void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#updateUI()">updateUI</a></span>()</code></th>
 <td class="colLast">
@@ -537,17 +543,13 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a id="SLEEP_NOTE_DATA">
+<a id="GetSleepNoteData">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>SLEEP_NOTE_DATA</h4>
-<pre>private final&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a> SLEEP_NOTE_DATA</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#com.example.unikaveri.ChartsActivity.SLEEP_NOTE_DATA">Constant Field Values</a></dd>
-</dl>
+<h4>GetSleepNoteData</h4>
+<pre>private&nbsp;<a href="GetSleepNoteData.html" title="class in com.example.unikaveri">GetSleepNoteData</a> GetSleepNoteData</pre>
 </li>
 </ul>
 <a id="currentDate">
@@ -771,6 +773,10 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <h4>progressBar</h4>
 <pre class="methodSignature">private&nbsp;void&nbsp;progressBar&#8203;(int&nbsp;currentDay)</pre>
 <div class="block">set progress bar to current day</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>currentDay</code> - used for progress bar progress calculation</dd>
+</dl>
 </li>
 </ul>
 <a id="initWidgets()">
@@ -790,8 +796,7 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <li class="blockList">
 <h4>bottomNavigation</h4>
 <pre class="methodSignature">private&nbsp;void&nbsp;bottomNavigation()</pre>
-<div class="block">bottom navigation
- TODO: copy-paste this function to other activities</div>
+<div class="block">bottom navigation</div>
 </li>
 </ul>
 <a id="buttonPressed(android.view.View)">
@@ -804,15 +809,31 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <div class="block">button functionalities</div>
 </li>
 </ul>
-<a id="insertData()">
+<a id="getData()">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>insertData</h4>
+<h4>getData</h4>
 <pre class="methodSignature"><a href="https://d.android.com/reference/androidx/androidx/annotation/RequiresApi.html?is-external=true" title="class or interface in androidx.annotation" class="externalLink">@RequiresApi</a>(<a href="https://d.android.com/reference/androidx/androidx/annotation/RequiresApi.html?is-external=true#api()" title="class or interface in androidx.annotation" class="externalLink">api</a>=26)
-public&nbsp;void&nbsp;insertData()</pre>
-<div class="block">insert data from sP sleep note data json and make necessary calculations</div>
+public&nbsp;void&nbsp;getData()</pre>
+<div class="block">loop data from sleep note data json using GetSleepNoteData singleton and add data to variables and lists</div>
+</li>
+</ul>
+<a id="avgSleepingHour(java.util.List)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>avgSleepingHour</h4>
+<pre class="methodSignature">public&nbsp;double&nbsp;avgSleepingHour&#8203;(<a href="https://developer.android.com/reference/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="https://developer.android.com/reference/java/lang/Integer.html?is-external=true" title="class or interface in java.lang" class="externalLink">Integer</a>&gt;&nbsp;hoursList)</pre>
+<div class="block">calculate average sleeping hour from list</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>hoursList</code> - list of hours saved from data</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the average hour from list</dd>
+</dl>
 </li>
 </ul>
 <a id="mostFrequentTime(java.util.List)">
@@ -822,7 +843,29 @@ public&nbsp;void&nbsp;insertData()</pre>
 <li class="blockList">
 <h4>mostFrequentTime</h4>
 <pre class="methodSignature">public&nbsp;int&nbsp;mostFrequentTime&#8203;(<a href="https://developer.android.com/reference/java/util/List.html?is-external=true" title="class or interface in java.util" class="externalLink">List</a>&lt;<a href="https://developer.android.com/reference/java/lang/Integer.html?is-external=true" title="class or interface in java.lang" class="externalLink">Integer</a>&gt;&nbsp;hoursList)</pre>
-<div class="block">get most frequent hour time from list</div>
+<div class="block">get most frequent/common hour from list</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>hoursList</code> - list of hours saved from data</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the most frequent/common time from list</dd>
+</dl>
+</li>
+</ul>
+<a id="avgMinuteFormat(int)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>avgMinuteFormat</h4>
+<pre class="methodSignature">public&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;avgMinuteFormat&#8203;(int&nbsp;avgMin)</pre>
+<div class="block">format avgMin variable correctly for UI</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>avgMin</code> - sum of minutes from data</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>the average value of avgMin sum</dd>
+</dl>
 </li>
 </ul>
 <a id="resetVariables()">
@@ -843,16 +886,6 @@ public&nbsp;void&nbsp;insertData()</pre>
 <h4>setTextData</h4>
 <pre class="methodSignature">public&nbsp;void&nbsp;setTextData()</pre>
 <div class="block">set data/stats to textview widgets</div>
-</li>
-</ul>
-<a id="avgMinuteFormat(int)">
-<!--   -->
-</a>
-<ul class="blockList">
-<li class="blockList">
-<h4>avgMinuteFormat</h4>
-<pre class="methodSignature">public&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a>&nbsp;avgMinuteFormat&#8203;(int&nbsp;avgMin)</pre>
-<div class="block">format avgMin variable correctly for UI</div>
 </li>
 </ul>
 <a id="updateUI()">

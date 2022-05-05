@@ -173,7 +173,7 @@ extends <a href="https://developer.android.com/reference/android/app/Service.htm
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private static <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CHANNEL_ID">CHANNEL_ID</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#CHANNEL">CHANNEL</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
@@ -266,7 +266,7 @@ extends <a href="https://developer.android.com/reference/android/app/Service.htm
               int&nbsp;flags,
               int&nbsp;startId)</code></th>
 <td class="colLast">
-<div class="block">Create notification and start playing mediaPlayer.</div>
+<div class="block">Create notification and start foreground and mediaplayer.</div>
 </td>
 </tr>
 </table>
@@ -314,17 +314,13 @@ extends <a href="https://developer.android.com/reference/android/app/Service.htm
 <!--   -->
 </a>
 <h3>Field Detail</h3>
-<a id="CHANNEL_ID">
+<a id="CHANNEL">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
-<h4>CHANNEL_ID</h4>
-<pre>private static final&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a> CHANNEL_ID</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#com.example.unikaveri.AlarmService.CHANNEL_ID">Constant Field Values</a></dd>
-</dl>
+<h4>CHANNEL</h4>
+<pre>private static&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a> CHANNEL</pre>
 </li>
 </ul>
 <a id="mediaPlayer">
@@ -388,7 +384,7 @@ extends <a href="https://developer.android.com/reference/android/app/Service.htm
 <pre class="methodSignature">public&nbsp;int&nbsp;onStartCommand&#8203;(<a href="https://developer.android.com/reference/android/content/Intent.html?is-external=true" title="class or interface in android.content" class="externalLink">Intent</a>&nbsp;intent,
                           int&nbsp;flags,
                           int&nbsp;startId)</pre>
-<div class="block">Create notification and start playing mediaPlayer.</div>
+<div class="block">Create notification and start foreground and mediaplayer.</div>
 <dl>
 <dt><span class="overrideSpecifyLabel">Overrides:</span></dt>
 <dd><code><a href="https://developer.android.com/reference/android/app/Service.html?is-external=true#onStartCommand(android.content.Intent,int,int)" title="class or interface in android.app" class="externalLink">onStartCommand</a></code>&nbsp;in class&nbsp;<code><a href="https://developer.android.com/reference/android/app/Service.html?is-external=true" title="class or interface in android.app" class="externalLink">Service</a></code></dd>

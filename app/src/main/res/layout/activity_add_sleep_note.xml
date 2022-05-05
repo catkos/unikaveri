@@ -212,25 +212,21 @@
                     android:button="@drawable/custom_radio_very_satisfied"
                     android:paddingLeft="8dp"
                     android:paddingRight="8dp" />
+
             </RadioGroup>
+
+            <Button
+                android:id="@+id/saveSleepNoteButton"
+                android:layout_width="match_parent"
+                android:layout_height="54dp"
+                android:layout_marginTop="58dp"
+                android:onClick="buttonPressed"
+                android:text="@string/saveButtonText"
+                app:cornerRadius="50dp" />
 
         </LinearLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/saveSleepNoteButton"
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="24dp"
-        android:onClick="buttonPressed"
-        android:text="@string/saveButtonText"
-        app:cornerRadius="50dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

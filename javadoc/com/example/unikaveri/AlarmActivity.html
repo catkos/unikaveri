@@ -215,12 +215,22 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 </tr>
 <tr class="altColor">
 <td class="colFirst"><code>private <a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a></code></td>
-<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clock">clock</a></span></code></th>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#alarmMessageTv">alarmMessageTv</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="rowColor">
 <td class="colFirst"><code>private <a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a></code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clockIcon">clockIcon</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="altColor">
+<td class="colFirst"><code>private <a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#clockTv">clockTv</a></span></code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr class="rowColor">
+<td class="colFirst"><code>private <a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a></code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#message">message</a></span></code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 <tr class="altColor">
@@ -311,7 +321,7 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <td class="colFirst"><code>private void</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#initWidgets()">initWidgets</a></span>()</code></th>
 <td class="colLast">
-<div class="block">Initialize clockIcon View and clock TextView.</div>
+<div class="block">Initialize clockIcon View, clockTv TextView and alarmMessageTv TextView.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -447,13 +457,31 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <pre>private&nbsp;<a href="https://developer.android.com/reference/android/view/View.html?is-external=true" title="class or interface in android.view" class="externalLink">View</a> clockIcon</pre>
 </li>
 </ul>
-<a id="clock">
+<a id="clockTv">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>clockTv</h4>
+<pre>private&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a> clockTv</pre>
+</li>
+</ul>
+<a id="alarmMessageTv">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>alarmMessageTv</h4>
+<pre>private&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a> alarmMessageTv</pre>
+</li>
+</ul>
+<a id="message">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
-<h4>clock</h4>
-<pre>private&nbsp;<a href="https://developer.android.com/reference/android/widget/TextView.html?is-external=true" title="class or interface in android.widget" class="externalLink">TextView</a> clock</pre>
+<h4>message</h4>
+<pre>private&nbsp;<a href="https://developer.android.com/reference/java/lang/String.html?is-external=true" title="class or interface in java.lang" class="externalLink">String</a> message</pre>
 </li>
 </ul>
 </li>
@@ -505,7 +533,8 @@ extends <a href="https://d.android.com/reference/androidx/androidx/appcompat/app
 <li class="blockList">
 <h4>initWidgets</h4>
 <pre class="methodSignature">private&nbsp;void&nbsp;initWidgets()</pre>
-<div class="block">Initialize clockIcon View and clock TextView.</div>
+<div class="block">Initialize clockIcon View, clockTv TextView and alarmMessageTv TextView.
+ Set message to alarmMessageTv.</div>
 </li>
 </ul>
 <a id="setClockTextView(com.example.unikaveri.CurrentTime)">

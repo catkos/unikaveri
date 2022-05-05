@@ -1,10 +1,13 @@
 package com.example.unikaveri;
 
-import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.IBinder;
 import android.provider.Settings;
 
@@ -16,7 +19,7 @@ import androidx.core.app.NotificationCompat;
  */
 public class AlarmService extends Service {
 
-    private static String CHANNEL;
+    private static String CHANNEL = "ALARM_CHANNEL";
 
     private MediaPlayer mediaPlayer;
 
@@ -44,30 +47,37 @@ public class AlarmService extends Service {
         String title = intent.getStringExtra("title");
         String message = intent.getStringExtra("message");
 
-        if (ID == 1) {
-            CHANNEL = "ALARM_CHANNEL";
-        } else {
-            CHANNEL = "SLEEP_ALARM_CHANNEL";
-        }
-
-        // Call AlarmActivity when notification is clicked
-        Intent notificationIntent = new Intent(this, AlarmActivity.class);
-        notificationIntent.putExtra("message", message);
+        // Call MainActivity when notification is clicked
+        Intent setAlarmIntent = new Intent(getApplication(), AlarmActivity.class);
+        setAlarmIntent.putExtra("message", message);
 
         // Create PendingIntent
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, ID, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(getApplication(), ID, setAlarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        // NotificationManager
+        NotificationManager notificationManager =
+                (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // For API 26 and above
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            CharSequence channel_name = "My Notification";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
+            NotificationChannel channel = new NotificationChannel(CHANNEL, channel_name, importance);
+            notificationManager.createNotificationChannel(channel);
+        }
 
         // Prepare notification
-        Notification notification = new NotificationCompat.Builder(this, CHANNEL)
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(getApplication(), CHANNEL)
+                .setSmallIcon(R.drawable.ic_baseline_nights)
                 .setContentTitle(title)
                 .setContentText(message)
-                .setSmallIcon(R.drawable.ic_baseline_alarm)
+                .setContentIntent(contentIntent)
                 .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setContentIntent(pendingIntent)
-                .build();
+                .setDefaults(NotificationCompat.DEFAULT_ALL)
+                .setAutoCancel(true);
 
-        startForeground(1, notification);
         mediaPlayer.start();
+        startForeground(1, builder.build());
 
         return START_STICKY;
     }

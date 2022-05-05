@@ -15,13 +15,17 @@
         <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/layout/fragment_settings.xml" value="0.371875" />
         <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/menu/bottom_menu_navigation.xml" value="0.371875" />
         <entry key="..\:/Users/Catrina/Documents/Websites/about/unikaveri/app/src/main/res/xml/preferences.xml" value="0.19166666666666668" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_add_sleep_note.xml" value="0.23233695652173914" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_calendar.xml" value="0.3546875" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_charts.xml" value="0.22291666666666668" />
         <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.3546875" />
+        <entry key="..\:/Users/kertt/Desktop/unikaveri/app/src/main/res/layout/activity_sleep_note_details.xml" value="0.3546875" />
         <entry key="..\:/unikaveri/app/src/main/res/layout/activity_main.xml" value="0.5" />
       </map>
     </option>
   </component>
   <component name="JavadocGenerationManager">
-    <option name="OUTPUT_DIRECTORY" value="$USER_HOME$/Desktop/UNIKAVERI" />
+    <option name="OUTPUT_DIRECTORY" value="$PROJECT_DIR$" />
     <option name="OPTION_DOCUMENT_TAG_USE" value="true" />
     <option name="OPTION_DOCUMENT_TAG_AUTHOR" value="true" />
     <option name="OPTION_DOCUMENT_TAG_VERSION" value="true" />
