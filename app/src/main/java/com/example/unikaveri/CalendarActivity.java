@@ -5,12 +5,8 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.reflect.TypeToken;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -21,19 +17,18 @@ import android.widget.TextView;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 
 /**
- * Calendar activity for checking user's sleep notes.
+ * Calendar activity for showing user's sleep notes in ListView.
+ *
  * @author Kerttu
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
 public class CalendarActivity extends AppCompatActivity {
 
-    private final SleepNoteGlobalModel sleepNoteGM = SleepNoteGlobalModel.getInstance();
-
     private final String EXTRA = "SleepNote";
-    private final String SLEEP_NOTE_DATA = "sleepNoteData";
+
+    private final SleepNoteGlobalModel sleepNoteGM = SleepNoteGlobalModel.getInstance();
 
     private final LocalDateTime maxDate = LocalDateTime.now();
     private LocalDateTime currentDate = LocalDateTime.now();
@@ -45,21 +40,21 @@ public class CalendarActivity extends AppCompatActivity {
     private int clickedListViewItem;
 
     /**
-     * On create: load SleepNoteData, set bottom navigation, initialize widgets and update UI.
+     * Load SleepNoteData, set bottom navigation, initialize widgets and update UI.
+     *
      * @param savedInstanceState
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        loadSleepNoteData();
         bottomNavigation();
         initWidgets();
         updateUI();
     }
 
     /**
-     * On resume: update UI.
+     * Update UI.
      */
     @Override
     protected void onResume() {
@@ -68,7 +63,7 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     /**
-     * On start: update UI.
+     * Update UI.
      */
     @Override
     protected void onStart() {
@@ -110,12 +105,14 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     /**
-     * Buttons functionalities.
+     * Button functionalities.
+     *
      * If addNewSleepNoteButton is clicked: open AddSleepNoteActivity.
-     * Else if previousMonthButton is clicked: subtract one month from currentDate and call updateUI().
-     * Else if nextMonthButton is clicked: add one month to currentDate (if it's not after maxDate)
+     * If previousMonthButton is clicked: subtract one month from currentDate and call updateUI().
+     * If nextMonthButton is clicked: add one month to currentDate (if it's not after maxDate)
      * and call updateUI().
-     * @param v View - The View user interacted with.
+     *
+     * @param v The button user interacted with.
      */
     public void buttonPressed(View v) {
         int id = v.getId();
@@ -167,27 +164,5 @@ public class CalendarActivity extends AppCompatActivity {
                 return false;
             }
         });
-    }
-
-    /**
-     * Load SleepNote Objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void loadSleepNoteData() {
-        // Clear SleepNotes List before putting data from shared preferences
-        SleepNoteGlobalModel.getInstance().getAllSleepNotesList().clear();
-
-        // Create new GsonBuilder to deserialize date strings to LocalDateTime
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
-        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
-        String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
-
-        // Check that sleepNoteString is not empty before adding data to SleepNotes list.
-        if (!sleepNotesString.isEmpty()) {
-            TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
-            List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
-            SleepNoteGlobalModel.getInstance().getAllSleepNotesList().addAll(listTmp);
-        }
     }
 }

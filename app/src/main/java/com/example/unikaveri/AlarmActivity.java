@@ -14,9 +14,11 @@ import android.widget.TextView;
 
 /**
  * AlarmActivity to start when user clicks alarm notification.
+ *
  * @author Kerttu
  */
 public class AlarmActivity extends AppCompatActivity {
+
     private BroadcastReceiver minuteUpdate;
 
     private CurrentTime time;
@@ -27,6 +29,10 @@ public class AlarmActivity extends AppCompatActivity {
 
     private String message;
 
+    /**
+     * Get extras from intent, initialize widgets, animate alarm icon and start clock updater.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,11 +43,12 @@ public class AlarmActivity extends AppCompatActivity {
         // Get intent extras
         message = bundle.getString("message");
 
+        // Get currentTime to show in clock TextView
         time = new CurrentTime();
 
         initWidgets();
+        initClockTextView(time);
         animateAlarmIcon();
-        setClockTextView(time);
         startMinuteUpdater();
     }
 
@@ -58,9 +65,10 @@ public class AlarmActivity extends AppCompatActivity {
 
     /**
      * Set given time to clock TextView.
-     * @param time CurrentTime - The time to set to clock TextView.
+     *
+     * @param time The time to set to clock TextView.
      */
-    private void setClockTextView(CurrentTime time) {
+    private void initClockTextView(CurrentTime time) {
         clockTv.setText(time.getCurrentTime());
     }
 
@@ -76,7 +84,7 @@ public class AlarmActivity extends AppCompatActivity {
                 //override/create new object (so it can get current phone time)
                 time = new CurrentTime();
                 //set new time in UI
-                setClockTextView(time);
+                initClockTextView(time);
             }
         };
         registerReceiver(minuteUpdate, intentFilter);
@@ -84,8 +92,10 @@ public class AlarmActivity extends AppCompatActivity {
 
     /**
      * Button functionalities.
+     *
      * Is stopAlarmButton is clicked: Stop AlarmService and finish this activity.
-     * @param v View - The clicked button.
+     *
+     * @param v The clicked button.
      */
     public void buttonPressed(View v) {
         int id = v.getId();
@@ -99,6 +109,7 @@ public class AlarmActivity extends AppCompatActivity {
 
     /**
      * Rotation animation for clockIcon.
+     * From here: https://learntodroid.com/how-to-create-a-simple-alarm-clock-app-in-android/
      */
     public void animateAlarmIcon() {
         ObjectAnimator rotate = ObjectAnimator.ofFloat(clockIcon, "rotation", 0f, 10f, 0f, -10f, 0f);

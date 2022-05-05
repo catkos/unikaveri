@@ -14,7 +14,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -57,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Load sleep note data to SleepNoteGlobalModel
-        loadSleepNoteData();
+        SleepNoteGlobalModel.getInstance().loadData(this);
 
         // Load alarm settings from shared preferences
         loadAlarmSettings();
@@ -245,28 +244,6 @@ public class MainActivity extends AppCompatActivity {
             SpannableString content = new SpannableString("Pois päältä");
             content.setSpan(new UnderlineSpan(), 0, content.length(), 0);
             wakeTimeTv.setText(content);
-        }
-    }
-
-    /**
-     * Load SleepNote Objects from Shared preferences to SleepNoteGlobalModel's SleepNotes List.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void loadSleepNoteData() {
-        // Clear SleepNotes List before putting data from shared preferences
-        SleepNoteGlobalModel.getInstance().getAllSleepNotesList().clear();
-
-        // Create new GsonBuilder to deserialize date strings to LocalDateTime
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-
-        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
-        String sleepNotesString = sharedPreferences.getString("sleepNotes", "");
-
-        // Check that sleepNoteString is not empty before adding data to SleepNotes list.
-        if (!sleepNotesString.isEmpty()) {
-            TypeToken<List<SleepNote>> token = new TypeToken<List<SleepNote>>() {};
-            List <SleepNote> listTmp = gson.fromJson(sleepNotesString, token.getType());
-            SleepNoteGlobalModel.getInstance().getAllSleepNotesList().addAll(listTmp);
         }
     }
 }

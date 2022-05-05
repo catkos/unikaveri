@@ -15,6 +15,11 @@ import androidx.core.app.NotificationCompat;
 
 /**
  * AlarmService foreground service for alarm to wake up user.
+ *
+ * Used https://learntodroid.com/how-to-create-a-simple-alarm-clock-app-in-android/ and
+ * Android Documentation for implementing AlarmManager and Foreground service.
+ * + numerous StackOverflow conversations.
+ *
  * @author Kerttu
  */
 public class AlarmService extends Service {
@@ -24,7 +29,7 @@ public class AlarmService extends Service {
     private MediaPlayer mediaPlayer;
 
     /**
-     * On create: Create mediaPlayer with system's default alarm sound and set it looping.
+     * Create mediaPlayer with system's default alarm sound and set it to loop.
      */
     @Override
     public void onCreate() {
@@ -34,7 +39,8 @@ public class AlarmService extends Service {
     }
 
     /**
-     * Create notification and start foreground and mediaplayer.
+     * Create notification and start foreground service and mediaPlayer.
+     *
      * @param intent Intent
      * @param flags int
      * @param startId StartId
@@ -47,18 +53,22 @@ public class AlarmService extends Service {
         String title = intent.getStringExtra("title");
         String message = intent.getStringExtra("message");
 
-        // Call MainActivity when notification is clicked
+        // Call AlarmActivity when notification is clicked
         Intent setAlarmIntent = new Intent(getApplication(), AlarmActivity.class);
         setAlarmIntent.putExtra("message", message);
 
         // Create PendingIntent
-        PendingIntent contentIntent = PendingIntent.getActivity(getApplication(), ID, setAlarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+        PendingIntent contentIntent = PendingIntent.getActivity(
+                getApplication(),
+                ID,
+                setAlarmIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
 
         // NotificationManager
         NotificationManager notificationManager =
                 (NotificationManager) getApplication().getSystemService(Context.NOTIFICATION_SERVICE);
 
-        // For API 26 and above
+        // For Android SDK 26 and up
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             CharSequence channel_name = "My Notification";
             int importance = NotificationManager.IMPORTANCE_HIGH;
@@ -77,6 +87,7 @@ public class AlarmService extends Service {
                 .setAutoCancel(true);
 
         mediaPlayer.start();
+
         startForeground(1, builder.build());
 
         return START_STICKY;

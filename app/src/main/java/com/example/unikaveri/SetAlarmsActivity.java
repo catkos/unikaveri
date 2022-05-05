@@ -21,6 +21,7 @@ import java.time.LocalTime;
 import java.util.Locale;
 
 /** Activity for setting alarms.
+ *
  * @author Kerttu
  */
 public class SetAlarmsActivity extends AppCompatActivity {
@@ -51,7 +52,9 @@ public class SetAlarmsActivity extends AppCompatActivity {
     private int wakeTimeMinute;
 
     /**
-     * On create: initialize widgets, load alarm settings, set switches and initialize time picker dialogs.
+     * Initialize widgets, alert dialog, get alarm settings, set switches according to if alarms
+     * are set on or off and initialize time picker dialogs.
+     *
      * @param savedInstanceState savedInstanceState
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -59,8 +62,8 @@ public class SetAlarmsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set_alarms);
-        initAlertDialog();
         initWidgets();
+        initAlertDialog();
         loadAlarmSettings();
         setSwitches();
         initSleepTimePickerDialog(LocalTime.of(sleepTimeHour,sleepTimeMinute));
@@ -68,7 +71,7 @@ public class SetAlarmsActivity extends AppCompatActivity {
     }
 
     /**
-     * When user interacts with back key, initialize and open alert dialog.
+     * When user interacts with back key, open alert dialog to ask if user wants to continue without saving.
      */
     @Override
     public void onBackPressed() {
@@ -76,8 +79,9 @@ public class SetAlarmsActivity extends AppCompatActivity {
     }
 
     /**
-     * When user interacts with top action bar's arrow button, initialize and open alert dialog.
-     * @param item MenuItem
+     * When user interacts with top action bar's arrow button, open alert dialog.
+     *
+     * @param item The MenuItem user interacted with.
      * @return boolean
      */
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -164,7 +168,7 @@ public class SetAlarmsActivity extends AppCompatActivity {
 
     /**
      * Set sleepAlarmSwitch and wakeAlarmSwitch depending on sleepAlarmIsSet's and wakeAlarmIsSet's
-     * value (true, false).
+     * values (true, false).
      */
     private void setSwitches() {
         sleepAlarmSwitch.setChecked(sleepAlarmIsSet);
@@ -208,19 +212,23 @@ public class SetAlarmsActivity extends AppCompatActivity {
     }
 
     /**
-     * Buttons functionalities.
+     * Button functionalities.
+     *
      * If wakeTimePickerEt is clicked: open wakeTimePickerDialog.
      * If sleepTimePickedEt is clicked: open sleepTimePickerDialog.
-     * if saveBtn is clicked: set alarms and finish the activity.
-     * @param v View - Clicked View.
+     * If saveBtn is clicked: set alarms and finish the activity.
+     *
+     * @param v Clicked Button View.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
-        if (v.getId() == wakeTimePickerEt.getId()) {
+        int id = v.getId();
+
+        if (id == wakeTimePickerEt.getId()) {
             wakeTimePickerDialog.show();
-        } else if (v.getId() == sleepTimePickerEt.getId()) {
+        } else if (id == sleepTimePickerEt.getId()) {
             sleepTimePickerDialog.show();
-        } else if (v.getId() == saveBtn.getId()) {
+        } else if (id == saveBtn.getId()) {
             setAlarms();
 
             String message;
@@ -237,8 +245,8 @@ public class SetAlarmsActivity extends AppCompatActivity {
     }
 
     /**
-     * Load alarm settings from shared preferences and set the values to: sleepTimeHour, sleepTimeMinute,
-     * sleepAlarmIsSet, wakeTimeHour, wakeTimeMinute and wakeAlarmIsSet.
+     * Load alarm settings from shared preferences and set the values to:
+     * sleepTimeHour, sleepTimeMinute, sleepAlarmIsSet, wakeTimeHour, wakeTimeMinute and wakeAlarmIsSet.
      */
     public void loadAlarmSettings() {
         SharedPreferences alarmPreferences = getSharedPreferences(ALARMS_PREFS, MODE_PRIVATE);

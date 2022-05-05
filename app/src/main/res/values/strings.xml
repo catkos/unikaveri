@@ -40,4 +40,10 @@
     <string name="sampletime">8h 35min</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="moon_icon_description">Kuun iconi</string>
+    <string name="quality_sample">Normaalisti</string>
+    <string name="interruptions_sample">2</string>
+    <string name="moon_cancel__icon_description">Kuun raksittuna kuvake</string>
+    <string name="alarm_icon_description">Herätyskellon kuvake</string>
+    <string name="emoji_icon_description">Hymynaama kuvake</string>
 </resources>

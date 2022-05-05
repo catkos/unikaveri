@@ -12,6 +12,12 @@ import java.util.Calendar;
 
 /**
  * Alarm Object for setting AlarmManager alarms.
+ * Variables: int ID, int hour, int minute
+ *
+ * Used https://learntodroid.com/how-to-create-a-simple-alarm-clock-app-in-android/ and
+ * Android Documentation for implementing AlarmManager and Foreground service.
+ * + numerous StackOverflow conversations.
+ *
  * @author Kerttu
  */
 public class Alarm {
@@ -22,10 +28,11 @@ public class Alarm {
 
     /**
      * Define Alarm Object.
-     * @param ID int - Specific ID to be used when setting alarm on AlarmManager. 1 should be used
-     *           for wake time alarm to specify foreground service.
-     * @param hour int - At what hour to set the alarm off.
-     * @param minute int - At what minute to set the alarm off.
+     *
+     * @param ID Specific ID to be used when setting alarm on AlarmManager.
+     *           1 should be used for wake time alarm.
+     * @param hour At what hour to set the alarm off.
+     * @param minute At what minute to set the alarm off.
      */
     public Alarm(int ID, int hour, int minute) {
         this.ID = ID;
@@ -35,6 +42,7 @@ public class Alarm {
 
     /**
      * Create alarm and set daily repeating notification.
+     *
      * @param context Context
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -71,17 +79,16 @@ public class Alarm {
             time.set(Calendar.DAY_OF_MONTH, time.get(Calendar.DAY_OF_MONTH) + 1);
         }
 
-        // Set repeating alarm
+        // Set repeating alarm. Repeating alarm is not exact
         // alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
 
-        // TODO: Check if find workaround to set exact alarms on interval
-        //  because setRepeating is not exact and will go off on 5min range
-        // Set exact alarm
-         alarmManager.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
+        // Set exact
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, time.getTimeInMillis(), pendingIntent);
     }
 
     /**
      * Cancel alarm.
+     *
      * @param context Context
      */
     public void cancelAlarm(Context context) {

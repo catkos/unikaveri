@@ -28,7 +28,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
 /**
- * Add Sleep note activity.
+ * Activity to add sleep note
+ *
  * @author Kerttu
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -56,6 +57,10 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     private AlertDialog alertDialog;
 
+    /**
+     * Initialize alert dialogs, widgets and check if editing Sleep Note and change inputs according to it.
+     * @param savedInstanceState
+     */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +99,8 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     /**
      * Set quality radio button to checked depending on quality param.
-     * @param quality String
+     *
+     * @param quality "Erittäin huonosti", "Huonosti", "Normaalisti", "Hyvin" or "Erittäin hyvin"
      */
     private void setQualityRadioButton(String quality) {
         if (quality.equals("Erittäin huonosti")) {
@@ -115,6 +121,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
 
     /**
      * Set interruptionsEt input's text to interruptions param.
+     *
      * @param interruptions int
      */
     private void setInterruptionsEt(int interruptions) {
@@ -122,7 +129,7 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     }
 
     /**
-     * When user interacts with back key, initialize and open alert dialog.
+     * When user interacts with back key, open alert dialog.
      */
     @Override
     public void onBackPressed() {
@@ -130,15 +137,19 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     }
 
     /**
-     * When user interacts with top action bar's arrow button, initialize and open alert dialog.
-     * @param item MenuItem
+     * When user interacts with top action bar's arrow button, open alert dialog.
+     *
+     * @param item MenuItem user interacted with
      * @return boolean
      */
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
+        int id = item.getItemId();
+
+        if (id == android.R.id.home) {
             alertDialog.show();
             return true;
         }
+
         return super.onOptionsItemSelected(item);
     }
 
@@ -195,7 +206,13 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         };
 
-        sleepDatePickerDialog = new DatePickerDialog(this, dateSetListener, date.getYear(), date.getMonthValue()-1, date.getDayOfMonth());
+        sleepDatePickerDialog = new DatePickerDialog(
+                this,
+                dateSetListener,
+                date.getYear(),
+                date.getMonthValue()-1,
+                date.getDayOfMonth());
+
         //sleepDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
         sleepDatePickerEt.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
     }
@@ -207,12 +224,26 @@ public class AddSleepNoteActivity extends AppCompatActivity {
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                sleepTimePickerEt.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                sleepTimePickerEt.setText(String.format(
+                        Locale.getDefault(),
+                        "%02d:%02d",
+                        hour,
+                        minute));
             }
         };
 
-        sleepTimePickerDialog = new TimePickerDialog(this, onTimeSetListener, time.getHour(), time.getMinute(),true);
-        sleepTimePickerEt.setText(String.format(Locale.getDefault(), "%02d:%02d", time.getHour(), time.getMinute()));
+        sleepTimePickerDialog = new TimePickerDialog(
+                this,
+                onTimeSetListener,
+                time.getHour(),
+                time.getMinute(),
+                true);
+
+        sleepTimePickerEt.setText(String.format(
+                Locale.getDefault(),
+                "%02d:%02d",
+                time.getHour(),
+                time.getMinute()));
     }
 
     /**
@@ -229,8 +260,13 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             }
         };
 
-        wakeDatePickerDialog = new DatePickerDialog(this, dateSetListener, date.getYear(), date.getMonthValue()-1, date.getDayOfMonth());
-        // wakeDatePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
+        wakeDatePickerDialog = new DatePickerDialog(
+                this,
+                dateSetListener,
+                date.getYear(),
+                date.getMonthValue()-1,
+                date.getDayOfMonth());
+
         wakeDatePickerEt.setText(date.format(DateTimeFormatter.ofPattern("dd.MM.yyyy EE")));
     }
 
@@ -241,36 +277,58 @@ public class AddSleepNoteActivity extends AppCompatActivity {
         TimePickerDialog.OnTimeSetListener onTimeSetListener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int hour, int minute) {
-                wakeTimePickerEt.setText(String.format(Locale.getDefault(), "%02d:%02d", hour, minute));
+                wakeTimePickerEt.setText(String.format(
+                        Locale.getDefault(),
+                        "%02d:%02d",
+                        hour,
+                        minute));
             }
         };
 
-        wakeTimePickerDialog = new TimePickerDialog(this, onTimeSetListener, time.getHour(), time.getMinute(),true);
-        wakeTimePickerEt.setText(String.format(Locale.getDefault(), "%02d:%02d", time.getHour(), time.getMinute()));
+        wakeTimePickerDialog = new TimePickerDialog(
+                this,
+                onTimeSetListener,
+                time.getHour(),
+                time.getMinute(),
+                true);
+
+        wakeTimePickerEt.setText(String.format(Locale.getDefault(),
+                "%02d:%02d",
+                time.getHour(),
+                time.getMinute()));
     }
 
     /**
-     * Buttons functionalities.
-     * @param v View
+     * Button functionalities.
+     *
+     * If wakeDatePickerEt is clicked: open dialog to choose the date when user woke up.
+     * If wakeTimePickerEt is clicked: open dialog to choose at what time user woke up.
+     * If sleepTimePickerEt is clicked: open dialog to choose at what time user went to sleep.
+     * If sleepDatePickerEt is clicked: open dialog to choose the date when user went to sleep.
+     * If saveSleepNoteBtn is clicked: save sleep note.
+     *
+     * @param v The button interacted with.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void buttonPressed(View v) {
-        if (v.getId() == wakeDatePickerEt.getId()) {
+        int id = v.getId();
+
+        if (id == wakeDatePickerEt.getId()) {
             wakeDatePickerDialog.show();
-        } else if (v.getId() == wakeTimePickerEt.getId()) {
+        } else if (id == wakeTimePickerEt.getId()) {
             wakeTimePickerDialog.show();
-        } else if (v.getId() == sleepTimePickerEt.getId()) {
+        } else if (id == sleepTimePickerEt.getId()) {
             sleepTimePickerDialog.show();
-        } else if(v.getId() == sleepDatePickerEt.getId()) {
+        } else if(id == sleepDatePickerEt.getId()) {
             sleepDatePickerDialog.show();
-        } else if (v.getId() == saveSleepNoteBtn.getId()) {
+        } else if (id == saveSleepNoteBtn.getId()) {
 
             // Check if SleepNote Object was added/edited to SleepNoteGlobalModel SleepNote list
             boolean isAdded = addSleepNoteToSleepNoteList();
 
             if (isAdded) {
                 // Save SleepNoteGlobalModel SleepNote list locally to shared preferences.
-                saveSleepNoteData();
+                sleepNoteGM.saveData(this);
 
                 String toastMsg;
 
@@ -288,8 +346,9 @@ public class AddSleepNoteActivity extends AppCompatActivity {
     }
 
     /**
-     * Checks inputs and adds SleepNote Object to SleepNoteGlobalModel SleepNote list. Returns true
+     * Validate inputs and add SleepNote Object to SleepNoteGlobalModel SleepNote list. Returns true
      * if everything was ok, or false if some of the inputs weren't correctly submitted.
+     *
      * @return boolean
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -362,20 +421,5 @@ public class AddSleepNoteActivity extends AppCompatActivity {
             sleepNoteGM.editSleepNote(sleepNoteGM.getSleepNoteFromMonthlyList(editSleepNote), sleepTimeDate, wakeTimeDate, interruptions, quality);
         }
         return true;
-    }
-
-    /**
-     * Save SleepNoteGlobalModel's SleepNote list as Json to shared preferences.
-     */
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void saveSleepNoteData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SLEEP_NOTE_DATA, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        Gson gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
-        String jsonSleepNotes = gson.toJson(SleepNoteGlobalModel.getInstance().getAllSleepNotesList());
-
-        editor.putString("sleepNotes", jsonSleepNotes);
-        editor.apply();
     }
 }

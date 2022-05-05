@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Author: Kerttu-->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -57,7 +58,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_nights" />
+                        app:srcCompat="@drawable/ic_baseline_nights"
+                        android:contentDescription="@string/moon_icon_description" />
 
                     <TextView
                         android:id="@+id/sleepingTimeTitle"
@@ -66,7 +68,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="2"
                         android:gravity="center|center_vertical"
-                        android:text="Nukkumaanmenoaika"
+                        android:text="@string/actAddSleepNoteSleepTimeText"
                         android:textSize="14sp" />
 
                     <TextView
@@ -76,7 +78,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="3"
                         android:gravity="center|center_vertical"
-                        android:text="23:30"
+                        android:text="@string/actAddSleepNoteSleepTimeInputText"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 
@@ -105,7 +107,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_alarm" />
+                        app:srcCompat="@drawable/ic_baseline_alarm"
+                        android:contentDescription="@string/alarm_icon_description" />
 
                     <TextView
                         android:id="@+id/textView4"
@@ -113,7 +116,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="2"
                         android:gravity="center|center_vertical"
-                        android:text="Heräämisaika"
+                        android:text="@string/actAddSleepNoteWakeTimeText"
                         android:textSize="14sp" />
 
                     <TextView
@@ -122,7 +125,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
                         android:gravity="center|center_vertical"
-                        android:text="6:30"
+                        android:text="@string/actAddSleepNoteWakeTimeInputText"
                         android:textSize="24sp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -161,7 +164,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/custom_radio_satisfied" />
+                        app:srcCompat="@drawable/custom_radio_satisfied"
+                        android:contentDescription="@string/emoji_icon_description" />
 
                     <TextView
                         android:id="@+id/textView10"
@@ -170,7 +174,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="2"
                         android:gravity="center|center_vertical"
-                        android:text="Miten nukuit"
+                        android:text="@string/actAddSleepNoteQualityText"
                         android:textSize="14sp" />
 
                     <TextView
@@ -180,7 +184,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="3"
                         android:foregroundGravity="center|center_horizontal"
-                        android:text="Normaalisti"
+                        android:text="@string/quality_sample"
                         android:textAlignment="center"
                         android:textSize="24sp"
                         android:textStyle="bold" />
@@ -209,7 +213,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="48dp"
                         android:layout_weight="1"
-                        app:srcCompat="@drawable/ic_baseline_bedtime_off_24" />
+                        app:srcCompat="@drawable/ic_baseline_bedtime_off_24"
+                        android:contentDescription="@string/moon_cancel__icon_description" />
 
                     <TextView
                         android:id="@+id/textView8"
@@ -218,7 +223,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="2"
                         android:gravity="center|center_vertical"
-                        android:text="Heräilyjen määrä"
+                        android:text="@string/wakingCounterText"
                         android:textSize="14sp" />
 
                     <TextView
@@ -228,7 +233,7 @@
                         android:layout_marginTop="4dp"
                         android:layout_weight="3"
                         android:gravity="center|center_vertical"
-                        android:text="2"
+                        android:text="@string/interruptions_sample"
                         android:textSize="24sp"
                         android:textStyle="bold" />
 

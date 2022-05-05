@@ -8,8 +8,11 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * SleepNote Object. Variables: LocalDateTime date, LocalDateTime sleepTimeDate,
- * LocalDateTime wakeUpTimeDate, long sleepingTime, int interruptions, String quality.
+ * SleepNote Object.
+ *
+ * Variables: LocalDateTime date, LocalDateTime sleepTimeDate, LocalDateTime wakeUpTimeDate,
+ * long sleepingTime, int interruptions, String quality.
+ *
  * @author Kerttu
  */
 public class SleepNote {
@@ -25,9 +28,10 @@ public class SleepNote {
 
     /**
      * Define SleepNote Object.
-     * @param sleepTimeDate LocalDateTime
-     * @param wakeTimeDate LocalDateTime
-     * @param interruptions int
+     *
+     * @param sleepTimeDate The date and time when user went to sleep.
+     * @param wakeTimeDate The date and time when user woke up.
+     * @param interruptions How many times user woke up during sleeping.
      * @param quality String. Has to be one of these: "Erittäin huonosti", "Huonosti", "Normaalisti",
      *                "Hyvin" or "Erittäin hyvin"
      */
@@ -43,7 +47,7 @@ public class SleepNote {
             quality.equals("Huonosti") ||
             quality.equals("Normaalisti") ||
             quality.equals("Hyvin") ||
-            quality.equals("Erittäin huonosti")) {
+            quality.equals("Erittäin hyvin")) {
             this.quality = quality;
         } else {
             // Default, shouldn't ever happen
@@ -52,39 +56,35 @@ public class SleepNote {
     }
 
     /**
-     * Return SleepNote Object's date variable.
-     * @return LocalDateTime
+     * Return the date and time when user woke up.
+     *
+     * @return SleepNote Object's date variable.
      */
     public LocalDateTime getDate() {
         return this.date;
     }
 
     /**
-     * Return SleepNote Object's bedTimeDate variable.
-     * @return LocalDate
+     * Return the date and time when user went to sleep.
+     *
+     * @return SleepNote Object's bedTimeDate variable.
      */
     public LocalDateTime getSleepTimeDate() {
         return this.sleepTimeDate;
     }
 
     /**
-     * Return SleepNote Object's wakeUpTimeDate variable.
-     * @return LocalDate
+     * Return the date and time when user woke up.
+     *
+     * @return SleepNote Object's wakeUpTimeDate variable.
      */
     public LocalDateTime getWakeTimeDate() {
         return this.wakeUpTimeDate;
     }
 
     /**
-     * Return SleepNote Object's sleepingTime variable.
-     * @return long
-     */
-    public long getSleepingTime() {
-        return this.sleepingTime;
-    }
-
-    /**
-     * Return SleepNote Object's sleepingTime in String format.
+     * Return the total sleeping time in hours and minutes.
+     *
      * @return String example: "7h 35min"
      */
     public String getSleepingTimeString() {
@@ -93,14 +93,20 @@ public class SleepNote {
         return hours + "h " + mins + "min";
     }
 
+    /**
+     * Return the total sleeping time in hours.
+     *
+     * @return String example: "8"
+     */
     public String getSleepingTimeHourString() {
         long hours = this.sleepingTime / 60 % 24;
         return hours+"";
     }
 
     /**
-     * Return SleepNote Object's sleeping time in minutes.
-     * @return long - The time in minutes between sleepTimeDate and wakeUpTimeDate.
+     * Return the time in minutes between sleepTimeDate and wakeUpTimeDate.
+     *
+     * @return SleepNote Object's sleeping time in minutes.
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private long getSleepingTimeInMinutes() {
@@ -110,8 +116,9 @@ public class SleepNote {
     }
 
     /**
-     * Return SleepNote object's interruptions variable.
-     * @return int
+     * Return how many times user woke up during night.
+     *
+     * @return SleepNote Object's interruptions variable.
      */
     public int getInterruptions() {
         return this.interruptions;
@@ -119,47 +126,47 @@ public class SleepNote {
 
     /**
      * Return SleepNote object's quality variable.
-     * @return String - "Erittäin huonosti", "Huonosti", "Normaalisti", "Hyvin" or "Erittäin hyvin"
+     *
+     * @return SleepNote Object's quality variable: "Erittäin huonosti", "Huonosti", "Normaalisti",
+     *          "Hyvin" or "Erittäin hyvin"
      */
     public String getQuality() {
         return this.quality;
     }
 
     /**
-     * Set SleepNote Object's date.
-     * @param date LocalDateTime - LocalDateTime to set date variable.
-     */
-    public void setDate(LocalDateTime date) {
-        this.date = date;
-    }
-
-    /**
-     * Set SleepNote Object's sleepTimeDate.
-     * @param date LocalDateTime - LocalDateTime to set sleepTimeDate variable.
+     * Set the date and time when user went to sleep.
+     *
+     * @param date LocalDateTime to set to sleepTimeDate variable.
      */
     public void setSleepTimeDate(LocalDateTime date) {
         this.sleepTimeDate = date;
     }
 
     /**
-     * Set SleepNote Object's wakeUpTimeDate.
-     * @param date LocalDateTime - LocalDateTime to set wakeUpTimeDate variable.
+     * Set the date and time when user woke up.
+     *
+     * @param date LocalDateTime to set to date and wakeUpTimeDate variables.
      */
     public void setWakeUpTimeDate(LocalDateTime date) {
+        this.date = date;
         this.wakeUpTimeDate = date;
     }
 
     /**
-     * Set SleepNote Object's interruptions.
-     * @param interruptions int - Integer to set interruptions variable.
+     * Set how many times user woke up during night.
+     *
+     * @param interruptions Integer to set to interruptions variable.
      */
     public void setInterruptions(int interruptions) {
         this.interruptions = interruptions;
     }
 
     /**
-     * Set SleepNote Object's quality.
-     * @param quality String - Has to be one of these: "Erittäin huonosti", "Huonosti", "Normaalisti",
+     * Set how user slept.
+     *
+     * @param quality String to set to quality variable.
+     *                Has to be one of these: "Erittäin huonosti", "Huonosti", "Normaalisti",
      *                "Hyvin" or "Erittäin hyvin"
      */
     public void setQuality(String quality) {
@@ -185,7 +192,8 @@ public class SleepNote {
 
     /**
      * Return SleepNote Object in String format.
-     * @return String - Example: "3.5.2022 keskiviikko: 8h 35min"
+     *
+     * @return Example: "3.5.2022 keskiviikko: 8h 35min"
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override

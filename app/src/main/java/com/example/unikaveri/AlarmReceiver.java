@@ -12,6 +12,11 @@ import androidx.core.app.NotificationCompat;
 
 /**
  * BroadcastReceiver for app's notifications and foreground service.
+ *
+ * Used https://learntodroid.com/how-to-create-a-simple-alarm-clock-app-in-android/ and
+ * Android Documentation for implementing AlarmManager and Foreground service.
+ * + numerous StackOverflow conversations.
+ *
  * @author Kerttu
  */
 public class AlarmReceiver extends BroadcastReceiver {
@@ -20,6 +25,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     /**
      * Create notification or foreground service depending on the Intent's "ID" intExtra.
+     *
      * @param context Context
      * @param intent Intent
      */
@@ -30,7 +36,8 @@ public class AlarmReceiver extends BroadcastReceiver {
         String title = intent.getStringExtra("title");
         String message = intent.getStringExtra("message");
 
-        if (ID ==1) {
+        // If the ID is 1, start foreground service for alarm
+        if (ID == 1) {
             // Create intent from AlarmService and add extras
             Intent intentService = new Intent(context, AlarmService.class);
             intentService.putExtra("ID", ID);
@@ -38,23 +45,28 @@ public class AlarmReceiver extends BroadcastReceiver {
             intentService.putExtra("message", message);
 
             // Start foreground service
+            // For Android SDK 26 and up
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 context.startForegroundService(intentService);
             } else {
-                context.startService(intent);
+                context.startService(intentService);
             }
         } else {
             // Call MainActivity when notification is clicked
             Intent setAlarmIntent = new Intent(context, MainActivity.class);
 
             // Create PendingIntent
-            PendingIntent contentIntent = PendingIntent.getActivity(context, ID, setAlarmIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+            PendingIntent contentIntent = PendingIntent.getActivity(
+                    context,
+                    ID,
+                    setAlarmIntent,
+                    PendingIntent.FLAG_CANCEL_CURRENT);
 
             // NotificationManager
             NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-            // For API 26 and above
+            // For Android SDK 26 and up
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 CharSequence channel_name = "My Notification";
                 int importance = NotificationManager.IMPORTANCE_HIGH;

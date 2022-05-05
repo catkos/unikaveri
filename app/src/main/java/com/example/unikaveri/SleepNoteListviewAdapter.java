@@ -15,15 +15,18 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
- * Custom ArrayAdapter.
+ * Custom ArrayAdapter for presenting SleepNote Objects in CalendarActivity's ListView.
+ *
  * @author Kerttu
  */
 public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
+
     private Context mContext;
     private int mResource;
 
     /**
      * Define SleepNoteAdapter.
+     *
      * @param context Context
      * @param resource int
      * @param objects List
@@ -35,11 +38,12 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
     }
 
     /**
-     * Returns View for ListView to show data from SleepNote object.
-     * @param position int
-     * @param convertView View
+     * Returns View for ListView to show data from SleepNote Object.
+     *
+     * @param position Position in ListView. Used to get SleepNote Object.
+     * @param convertView View element to set data from SleepNote Object.
      * @param parent ViewGroup
-     * @return View
+     * @return View element to be used in ListView
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     @NonNull
@@ -55,12 +59,11 @@ public class SleepNoteListviewAdapter extends ArrayAdapter<SleepNote> {
         TextView wakeTimeTv = convertView.findViewById(R.id.wakeTimeTextView);
 
         // Get dates
-        LocalDateTime date = getItem(position).getDate();
         LocalDateTime sleeptime = getItem(position).getSleepTimeDate();
         LocalDateTime waketime = getItem(position).getWakeTimeDate();
 
         // Set texts to widgets and format LocalDateTime variables
-        dateTv.setText(date.format(DateTimeFormatter.ofPattern("d.M.yyyy EE")));
+        dateTv.setText(waketime.format(DateTimeFormatter.ofPattern("d.M.yyyy EE")));
         sleepingTimeTv.setText(getItem(position).getSleepingTimeString());
         sleepTimeTv.setText(sleeptime.format(DateTimeFormatter.ofPattern("HH:mm")));
         wakeTimeTv.setText(waketime.format(DateTimeFormatter.ofPattern("HH:mm")));
