@@ -5,7 +5,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Current Time activity - returns phone's local time and date
+ * Current Time activity - Phone's local time and date
  * @author Catrina
  */
 public class CurrentTime {
@@ -17,15 +17,21 @@ public class CurrentTime {
     public CurrentTime(){
         this.c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-        this.currentTime = sdf.format(c.getTime());
+        this.currentTime = sdf.format(new SimpleDateFormat("HH:mm"));
     }
 
-    /* return current time */
+    /**
+     *
+     * @return phones current time
+     */
     public String getCurrentTime(){
         return this.currentTime;
     }
 
-    /* return current time in hours */
+    /**
+     * return phones current hour, formats time to hours
+     * @return phones current hour in int
+     */
     public int getCurrentHour(){
         String hour = new SimpleDateFormat("HH").format(new Date());
         int currentHour = Integer.parseInt(hour);
@@ -51,16 +57,19 @@ public class CurrentTime {
         return monthYear;
     }
 
-    /* return appropriate greetingText string TODO: add more greetings? */
+    /* return appropriate greetingText string */
     public String greetingTextTime(int hour){
-        if(hour >= 22 || hour <= 3){
-            return "yötä";
+
+        if(hour >= 3 && hour < 10){
+            return "huomenta";
         }
-        if(hour >= 17 || hour <= 22){
+
+        if(hour >= 17){
             return "iltaa";
         }
-        if(hour >= 3 && hour <= 9){
-            return "huomenta";
+
+        if(hour >= 22){
+            return "yötä";
         }
 
         return "päivää";
