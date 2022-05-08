@@ -40,8 +40,15 @@ public class GetSleepNoteData {
         gson = new GsonBuilder().registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter()).create();
     }
 
+    /**
+     * add data to list.
+     * if list is empty, do not add data from shared preference
+     * @param sleepNotesString
+     */
     public void addSleepNoteData(String sleepNotesString){
-        sleepNotes  = gson.fromJson(sleepNotesString, token.getType());
+        if(!(gson.fromJson(sleepNotesString, token.getType())==null)){
+            sleepNotes  = gson.fromJson(sleepNotesString, token.getType());
+        }
     }
 
     /**

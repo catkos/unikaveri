@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -61,7 +62,7 @@ public class ChartsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_charts);
 
-        //GetSleepNoteData = new GetSleepNoteData();
+        GetSleepNoteData = new GetSleepNoteData();
 
         GetSleepNoteData.addSleepNoteData(GetSleepNoteData.getPrefs(this).getString("sleepNotes", ""));
 
@@ -157,7 +158,7 @@ public class ChartsActivity extends AppCompatActivity {
     }
 
     /**
-     * loop data from sleep note data json using GetSleepNoteData singleton and add data to variables and lists
+     * loop data from sleep note data json using GetSleepNoteData.class and add data to variables and lists for calculations
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void getData(){
@@ -221,13 +222,14 @@ public class ChartsActivity extends AppCompatActivity {
 
     /**
      * get most frequent/common hour from list
+     * hashmap iteration code from geeksforgeeks.org/how-to-iterate-hashmap-in-java/
      * @param hoursList list of hours saved from data
      * @return the most frequent/common time from list
      */
     public int mostFrequentTime(List<Integer> hoursList){
 
+        int hourKeyTemp=0;
         int hourValueTemp=0;
-        int hourValueTempFrequency=0;
 
         //add hours from list to hashmap and assign their frequency value
         Map<Integer,Integer> hm = new HashMap();
@@ -241,18 +243,16 @@ public class ChartsActivity extends AppCompatActivity {
             }
         }
 
-        //invoke keySet() on hashmap to get keys as a set
-        Set<Integer> keys = hm.keySet();
-        for(int key : keys){
-
-            //if current freq vari is lower than new freq, assign value temp to key
-            if(hourValueTempFrequency < hm.get(key)){
-                hourValueTemp = key;
+        //Iterate hashmap
+        for (Map.Entry<Integer, Integer> set : hm.entrySet()) {
+            //if current freq value vari is lower than new freq, assign it's key to keyTemp vari
+            if(hourValueTemp < set.getValue()){
+                hourValueTemp = set.getValue();
+                hourKeyTemp = set.getKey();
             }
-
         }
 
-        return hourValueTemp;
+        return hourKeyTemp;
 
     }
 
@@ -289,7 +289,7 @@ public class ChartsActivity extends AppCompatActivity {
      */
     public void setTextData(){
         //if current UI month data is empty, set default
-        if(avgSleeping==0){
+        if(GetSleepNoteData.isEmptyInSpecificMonth(currentDate)){
             wakingText.setText("00:00");
             sleepingText.setText("00:00");
             sleepHoursSumText.setText("0h");
