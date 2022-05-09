@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--Author: Catrina -->
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item android:title="Koti" android:icon="@drawable/ic_baseline_home" android:id="@+id/home"/>
     <item android:title="Kalenteri" android:icon="@drawable/ic_baseline_calendar_month" android:id="@+id/calendar" />
     <item android:title="Tilastot" android:icon="@drawable/ic_baseline_bar_chart" android:id="@+id/charts" />

@@ -13,7 +13,9 @@ public class CurrentTime {
     private Calendar c;
     private String currentTime;
 
-    /* get current time */
+    /**
+     * define current time in Hours:minutes, format it into string
+     */
     public CurrentTime(){
         this.c = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
@@ -21,7 +23,6 @@ public class CurrentTime {
     }
 
     /**
-     *
      * @return phones current time
      */
     public String getCurrentTime(){
@@ -39,25 +40,29 @@ public class CurrentTime {
         return currentHour;
     }
 
-    /* return current weekday */
+    /**
+     *
+     * @return weekday
+     */
     public String getWeekday(){
         String weekday = new SimpleDateFormat("EEEE").format(new Date());
         return weekday;
     }
 
-    /* return current date */
+    /**
+     *
+     * @return date in day.Month
+     */
     public String getDate(){
         String date = new SimpleDateFormat("d.M").format(new Date());
         return date;
     }
 
-    /* return current month and year */
-    public String getMonthYear(){
-        String monthYear = new SimpleDateFormat("MMMM yyyy").format(new Date());
-        return monthYear;
-    }
-
-    /* return appropriate greetingText string */
+    /**
+     *
+     * @param hour for appropriate greeting text search
+     * @return appropriate greeting text that matches hour in parameter
+     */
     public String greetingTextTime(int hour){
 
         if(hour >= 3 && hour < 10){

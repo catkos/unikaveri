@@ -32,6 +32,10 @@ public class GetSleepNoteData {
 
     private Gson gson;
 
+    /**
+     * initialize sleepNotes array for later data adding, init token.
+     * deserialize LocalDateTime.
+     */
     public GetSleepNoteData(){
         sleepNotes = new ArrayList<>();
         token = new TypeToken<List<SleepNote>>() {};
@@ -43,7 +47,7 @@ public class GetSleepNoteData {
     /**
      * add data to list.
      * if list is empty, do not add data from shared preference
-     * @param sleepNotesString
+     * @param sleepNotesString string for data search
      */
     public void addSleepNoteData(String sleepNotesString){
         if(!(gson.fromJson(sleepNotesString, token.getType())==null)){
@@ -69,9 +73,9 @@ public class GetSleepNoteData {
     }
 
     /**
-     * checks if sleepNotes list is empty in the month assigned
-     * @param currentDate variable that tells assigned given month
-     * @return false or true depending if sleepNotes has a value that's added in the assigned month
+     * checks if sleepNotes list is empty from the month and year in parameter by looping through data
+     * @param currentDate that tells what month and year to look at
+     * @return false or true depending if sleepNotes has at least one value that has the same month and year like in given parameter
      */
     public boolean isEmptyInSpecificMonth(LocalDateTime currentDate){
         for(SleepNote s: sleepNotes){

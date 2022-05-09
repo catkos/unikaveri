@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -22,10 +21,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Charts/stats activity.
+ * Get data using GetSleepNoteData class, save data to variables and use variables for needed calculations.
+ * Insert calculations into UI.
  * @author Catrina
  */
 @RequiresApi(api = Build.VERSION_CODES.O)
@@ -314,8 +314,6 @@ public class ChartsActivity extends AppCompatActivity {
 
         //set new calculated data into text widgets
         setTextData();
-        //getData();
-
         //update progress bar
         int currentDay = 30;
         //check if UI month equals current month
