@@ -1,5 +1,5 @@
 # unikaveri
-Group project for Metropolia UAS "Mobiilit terveyssovellukset TX00EB18-3016" Course
+Group project for Metropolia UAS "Mobiilit terveyssovellukset TX00EB18-3016" Course. Spring 2022
 
 Unikaveri - Best application for sleep tracking
 
